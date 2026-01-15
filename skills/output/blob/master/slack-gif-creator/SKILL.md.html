@@ -1,0 +1,2002 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/slack-gif-creator/SKILL.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">slack-gif-creator</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>SKILL.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><hr/>
+<h2 id="license-complete-terms-in-licensetxt">name: slack-gif-creator
+description: Toolkit for creating animated GIFs optimized for Slack, with validators for size constraints and composable animation primitives. This skill applies when users request animated GIFs or emoji animations for Slack from descriptions like “make me a GIF for Slack of X doing Y”.
+license: Complete terms in LICENSE.txt</h2>
+<h1 id="slack-gif-creator---flexible-toolkit">Slack GIF Creator - Flexible Toolkit</h1>
+<p>A toolkit for creating animated GIFs optimized for Slack. Provides validators for Slack’s constraints, composable animation primitives, and optional helper utilities. <strong>Apply these tools however needed to achieve the creative vision.</strong></p>
+<h2 id="slacks-requirements">Slack’s Requirements</h2>
+<p>Slack has specific requirements for GIFs based on their use:</p>
+<p><strong>Message GIFs:</strong></p>
+<ul>
+<li>Max size: ~2MB</li>
+<li>Optimal dimensions: 480x480</li>
+<li>Typical FPS: 15-20</li>
+<li>Color limit: 128-256</li>
+<li>Duration: 2-5s</li>
+</ul>
+<p><strong>Emoji GIFs:</strong></p>
+<ul>
+<li>Max size: 64KB (strict limit)</li>
+<li>Optimal dimensions: 128x128</li>
+<li>Typical FPS: 10-12</li>
+<li>Color limit: 32-48</li>
+<li>Duration: 1-2s</li>
+</ul>
+<p><strong>Emoji GIFs are challenging</strong> - the 64KB limit is strict. Strategies that help:</p>
+<ul>
+<li>Limit to 10-15 frames total</li>
+<li>Use 32-48 colors maximum</li>
+<li>Keep designs simple</li>
+<li>Avoid gradients</li>
+<li>Validate file size frequently</li>
+</ul>
+<h2 id="toolkit-structure">Toolkit Structure</h2>
+<p>This skill provides three types of tools:</p>
+<ol>
+<li><strong>Validators</strong> - Check if a GIF meets Slack’s requirements</li>
+<li><strong>Animation Primitives</strong> - Composable building blocks for motion (shake, bounce, move, kaleidoscope)</li>
+<li><strong>Helper Utilities</strong> - Optional functions for common needs (text, colors, effects)</li>
+</ol>
+<p><strong>Complete creative freedom is available in how these tools are applied.</strong></p>
+<h2 id="core-validators">Core Validators</h2>
+<p>To ensure a GIF meets Slack’s constraints, use these validators:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.gif_builder</span> <span style="color:#ff7b72">import</span> GIFBuilder
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># After creating your GIF, check if it meets requirements</span>
+</span></span><span style="display:flex;"><span>builder <span style="color:#ff7b72;font-weight:bold">=</span> GIFBuilder(width<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">128</span>, height<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">128</span>, fps<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">10</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># ... add your frames however you want ...</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Save and check size</span>
+</span></span><span style="display:flex;"><span>info <span style="color:#ff7b72;font-weight:bold">=</span> builder<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#a5d6ff">&#39;emoji.gif&#39;</span>, num_colors<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">48</span>, optimize_for_emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># The save method automatically warns if file exceeds limits</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># info dict contains: size_kb, size_mb, frame_count, duration_seconds</span>
+</span></span></code></pre><p><strong>File size validator</strong>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.validators</span> <span style="color:#ff7b72">import</span> check_slack_size
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Check if GIF meets size limits</span>
+</span></span><span style="display:flex;"><span>passes, info <span style="color:#ff7b72;font-weight:bold">=</span> check_slack_size(<span style="color:#a5d6ff">&#39;emoji.gif&#39;</span>, is_emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Returns: (True/False, dict with size details)</span>
+</span></span></code></pre><p><strong>Dimension validator</strong>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.validators</span> <span style="color:#ff7b72">import</span> validate_dimensions
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Check dimensions</span>
+</span></span><span style="display:flex;"><span>passes, info <span style="color:#ff7b72;font-weight:bold">=</span> validate_dimensions(<span style="color:#a5d6ff">128</span>, <span style="color:#a5d6ff">128</span>, is_emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Returns: (True/False, dict with dimension details)</span>
+</span></span></code></pre><p><strong>Complete validation</strong>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.validators</span> <span style="color:#ff7b72">import</span> validate_gif, is_slack_ready
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Run all validations</span>
+</span></span><span style="display:flex;"><span>all_pass, results <span style="color:#ff7b72;font-weight:bold">=</span> validate_gif(<span style="color:#a5d6ff">&#39;emoji.gif&#39;</span>, is_emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Or quick check</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">if</span> is_slack_ready(<span style="color:#a5d6ff">&#39;emoji.gif&#39;</span>, is_emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>):
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a5d6ff">&#34;Ready to upload!&#34;</span>)
+</span></span></code></pre><h2 id="animation-primitives">Animation Primitives</h2>
+<p>These are composable building blocks for motion. Apply these to any object in any combination:</p>
+<h3 id="shake">Shake</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.shake</span> <span style="color:#ff7b72">import</span> create_shake_animation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Shake an emoji</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_shake_animation(
+</span></span><span style="display:flex;"><span>    object_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;emoji&#39;</span>,
+</span></span><span style="display:flex;"><span>    object_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;😱&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">80</span>},
+</span></span><span style="display:flex;"><span>    num_frames<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">20</span>,
+</span></span><span style="display:flex;"><span>    shake_intensity<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">15</span>,
+</span></span><span style="display:flex;"><span>    direction<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;both&#39;</span>  <span style="color:#8b949e;font-style:italic"># or &#39;horizontal&#39;, &#39;vertical&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre><h3 id="bounce">Bounce</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.bounce</span> <span style="color:#ff7b72">import</span> create_bounce_animation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Bounce a circle</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_bounce_animation(
+</span></span><span style="display:flex;"><span>    object_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;circle&#39;</span>,
+</span></span><span style="display:flex;"><span>    object_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;radius&#39;</span>: <span style="color:#a5d6ff">40</span>, <span style="color:#a5d6ff">&#39;color&#39;</span>: (<span style="color:#a5d6ff">255</span>, <span style="color:#a5d6ff">100</span>, <span style="color:#a5d6ff">100</span>)},
+</span></span><span style="display:flex;"><span>    num_frames<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">30</span>,
+</span></span><span style="display:flex;"><span>    bounce_height<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">150</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre><h3 id="spin--rotate">Spin / Rotate</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.spin</span> <span style="color:#ff7b72">import</span> create_spin_animation, create_loading_spinner
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Clockwise spin</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_spin_animation(
+</span></span><span style="display:flex;"><span>    object_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;emoji&#39;</span>,
+</span></span><span style="display:flex;"><span>    object_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;🔄&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">100</span>},
+</span></span><span style="display:flex;"><span>    rotation_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;clockwise&#39;</span>,
+</span></span><span style="display:flex;"><span>    full_rotations<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">2</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Wobble rotation</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_spin_animation(rotation_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;wobble&#39;</span>, full_rotations<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">3</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Loading spinner</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_loading_spinner(spinner_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;dots&#39;</span>)
+</span></span></code></pre><h3 id="pulse--heartbeat">Pulse / Heartbeat</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.pulse</span> <span style="color:#ff7b72">import</span> create_pulse_animation, create_attention_pulse
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Smooth pulse</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_pulse_animation(
+</span></span><span style="display:flex;"><span>    object_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;❤️&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">100</span>},
+</span></span><span style="display:flex;"><span>    pulse_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;smooth&#39;</span>,
+</span></span><span style="display:flex;"><span>    scale_range<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">0.8</span>, <span style="color:#a5d6ff">1.2</span>)
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Heartbeat (double-pump)</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_pulse_animation(pulse_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;heartbeat&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Attention pulse for emoji GIFs</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_attention_pulse(emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;⚠️&#39;</span>, num_frames<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">20</span>)
+</span></span></code></pre><h3 id="fade">Fade</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.fade</span> <span style="color:#ff7b72">import</span> create_fade_animation, create_crossfade
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Fade in</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_fade_animation(fade_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;in&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Fade out</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_fade_animation(fade_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;out&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Crossfade between two emojis</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_crossfade(
+</span></span><span style="display:flex;"><span>    object1_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;😊&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">100</span>},
+</span></span><span style="display:flex;"><span>    object2_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;😂&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">100</span>}
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre><h3 id="zoom">Zoom</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.zoom</span> <span style="color:#ff7b72">import</span> create_zoom_animation, create_explosion_zoom
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Zoom in dramatically</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_zoom_animation(
+</span></span><span style="display:flex;"><span>    zoom_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;in&#39;</span>,
+</span></span><span style="display:flex;"><span>    scale_range<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">0.1</span>, <span style="color:#a5d6ff">2.0</span>),
+</span></span><span style="display:flex;"><span>    add_motion_blur<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Zoom out</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_zoom_animation(zoom_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;out&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Explosion zoom</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_explosion_zoom(emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;💥&#39;</span>)
+</span></span></code></pre><h3 id="explode--shatter">Explode / Shatter</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.explode</span> <span style="color:#ff7b72">import</span> create_explode_animation, create_particle_burst
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Burst explosion</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_explode_animation(
+</span></span><span style="display:flex;"><span>    explode_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;burst&#39;</span>,
+</span></span><span style="display:flex;"><span>    num_pieces<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">25</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Shatter effect</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_explode_animation(explode_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;shatter&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Dissolve into particles</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_explode_animation(explode_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;dissolve&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Particle burst</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_particle_burst(particle_count<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">30</span>)
+</span></span></code></pre><h3 id="wiggle--jiggle">Wiggle / Jiggle</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.wiggle</span> <span style="color:#ff7b72">import</span> create_wiggle_animation, create_excited_wiggle
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Jello wobble</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_wiggle_animation(
+</span></span><span style="display:flex;"><span>    wiggle_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;jello&#39;</span>,
+</span></span><span style="display:flex;"><span>    intensity<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">1.0</span>,
+</span></span><span style="display:flex;"><span>    cycles<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">2</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Wave motion</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_wiggle_animation(wiggle_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;wave&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Excited wiggle for emoji GIFs</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_excited_wiggle(emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;🎉&#39;</span>)
+</span></span></code></pre><h3 id="slide">Slide</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.slide</span> <span style="color:#ff7b72">import</span> create_slide_animation, create_multi_slide
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Slide in from left with overshoot</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_slide_animation(
+</span></span><span style="display:flex;"><span>    direction<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;left&#39;</span>,
+</span></span><span style="display:flex;"><span>    slide_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;in&#39;</span>,
+</span></span><span style="display:flex;"><span>    overshoot<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Slide across</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_slide_animation(direction<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;left&#39;</span>, slide_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;across&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Multiple objects sliding in sequence</span>
+</span></span><span style="display:flex;"><span>objects <span style="color:#ff7b72;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span>    {<span style="color:#a5d6ff">&#39;data&#39;</span>: {<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;🎯&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">60</span>}, <span style="color:#a5d6ff">&#39;direction&#39;</span>: <span style="color:#a5d6ff">&#39;left&#39;</span>, <span style="color:#a5d6ff">&#39;final_pos&#39;</span>: (<span style="color:#a5d6ff">120</span>, <span style="color:#a5d6ff">240</span>)},
+</span></span><span style="display:flex;"><span>    {<span style="color:#a5d6ff">&#39;data&#39;</span>: {<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;🎪&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">60</span>}, <span style="color:#a5d6ff">&#39;direction&#39;</span>: <span style="color:#a5d6ff">&#39;right&#39;</span>, <span style="color:#a5d6ff">&#39;final_pos&#39;</span>: (<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">240</span>)}
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_multi_slide(objects, stagger_delay<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">5</span>)
+</span></span></code></pre><h3 id="flip">Flip</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.flip</span> <span style="color:#ff7b72">import</span> create_flip_animation, create_quick_flip
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Horizontal flip between two emojis</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_flip_animation(
+</span></span><span style="display:flex;"><span>    object1_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;😊&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">120</span>},
+</span></span><span style="display:flex;"><span>    object2_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;😂&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">120</span>},
+</span></span><span style="display:flex;"><span>    flip_axis<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;horizontal&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Vertical flip</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_flip_animation(flip_axis<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;vertical&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Quick flip for emoji GIFs</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_quick_flip(<span style="color:#a5d6ff">&#39;👍&#39;</span>, <span style="color:#a5d6ff">&#39;👎&#39;</span>)
+</span></span></code></pre><h3 id="morph--transform">Morph / Transform</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.morph</span> <span style="color:#ff7b72">import</span> create_morph_animation, create_reaction_morph
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Crossfade morph</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_morph_animation(
+</span></span><span style="display:flex;"><span>    object1_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;😊&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">100</span>},
+</span></span><span style="display:flex;"><span>    object2_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;😂&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">100</span>},
+</span></span><span style="display:flex;"><span>    morph_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;crossfade&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Scale morph (shrink while other grows)</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_morph_animation(morph_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;scale&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Spin morph (3D flip-like)</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_morph_animation(morph_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;spin_morph&#39;</span>)
+</span></span></code></pre><h3 id="move-effect">Move Effect</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.move</span> <span style="color:#ff7b72">import</span> create_move_animation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Linear movement</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_move_animation(
+</span></span><span style="display:flex;"><span>    object_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;emoji&#39;</span>,
+</span></span><span style="display:flex;"><span>    object_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;🚀&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">60</span>},
+</span></span><span style="display:flex;"><span>    start_pos<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">50</span>, <span style="color:#a5d6ff">240</span>),
+</span></span><span style="display:flex;"><span>    end_pos<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">430</span>, <span style="color:#a5d6ff">240</span>),
+</span></span><span style="display:flex;"><span>    motion_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;linear&#39;</span>,
+</span></span><span style="display:flex;"><span>    easing<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;ease_out&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Arc movement (parabolic trajectory)</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_move_animation(
+</span></span><span style="display:flex;"><span>    object_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;emoji&#39;</span>,
+</span></span><span style="display:flex;"><span>    object_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;⚽&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">60</span>},
+</span></span><span style="display:flex;"><span>    start_pos<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">50</span>, <span style="color:#a5d6ff">350</span>),
+</span></span><span style="display:flex;"><span>    end_pos<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">430</span>, <span style="color:#a5d6ff">350</span>),
+</span></span><span style="display:flex;"><span>    motion_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;arc&#39;</span>,
+</span></span><span style="display:flex;"><span>    motion_params<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;arc_height&#39;</span>: <span style="color:#a5d6ff">150</span>}
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Circular movement</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_move_animation(
+</span></span><span style="display:flex;"><span>    object_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;emoji&#39;</span>,
+</span></span><span style="display:flex;"><span>    object_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;🌍&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">50</span>},
+</span></span><span style="display:flex;"><span>    motion_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;circle&#39;</span>,
+</span></span><span style="display:flex;"><span>    motion_params<span style="color:#ff7b72;font-weight:bold">=</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#39;center&#39;</span>: (<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">240</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#39;radius&#39;</span>: <span style="color:#a5d6ff">120</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#39;angle_range&#39;</span>: <span style="color:#a5d6ff">360</span>  <span style="color:#8b949e;font-style:italic"># full circle</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Wave movement</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_move_animation(
+</span></span><span style="display:flex;"><span>    motion_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;wave&#39;</span>,
+</span></span><span style="display:flex;"><span>    motion_params<span style="color:#ff7b72;font-weight:bold">=</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#39;wave_amplitude&#39;</span>: <span style="color:#a5d6ff">50</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#39;wave_frequency&#39;</span>: <span style="color:#a5d6ff">2</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Or use low-level easing functions</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.easing</span> <span style="color:#ff7b72">import</span> interpolate, calculate_arc_motion
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(num_frames):
+</span></span><span style="display:flex;"><span>    t <span style="color:#ff7b72;font-weight:bold">=</span> i <span style="color:#ff7b72;font-weight:bold">/</span> (num_frames <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">1</span>)
+</span></span><span style="display:flex;"><span>    x <span style="color:#ff7b72;font-weight:bold">=</span> interpolate(start_x, end_x, t, easing<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;ease_out&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Or: x, y = calculate_arc_motion(start, end, height, t)</span>
+</span></span></code></pre><h3 id="kaleidoscope-effect">Kaleidoscope Effect</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.kaleidoscope</span> <span style="color:#ff7b72">import</span> apply_kaleidoscope, create_kaleidoscope_animation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Apply to a single frame</span>
+</span></span><span style="display:flex;"><span>kaleido_frame <span style="color:#ff7b72;font-weight:bold">=</span> apply_kaleidoscope(frame, segments<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">8</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Or create animated kaleidoscope</span>
+</span></span><span style="display:flex;"><span>frames <span style="color:#ff7b72;font-weight:bold">=</span> create_kaleidoscope_animation(
+</span></span><span style="display:flex;"><span>    base_frame<span style="color:#ff7b72;font-weight:bold">=</span>my_frame,  <span style="color:#8b949e;font-style:italic"># or None for demo pattern</span>
+</span></span><span style="display:flex;"><span>    num_frames<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">30</span>,
+</span></span><span style="display:flex;"><span>    segments<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">8</span>,
+</span></span><span style="display:flex;"><span>    rotation_speed<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">1.0</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Simple mirror effects (faster)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.kaleidoscope</span> <span style="color:#ff7b72">import</span> apply_simple_mirror
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>mirrored <span style="color:#ff7b72;font-weight:bold">=</span> apply_simple_mirror(frame, mode<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;quad&#39;</span>)  <span style="color:#8b949e;font-style:italic"># 4-way mirror</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># modes: &#39;horizontal&#39;, &#39;vertical&#39;, &#39;quad&#39;, &#39;radial&#39;</span>
+</span></span></code></pre><p><strong>To compose primitives freely, follow these patterns:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Example: Bounce + shake for impact</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(num_frames):
+</span></span><span style="display:flex;"><span>    frame <span style="color:#ff7b72;font-weight:bold">=</span> create_blank_frame(<span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">480</span>, bg_color)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Bounce motion</span>
+</span></span><span style="display:flex;"><span>    t_bounce <span style="color:#ff7b72;font-weight:bold">=</span> i <span style="color:#ff7b72;font-weight:bold">/</span> (num_frames <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">1</span>)
+</span></span><span style="display:flex;"><span>    y <span style="color:#ff7b72;font-weight:bold">=</span> interpolate(start_y, ground_y, t_bounce, <span style="color:#a5d6ff">&#39;bounce_out&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Add shake on impact (when y reaches ground)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> y <span style="color:#ff7b72;font-weight:bold">&gt;=</span> ground_y <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">5</span>:
+</span></span><span style="display:flex;"><span>        shake_x <span style="color:#ff7b72;font-weight:bold">=</span> math<span style="color:#ff7b72;font-weight:bold">.</span>sin(i <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">2</span>) <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">10</span>
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff7b72;font-weight:bold">=</span> center_x <span style="color:#ff7b72;font-weight:bold">+</span> shake_x
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">else</span>:
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff7b72;font-weight:bold">=</span> center_x
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    draw_emoji(frame, <span style="color:#a5d6ff">&#39;⚽&#39;</span>, (x, y), size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">60</span>)
+</span></span><span style="display:flex;"><span>    builder<span style="color:#ff7b72;font-weight:bold">.</span>add_frame(frame)
+</span></span></code></pre><h2 id="helper-utilities">Helper Utilities</h2>
+<p>These are optional helpers for common needs. <strong>Use, modify, or replace these with custom implementations as needed.</strong></p>
+<h3 id="gif-builder-assembly--optimization">GIF Builder (Assembly &amp; Optimization)</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.gif_builder</span> <span style="color:#ff7b72">import</span> GIFBuilder
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Create builder with your chosen settings</span>
+</span></span><span style="display:flex;"><span>builder <span style="color:#ff7b72;font-weight:bold">=</span> GIFBuilder(width<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">480</span>, height<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">480</span>, fps<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add frames (however you created them)</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> frame <span style="color:#ff7b72;font-weight:bold">in</span> my_frames:
+</span></span><span style="display:flex;"><span>    builder<span style="color:#ff7b72;font-weight:bold">.</span>add_frame(frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Save with optimization</span>
+</span></span><span style="display:flex;"><span>builder<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#a5d6ff">&#39;output.gif&#39;</span>,
+</span></span><span style="display:flex;"><span>             num_colors<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">128</span>,
+</span></span><span style="display:flex;"><span>             optimize_for_emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">False</span>)
+</span></span></code></pre><p>Key features:</p>
+<ul>
+<li>Automatic color quantization</li>
+<li>Duplicate frame removal</li>
+<li>Size warnings for Slack limits</li>
+<li>Emoji mode (aggressive optimization)</li>
+</ul>
+<h3 id="text-rendering">Text Rendering</h3>
+<p>For small GIFs like emojis, text readability is challenging. A common solution involves adding outlines:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.typography</span> <span style="color:#ff7b72">import</span> draw_text_with_outline, TYPOGRAPHY_SCALE
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Text with outline (helps readability)</span>
+</span></span><span style="display:flex;"><span>draw_text_with_outline(
+</span></span><span style="display:flex;"><span>    frame, <span style="color:#a5d6ff">&#34;BONK!&#34;</span>,
+</span></span><span style="display:flex;"><span>    position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">100</span>),
+</span></span><span style="display:flex;"><span>    font_size<span style="color:#ff7b72;font-weight:bold">=</span>TYPOGRAPHY_SCALE[<span style="color:#a5d6ff">&#39;h1&#39;</span>],  <span style="color:#8b949e;font-style:italic"># 60px</span>
+</span></span><span style="display:flex;"><span>    text_color<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">255</span>, <span style="color:#a5d6ff">68</span>, <span style="color:#a5d6ff">68</span>),
+</span></span><span style="display:flex;"><span>    outline_color<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>),
+</span></span><span style="display:flex;"><span>    outline_width<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">4</span>,
+</span></span><span style="display:flex;"><span>    centered<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre><p>To implement custom text rendering, use PIL’s <code>ImageDraw.text()</code> which works fine for larger GIFs.</p>
+<h3 id="color-management">Color Management</h3>
+<p>Professional-looking GIFs often use cohesive color palettes:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.color_palettes</span> <span style="color:#ff7b72">import</span> get_palette
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Get a pre-made palette</span>
+</span></span><span style="display:flex;"><span>palette <span style="color:#ff7b72;font-weight:bold">=</span> get_palette(<span style="color:#a5d6ff">&#39;vibrant&#39;</span>)  <span style="color:#8b949e;font-style:italic"># or &#39;pastel&#39;, &#39;dark&#39;, &#39;neon&#39;, &#39;professional&#39;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>bg_color <span style="color:#ff7b72;font-weight:bold">=</span> palette[<span style="color:#a5d6ff">&#39;background&#39;</span>]
+</span></span><span style="display:flex;"><span>text_color <span style="color:#ff7b72;font-weight:bold">=</span> palette[<span style="color:#a5d6ff">&#39;primary&#39;</span>]
+</span></span><span style="display:flex;"><span>accent_color <span style="color:#ff7b72;font-weight:bold">=</span> palette[<span style="color:#a5d6ff">&#39;accent&#39;</span>]
+</span></span></code></pre><p>To work with colors directly, use RGB tuples - whatever works for the use case.</p>
+<h3 id="visual-effects">Visual Effects</h3>
+<p>Optional effects for impact moments:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.visual_effects</span> <span style="color:#ff7b72">import</span> ParticleSystem, create_impact_flash, create_shockwave_rings
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Particle system</span>
+</span></span><span style="display:flex;"><span>particles <span style="color:#ff7b72;font-weight:bold">=</span> ParticleSystem()
+</span></span><span style="display:flex;"><span>particles<span style="color:#ff7b72;font-weight:bold">.</span>emit_sparkles(x<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">240</span>, y<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">200</span>, count<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">15</span>)
+</span></span><span style="display:flex;"><span>particles<span style="color:#ff7b72;font-weight:bold">.</span>emit_confetti(x<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">240</span>, y<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">200</span>, count<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Update and render each frame</span>
+</span></span><span style="display:flex;"><span>particles<span style="color:#ff7b72;font-weight:bold">.</span>update()
+</span></span><span style="display:flex;"><span>particles<span style="color:#ff7b72;font-weight:bold">.</span>render(frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Flash effect</span>
+</span></span><span style="display:flex;"><span>frame <span style="color:#ff7b72;font-weight:bold">=</span> create_impact_flash(frame, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">200</span>), radius<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">100</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Shockwave rings</span>
+</span></span><span style="display:flex;"><span>frame <span style="color:#ff7b72;font-weight:bold">=</span> create_shockwave_rings(frame, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">200</span>), radii<span style="color:#ff7b72;font-weight:bold">=</span>[<span style="color:#a5d6ff">30</span>, <span style="color:#a5d6ff">60</span>, <span style="color:#a5d6ff">90</span>])
+</span></span></code></pre><h3 id="easing-functions">Easing Functions</h3>
+<p>Smooth motion uses easing instead of linear interpolation:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.easing</span> <span style="color:#ff7b72">import</span> interpolate
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Object falling (accelerates)</span>
+</span></span><span style="display:flex;"><span>y <span style="color:#ff7b72;font-weight:bold">=</span> interpolate(start<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>, end<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">400</span>, t<span style="color:#ff7b72;font-weight:bold">=</span>progress, easing<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;ease_in&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Object landing (decelerates)</span>
+</span></span><span style="display:flex;"><span>y <span style="color:#ff7b72;font-weight:bold">=</span> interpolate(start<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>, end<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">400</span>, t<span style="color:#ff7b72;font-weight:bold">=</span>progress, easing<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;ease_out&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Bouncing</span>
+</span></span><span style="display:flex;"><span>y <span style="color:#ff7b72;font-weight:bold">=</span> interpolate(start<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>, end<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">400</span>, t<span style="color:#ff7b72;font-weight:bold">=</span>progress, easing<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;bounce_out&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Overshoot (elastic)</span>
+</span></span><span style="display:flex;"><span>scale <span style="color:#ff7b72;font-weight:bold">=</span> interpolate(start<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0.5</span>, end<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">1.0</span>, t<span style="color:#ff7b72;font-weight:bold">=</span>progress, easing<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;elastic_out&#39;</span>)
+</span></span></code></pre><p>Available easings: <code>linear</code>, <code>ease_in</code>, <code>ease_out</code>, <code>ease_in_out</code>, <code>bounce_out</code>, <code>elastic_out</code>, <code>back_out</code> (overshoot), and more in <code>core/easing.py</code>.</p>
+<h3 id="frame-composition">Frame Composition</h3>
+<p>Basic drawing utilities if you need them:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.frame_composer</span> <span style="color:#ff7b72">import</span> (
+</span></span><span style="display:flex;"><span>    create_gradient_background,  <span style="color:#8b949e;font-style:italic"># Gradient backgrounds</span>
+</span></span><span style="display:flex;"><span>    draw_emoji_enhanced,         <span style="color:#8b949e;font-style:italic"># Emoji with optional shadow</span>
+</span></span><span style="display:flex;"><span>    draw_circle_with_shadow,     <span style="color:#8b949e;font-style:italic"># Shapes with depth</span>
+</span></span><span style="display:flex;"><span>    draw_star                    <span style="color:#8b949e;font-style:italic"># 5-pointed stars</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Gradient background</span>
+</span></span><span style="display:flex;"><span>frame <span style="color:#ff7b72;font-weight:bold">=</span> create_gradient_background(<span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">480</span>, top_color, bottom_color)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Emoji with shadow</span>
+</span></span><span style="display:flex;"><span>draw_emoji_enhanced(frame, <span style="color:#a5d6ff">&#39;🎉&#39;</span>, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">200</span>, <span style="color:#a5d6ff">200</span>), size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">80</span>, shadow<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span></code></pre><h2 id="optimization-strategies">Optimization Strategies</h2>
+<p>When your GIF is too large:</p>
+<p><strong>For Message GIFs (&gt;2MB):</strong></p>
+<ol>
+<li>Reduce frames (lower FPS or shorter duration)</li>
+<li>Reduce colors (128 → 64 colors)</li>
+<li>Reduce dimensions (480x480 → 320x320)</li>
+<li>Enable duplicate frame removal</li>
+</ol>
+<p><strong>For Emoji GIFs (&gt;64KB) - be aggressive:</strong></p>
+<ol>
+<li>Limit to 10-12 frames total</li>
+<li>Use 32-40 colors maximum</li>
+<li>Avoid gradients (solid colors compress better)</li>
+<li>Simplify design (fewer elements)</li>
+<li>Use <code>optimize_for_emoji=True</code> in save method</li>
+</ol>
+<h2 id="example-composition-patterns">Example Composition Patterns</h2>
+<h3 id="simple-reaction-pulsing">Simple Reaction (Pulsing)</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>builder <span style="color:#ff7b72;font-weight:bold">=</span> GIFBuilder(<span style="color:#a5d6ff">128</span>, <span style="color:#a5d6ff">128</span>, <span style="color:#a5d6ff">10</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(<span style="color:#a5d6ff">12</span>):
+</span></span><span style="display:flex;"><span>    frame <span style="color:#ff7b72;font-weight:bold">=</span> Image<span style="color:#ff7b72;font-weight:bold">.</span>new(<span style="color:#a5d6ff">&#39;RGB&#39;</span>, (<span style="color:#a5d6ff">128</span>, <span style="color:#a5d6ff">128</span>), (<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">248</span>, <span style="color:#a5d6ff">255</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Pulsing scale</span>
+</span></span><span style="display:flex;"><span>    scale <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">1.0</span> <span style="color:#ff7b72;font-weight:bold">+</span> math<span style="color:#ff7b72;font-weight:bold">.</span>sin(i <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">0.5</span>) <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">0.15</span>
+</span></span><span style="display:flex;"><span>    size <span style="color:#ff7b72;font-weight:bold">=</span> int(<span style="color:#a5d6ff">60</span> <span style="color:#ff7b72;font-weight:bold">*</span> scale)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    draw_emoji_enhanced(frame, <span style="color:#a5d6ff">&#39;😱&#39;</span>, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">64</span><span style="color:#ff7b72;font-weight:bold">-</span>size<span style="color:#ff7b72;font-weight:bold">//</span><span style="color:#a5d6ff">2</span>, <span style="color:#a5d6ff">64</span><span style="color:#ff7b72;font-weight:bold">-</span>size<span style="color:#ff7b72;font-weight:bold">//</span><span style="color:#a5d6ff">2</span>),
+</span></span><span style="display:flex;"><span>                       size<span style="color:#ff7b72;font-weight:bold">=</span>size, shadow<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">False</span>)
+</span></span><span style="display:flex;"><span>    builder<span style="color:#ff7b72;font-weight:bold">.</span>add_frame(frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>builder<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#a5d6ff">&#39;reaction.gif&#39;</span>, num_colors<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">40</span>, optimize_for_emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Validate</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">core.validators</span> <span style="color:#ff7b72">import</span> check_slack_size
+</span></span><span style="display:flex;"><span>check_slack_size(<span style="color:#a5d6ff">&#39;reaction.gif&#39;</span>, is_emoji<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span></code></pre><h3 id="action-with-impact-bounce--flash">Action with Impact (Bounce + Flash)</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>builder <span style="color:#ff7b72;font-weight:bold">=</span> GIFBuilder(<span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">20</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Phase 1: Object falls</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(<span style="color:#a5d6ff">15</span>):
+</span></span><span style="display:flex;"><span>    frame <span style="color:#ff7b72;font-weight:bold">=</span> create_gradient_background(<span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">480</span>, (<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">248</span>, <span style="color:#a5d6ff">255</span>), (<span style="color:#a5d6ff">200</span>, <span style="color:#a5d6ff">230</span>, <span style="color:#a5d6ff">255</span>))
+</span></span><span style="display:flex;"><span>    t <span style="color:#ff7b72;font-weight:bold">=</span> i <span style="color:#ff7b72;font-weight:bold">/</span> <span style="color:#a5d6ff">14</span>
+</span></span><span style="display:flex;"><span>    y <span style="color:#ff7b72;font-weight:bold">=</span> interpolate(<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">350</span>, t, <span style="color:#a5d6ff">&#39;ease_in&#39;</span>)
+</span></span><span style="display:flex;"><span>    draw_emoji_enhanced(frame, <span style="color:#a5d6ff">&#39;⚽&#39;</span>, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">220</span>, int(y)), size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">80</span>)
+</span></span><span style="display:flex;"><span>    builder<span style="color:#ff7b72;font-weight:bold">.</span>add_frame(frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Phase 2: Impact + flash</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(<span style="color:#a5d6ff">8</span>):
+</span></span><span style="display:flex;"><span>    frame <span style="color:#ff7b72;font-weight:bold">=</span> create_gradient_background(<span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">480</span>, (<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">248</span>, <span style="color:#a5d6ff">255</span>), (<span style="color:#a5d6ff">200</span>, <span style="color:#a5d6ff">230</span>, <span style="color:#a5d6ff">255</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Flash on first frames</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> i <span style="color:#ff7b72;font-weight:bold">&lt;</span> <span style="color:#a5d6ff">3</span>:
+</span></span><span style="display:flex;"><span>        frame <span style="color:#ff7b72;font-weight:bold">=</span> create_impact_flash(frame, (<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">350</span>), radius<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">120</span>, intensity<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0.6</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    draw_emoji_enhanced(frame, <span style="color:#a5d6ff">&#39;⚽&#39;</span>, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">220</span>, <span style="color:#a5d6ff">350</span>), size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">80</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Text appears</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> i <span style="color:#ff7b72;font-weight:bold">&gt;</span> <span style="color:#a5d6ff">2</span>:
+</span></span><span style="display:flex;"><span>        draw_text_with_outline(frame, <span style="color:#a5d6ff">&#34;GOAL!&#34;</span>, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">240</span>, <span style="color:#a5d6ff">150</span>),
+</span></span><span style="display:flex;"><span>                              font_size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">60</span>, text_color<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">255</span>, <span style="color:#a5d6ff">68</span>, <span style="color:#a5d6ff">68</span>),
+</span></span><span style="display:flex;"><span>                              outline_color<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>), outline_width<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">4</span>, centered<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    builder<span style="color:#ff7b72;font-weight:bold">.</span>add_frame(frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>builder<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#a5d6ff">&#39;goal.gif&#39;</span>, num_colors<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">128</span>)
+</span></span></code></pre><h3 id="combining-primitives-move--shake">Combining Primitives (Move + Shake)</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">templates.shake</span> <span style="color:#ff7b72">import</span> create_shake_animation
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Create shake animation</span>
+</span></span><span style="display:flex;"><span>shake_frames <span style="color:#ff7b72;font-weight:bold">=</span> create_shake_animation(
+</span></span><span style="display:flex;"><span>    object_type<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;emoji&#39;</span>,
+</span></span><span style="display:flex;"><span>    object_data<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#39;emoji&#39;</span>: <span style="color:#a5d6ff">&#39;😰&#39;</span>, <span style="color:#a5d6ff">&#39;size&#39;</span>: <span style="color:#a5d6ff">70</span>},
+</span></span><span style="display:flex;"><span>    num_frames<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">20</span>,
+</span></span><span style="display:flex;"><span>    shake_intensity<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">12</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Create moving element that triggers the shake</span>
+</span></span><span style="display:flex;"><span>builder <span style="color:#ff7b72;font-weight:bold">=</span> GIFBuilder(<span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">20</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(<span style="color:#a5d6ff">40</span>):
+</span></span><span style="display:flex;"><span>    t <span style="color:#ff7b72;font-weight:bold">=</span> i <span style="color:#ff7b72;font-weight:bold">/</span> <span style="color:#a5d6ff">39</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> i <span style="color:#ff7b72;font-weight:bold">&lt;</span> <span style="color:#a5d6ff">20</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># Before trigger - use blank frame with moving object</span>
+</span></span><span style="display:flex;"><span>        frame <span style="color:#ff7b72;font-weight:bold">=</span> create_blank_frame(<span style="color:#a5d6ff">480</span>, <span style="color:#a5d6ff">480</span>, (<span style="color:#a5d6ff">255</span>, <span style="color:#a5d6ff">255</span>, <span style="color:#a5d6ff">255</span>))
+</span></span><span style="display:flex;"><span>        x <span style="color:#ff7b72;font-weight:bold">=</span> interpolate(<span style="color:#a5d6ff">50</span>, <span style="color:#a5d6ff">300</span>, t <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">2</span>, <span style="color:#a5d6ff">&#39;linear&#39;</span>)
+</span></span><span style="display:flex;"><span>        draw_emoji_enhanced(frame, <span style="color:#a5d6ff">&#39;🚗&#39;</span>, position<span style="color:#ff7b72;font-weight:bold">=</span>(int(x), <span style="color:#a5d6ff">300</span>), size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">60</span>)
+</span></span><span style="display:flex;"><span>        draw_emoji_enhanced(frame, <span style="color:#a5d6ff">&#39;😰&#39;</span>, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">350</span>, <span style="color:#a5d6ff">200</span>), size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">70</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">else</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># After trigger - use shake frame</span>
+</span></span><span style="display:flex;"><span>        frame <span style="color:#ff7b72;font-weight:bold">=</span> shake_frames[i <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">20</span>]
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># Add the car in final position</span>
+</span></span><span style="display:flex;"><span>        draw_emoji_enhanced(frame, <span style="color:#a5d6ff">&#39;🚗&#39;</span>, position<span style="color:#ff7b72;font-weight:bold">=</span>(<span style="color:#a5d6ff">300</span>, <span style="color:#a5d6ff">300</span>), size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">60</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    builder<span style="color:#ff7b72;font-weight:bold">.</span>add_frame(frame)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>builder<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#a5d6ff">&#39;scare.gif&#39;</span>)
+</span></span></code></pre><h2 id="philosophy">Philosophy</h2>
+<p>This toolkit provides building blocks, not rigid recipes. To work with a GIF request:</p>
+<ol>
+<li><strong>Understand the creative vision</strong> - What should happen? What’s the mood?</li>
+<li><strong>Design the animation</strong> - Break it into phases (anticipation, action, reaction)</li>
+<li><strong>Apply primitives as needed</strong> - Shake, bounce, move, effects - mix freely</li>
+<li><strong>Validate constraints</strong> - Check file size, especially for emoji GIFs</li>
+<li><strong>Iterate if needed</strong> - Reduce frames/colors if over size limits</li>
+</ol>
+<p><strong>The goal is creative freedom within Slack’s technical constraints.</strong></p>
+<h2 id="dependencies">Dependencies</h2>
+<p>To use this toolkit, install these dependencies only if they aren’t already present:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>pip install pillow imageio numpy
+</span></span></code></pre></body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

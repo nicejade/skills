@@ -1,0 +1,1787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/mcp-builder/SKILL.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">mcp-builder</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>SKILL.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><hr/>
+<h2 id="license-complete-terms-in-licensetxt">name: mcp-builder
+description: Guide for creating high-quality MCP (Model Context Protocol) servers that enable LLMs to interact with external services through well-designed tools. Use when building MCP servers to integrate external APIs or services, whether in Python (FastMCP) or Node/TypeScript (MCP SDK).
+license: Complete terms in LICENSE.txt</h2>
+<h1 id="mcp-server-development-guide">MCP Server Development Guide</h1>
+<h2 id="overview">Overview</h2>
+<p>To create high-quality MCP (Model Context Protocol) servers that enable LLMs to effectively interact with external services, use this skill. An MCP server provides tools that allow LLMs to access external services and APIs. The quality of an MCP server is measured by how well it enables LLMs to accomplish real-world tasks using the tools provided.</p>
+<hr/>
+<h1 id="process">Process</h1>
+<h2 id="-high-level-workflow">🚀 High-Level Workflow</h2>
+<p>Creating a high-quality MCP server involves four main phases:</p>
+<h3 id="phase-1-deep-research-and-planning">Phase 1: Deep Research and Planning</h3>
+<h4 id="11-understand-agent-centric-design-principles">1.1 Understand Agent-Centric Design Principles</h4>
+<p>Before diving into implementation, understand how to design tools for AI agents by reviewing these principles:</p>
+<p><strong>Build for Workflows, Not Just API Endpoints:</strong></p>
+<ul>
+<li>Don’t simply wrap existing API endpoints - build thoughtful, high-impact workflow tools</li>
+<li>Consolidate related operations (e.g., <code>schedule_event</code> that both checks availability and creates event)</li>
+<li>Focus on tools that enable complete tasks, not just individual API calls</li>
+<li>Consider what workflows agents actually need to accomplish</li>
+</ul>
+<p><strong>Optimize for Limited Context:</strong></p>
+<ul>
+<li>Agents have constrained context windows - make every token count</li>
+<li>Return high-signal information, not exhaustive data dumps</li>
+<li>Provide “concise” vs “detailed” response format options</li>
+<li>Default to human-readable identifiers over technical codes (names over IDs)</li>
+<li>Consider the agent’s context budget as a scarce resource</li>
+</ul>
+<p><strong>Design Actionable Error Messages:</strong></p>
+<ul>
+<li>Error messages should guide agents toward correct usage patterns</li>
+<li>Suggest specific next steps: “Try using filter=‘active_only’ to reduce results”</li>
+<li>Make errors educational, not just diagnostic</li>
+<li>Help agents learn proper tool usage through clear feedback</li>
+</ul>
+<p><strong>Follow Natural Task Subdivisions:</strong></p>
+<ul>
+<li>Tool names should reflect how humans think about tasks</li>
+<li>Group related tools with consistent prefixes for discoverability</li>
+<li>Design tools around natural workflows, not just API structure</li>
+</ul>
+<p><strong>Use Evaluation-Driven Development:</strong></p>
+<ul>
+<li>Create realistic evaluation scenarios early</li>
+<li>Let agent feedback drive tool improvements</li>
+<li>Prototype quickly and iterate based on actual agent performance</li>
+</ul>
+<h4 id="13-study-mcp-protocol-documentation">1.3 Study MCP Protocol Documentation</h4>
+<p><strong>Fetch the latest MCP protocol documentation:</strong></p>
+<p>Use WebFetch to load: <code>https://modelcontextprotocol.io/llms-full.txt</code></p>
+<p>This comprehensive document contains the complete MCP specification and guidelines.</p>
+<h4 id="14-study-framework-documentation">1.4 Study Framework Documentation</h4>
+<p><strong>Load and read the following reference files:</strong></p>
+<ul>
+<li><strong>MCP Best Practices</strong>: <a href="../../../blob/master/mcp-builder/reference/mcp_best_practices.md.html">📋 View Best Practices</a> - Core guidelines for all MCP servers</li>
+</ul>
+<p><strong>For Python implementations, also load:</strong></p>
+<ul>
+<li><strong>Python SDK Documentation</strong>: Use WebFetch to load <code>https://raw.githubusercontent.com/modelcontextprotocol/python-sdk/main/README.md</code></li>
+<li><a href="../../../blob/master/mcp-builder/reference/python_mcp_server.md.html">🐍 Python Implementation Guide</a> - Python-specific best practices and examples</li>
+</ul>
+<p><strong>For Node/TypeScript implementations, also load:</strong></p>
+<ul>
+<li><strong>TypeScript SDK Documentation</strong>: Use WebFetch to load <code>https://raw.githubusercontent.com/modelcontextprotocol/typescript-sdk/main/README.md</code></li>
+<li><a href="../../../blob/master/mcp-builder/reference/node_mcp_server.md.html">⚡ TypeScript Implementation Guide</a> - Node/TypeScript-specific best practices and examples</li>
+</ul>
+<h4 id="15-exhaustively-study-api-documentation">1.5 Exhaustively Study API Documentation</h4>
+<p>To integrate a service, read through <strong>ALL</strong> available API documentation:</p>
+<ul>
+<li>Official API reference documentation</li>
+<li>Authentication and authorization requirements</li>
+<li>Rate limiting and pagination patterns</li>
+<li>Error responses and status codes</li>
+<li>Available endpoints and their parameters</li>
+<li>Data models and schemas</li>
+</ul>
+<p><strong>To gather comprehensive information, use web search and the WebFetch tool as needed.</strong></p>
+<h4 id="16-create-a-comprehensive-implementation-plan">1.6 Create a Comprehensive Implementation Plan</h4>
+<p>Based on your research, create a detailed plan that includes:</p>
+<p><strong>Tool Selection:</strong></p>
+<ul>
+<li>List the most valuable endpoints/operations to implement</li>
+<li>Prioritize tools that enable the most common and important use cases</li>
+<li>Consider which tools work together to enable complex workflows</li>
+</ul>
+<p><strong>Shared Utilities and Helpers:</strong></p>
+<ul>
+<li>Identify common API request patterns</li>
+<li>Plan pagination helpers</li>
+<li>Design filtering and formatting utilities</li>
+<li>Plan error handling strategies</li>
+</ul>
+<p><strong>Input/Output Design:</strong></p>
+<ul>
+<li>Define input validation models (Pydantic for Python, Zod for TypeScript)</li>
+<li>Design consistent response formats (e.g., JSON or Markdown), and configurable levels of detail (e.g., Detailed or Concise)</li>
+<li>Plan for large-scale usage (thousands of users/resources)</li>
+<li>Implement character limits and truncation strategies (e.g., 25,000 tokens)</li>
+</ul>
+<p><strong>Error Handling Strategy:</strong></p>
+<ul>
+<li>Plan graceful failure modes</li>
+<li>Design clear, actionable, LLM-friendly, natural language error messages which prompt further action</li>
+<li>Consider rate limiting and timeout scenarios</li>
+<li>Handle authentication and authorization errors</li>
+</ul>
+<hr/>
+<h3 id="phase-2-implementation">Phase 2: Implementation</h3>
+<p>Now that you have a comprehensive plan, begin implementation following language-specific best practices.</p>
+<h4 id="21-set-up-project-structure">2.1 Set Up Project Structure</h4>
+<p><strong>For Python:</strong></p>
+<ul>
+<li>Create a single <code>.py</code> file or organize into modules if complex (see <a href="../../../blob/master/mcp-builder/reference/python_mcp_server.md.html">🐍 Python Guide</a>)</li>
+<li>Use the MCP Python SDK for tool registration</li>
+<li>Define Pydantic models for input validation</li>
+</ul>
+<p><strong>For Node/TypeScript:</strong></p>
+<ul>
+<li>Create proper project structure (see <a href="../../../blob/master/mcp-builder/reference/node_mcp_server.md.html">⚡ TypeScript Guide</a>)</li>
+<li>Set up <code>package.json</code> and <code>tsconfig.json</code></li>
+<li>Use MCP TypeScript SDK</li>
+<li>Define Zod schemas for input validation</li>
+</ul>
+<h4 id="22-implement-core-infrastructure-first">2.2 Implement Core Infrastructure First</h4>
+<p><strong>To begin implementation, create shared utilities before implementing tools:</strong></p>
+<ul>
+<li>API request helper functions</li>
+<li>Error handling utilities</li>
+<li>Response formatting functions (JSON and Markdown)</li>
+<li>Pagination helpers</li>
+<li>Authentication/token management</li>
+</ul>
+<h4 id="23-implement-tools-systematically">2.3 Implement Tools Systematically</h4>
+<p>For each tool in the plan:</p>
+<p><strong>Define Input Schema:</strong></p>
+<ul>
+<li>Use Pydantic (Python) or Zod (TypeScript) for validation</li>
+<li>Include proper constraints (min/max length, regex patterns, min/max values, ranges)</li>
+<li>Provide clear, descriptive field descriptions</li>
+<li>Include diverse examples in field descriptions</li>
+</ul>
+<p><strong>Write Comprehensive Docstrings/Descriptions:</strong></p>
+<ul>
+<li>One-line summary of what the tool does</li>
+<li>Detailed explanation of purpose and functionality</li>
+<li>Explicit parameter types with examples</li>
+<li>Complete return type schema</li>
+<li>Usage examples (when to use, when not to use)</li>
+<li>Error handling documentation, which outlines how to proceed given specific errors</li>
+</ul>
+<p><strong>Implement Tool Logic:</strong></p>
+<ul>
+<li>Use shared utilities to avoid code duplication</li>
+<li>Follow async/await patterns for all I/O</li>
+<li>Implement proper error handling</li>
+<li>Support multiple response formats (JSON and Markdown)</li>
+<li>Respect pagination parameters</li>
+<li>Check character limits and truncate appropriately</li>
+</ul>
+<p><strong>Add Tool Annotations:</strong></p>
+<ul>
+<li><code>readOnlyHint</code>: true (for read-only operations)</li>
+<li><code>destructiveHint</code>: false (for non-destructive operations)</li>
+<li><code>idempotentHint</code>: true (if repeated calls have same effect)</li>
+<li><code>openWorldHint</code>: true (if interacting with external systems)</li>
+</ul>
+<h4 id="24-follow-language-specific-best-practices">2.4 Follow Language-Specific Best Practices</h4>
+<p><strong>At this point, load the appropriate language guide:</strong></p>
+<p><strong>For Python: Load <a href="../../../blob/master/mcp-builder/reference/python_mcp_server.md.html">🐍 Python Implementation Guide</a> and ensure the following:</strong></p>
+<ul>
+<li>Using MCP Python SDK with proper tool registration</li>
+<li>Pydantic v2 models with <code>model_config</code></li>
+<li>Type hints throughout</li>
+<li>Async/await for all I/O operations</li>
+<li>Proper imports organization</li>
+<li>Module-level constants (CHARACTER_LIMIT, API_BASE_URL)</li>
+</ul>
+<p><strong>For Node/TypeScript: Load <a href="../../../blob/master/mcp-builder/reference/node_mcp_server.md.html">⚡ TypeScript Implementation Guide</a> and ensure the following:</strong></p>
+<ul>
+<li>Using <code>server.registerTool</code> properly</li>
+<li>Zod schemas with <code>.strict()</code></li>
+<li>TypeScript strict mode enabled</li>
+<li>No <code>any</code> types - use proper types</li>
+<li>Explicit Promise<t> return types</t></li>
+<li>Build process configured (<code>npm run build</code>)</li>
+</ul>
+<hr/>
+<h3 id="phase-3-review-and-refine">Phase 3: Review and Refine</h3>
+<p>After initial implementation:</p>
+<h4 id="31-code-quality-review">3.1 Code Quality Review</h4>
+<p>To ensure quality, review the code for:</p>
+<ul>
+<li><strong>DRY Principle</strong>: No duplicated code between tools</li>
+<li><strong>Composability</strong>: Shared logic extracted into functions</li>
+<li><strong>Consistency</strong>: Similar operations return similar formats</li>
+<li><strong>Error Handling</strong>: All external calls have error handling</li>
+<li><strong>Type Safety</strong>: Full type coverage (Python type hints, TypeScript types)</li>
+<li><strong>Documentation</strong>: Every tool has comprehensive docstrings/descriptions</li>
+</ul>
+<h4 id="32-test-and-build">3.2 Test and Build</h4>
+<p><strong>Important:</strong> MCP servers are long-running processes that wait for requests over stdio/stdin or sse/http. Running them directly in your main process (e.g., <code>python server.py</code> or <code>node dist/index.js</code>) will cause your process to hang indefinitely.</p>
+<p><strong>Safe ways to test the server:</strong></p>
+<ul>
+<li>Use the evaluation harness (see Phase 4) - recommended approach</li>
+<li>Run the server in tmux to keep it outside your main process</li>
+<li>Use a timeout when testing: <code>timeout 5s python server.py</code></li>
+</ul>
+<p><strong>For Python:</strong></p>
+<ul>
+<li>Verify Python syntax: <code>python -m py_compile your_server.py</code></li>
+<li>Check imports work correctly by reviewing the file</li>
+<li>To manually test: Run server in tmux, then test with evaluation harness in main process</li>
+<li>Or use the evaluation harness directly (it manages the server for stdio transport)</li>
+</ul>
+<p><strong>For Node/TypeScript:</strong></p>
+<ul>
+<li>Run <code>npm run build</code> and ensure it completes without errors</li>
+<li>Verify dist/index.js is created</li>
+<li>To manually test: Run server in tmux, then test with evaluation harness in main process</li>
+<li>Or use the evaluation harness directly (it manages the server for stdio transport)</li>
+</ul>
+<h4 id="33-use-quality-checklist">3.3 Use Quality Checklist</h4>
+<p>To verify implementation quality, load the appropriate checklist from the language-specific guide:</p>
+<ul>
+<li>Python: see “Quality Checklist” in <a href="../../../blob/master/mcp-builder/reference/python_mcp_server.md.html">🐍 Python Guide</a></li>
+<li>Node/TypeScript: see “Quality Checklist” in <a href="../../../blob/master/mcp-builder/reference/node_mcp_server.md.html">⚡ TypeScript Guide</a></li>
+</ul>
+<hr/>
+<h3 id="phase-4-create-evaluations">Phase 4: Create Evaluations</h3>
+<p>After implementing your MCP server, create comprehensive evaluations to test its effectiveness.</p>
+<p><strong>Load <a href="../../../blob/master/mcp-builder/reference/evaluation.md.html">✅ Evaluation Guide</a> for complete evaluation guidelines.</strong></p>
+<h4 id="41-understand-evaluation-purpose">4.1 Understand Evaluation Purpose</h4>
+<p>Evaluations test whether LLMs can effectively use your MCP server to answer realistic, complex questions.</p>
+<h4 id="42-create-10-evaluation-questions">4.2 Create 10 Evaluation Questions</h4>
+<p>To create effective evaluations, follow the process outlined in the evaluation guide:</p>
+<ol>
+<li><strong>Tool Inspection</strong>: List available tools and understand their capabilities</li>
+<li><strong>Content Exploration</strong>: Use READ-ONLY operations to explore available data</li>
+<li><strong>Question Generation</strong>: Create 10 complex, realistic questions</li>
+<li><strong>Answer Verification</strong>: Solve each question yourself to verify answers</li>
+</ol>
+<h4 id="43-evaluation-requirements">4.3 Evaluation Requirements</h4>
+<p>Each question must be:</p>
+<ul>
+<li><strong>Independent</strong>: Not dependent on other questions</li>
+<li><strong>Read-only</strong>: Only non-destructive operations required</li>
+<li><strong>Complex</strong>: Requiring multiple tool calls and deep exploration</li>
+<li><strong>Realistic</strong>: Based on real use cases humans would care about</li>
+<li><strong>Verifiable</strong>: Single, clear answer that can be verified by string comparison</li>
+<li><strong>Stable</strong>: Answer won’t change over time</li>
+</ul>
+<h4 id="44-output-format">4.4 Output Format</h4>
+<p>Create an XML file with this structure:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;evaluation&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;question&gt;</span>Find discussions about AI model launches with animal codenames. One model needed a specific safety designation that uses the format ASL-X. What number X was being determined for the model named after a spotted wild cat?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;answer&gt;</span>3<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- More qa_pairs... --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/evaluation&gt;</span>
+</span></span></code></pre><hr/>
+<h1 id="reference-files">Reference Files</h1>
+<h2 id="-documentation-library">📚 Documentation Library</h2>
+<p>Load these resources as needed during development:</p>
+<h3 id="core-mcp-documentation-load-first">Core MCP Documentation (Load First)</h3>
+<ul>
+<li><strong>MCP Protocol</strong>: Fetch from <code>https://modelcontextprotocol.io/llms-full.txt</code> - Complete MCP specification</li>
+<li><a href="../../../blob/master/mcp-builder/reference/mcp_best_practices.md.html">📋 MCP Best Practices</a> - Universal MCP guidelines including:
+<ul>
+<li>Server and tool naming conventions</li>
+<li>Response format guidelines (JSON vs Markdown)</li>
+<li>Pagination best practices</li>
+<li>Character limits and truncation strategies</li>
+<li>Tool development guidelines</li>
+<li>Security and error handling standards</li>
+</ul>
+</li>
+</ul>
+<h3 id="sdk-documentation-load-during-phase-12">SDK Documentation (Load During Phase 1/2)</h3>
+<ul>
+<li><strong>Python SDK</strong>: Fetch from <code>https://raw.githubusercontent.com/modelcontextprotocol/python-sdk/main/README.md</code></li>
+<li><strong>TypeScript SDK</strong>: Fetch from <code>https://raw.githubusercontent.com/modelcontextprotocol/typescript-sdk/main/README.md</code></li>
+</ul>
+<h3 id="language-specific-implementation-guides-load-during-phase-2">Language-Specific Implementation Guides (Load During Phase 2)</h3>
+<ul>
+<li>
+<p><a href="../../../blob/master/mcp-builder/reference/python_mcp_server.md.html">🐍 Python Implementation Guide</a> - Complete Python/FastMCP guide with:</p>
+<ul>
+<li>Server initialization patterns</li>
+<li>Pydantic model examples</li>
+<li>Tool registration with <code>@mcp.tool</code></li>
+<li>Complete working examples</li>
+<li>Quality checklist</li>
+</ul>
+</li>
+<li>
+<p><a href="../../../blob/master/mcp-builder/reference/node_mcp_server.md.html">⚡ TypeScript Implementation Guide</a> - Complete TypeScript guide with:</p>
+<ul>
+<li>Project structure</li>
+<li>Zod schema patterns</li>
+<li>Tool registration with <code>server.registerTool</code></li>
+<li>Complete working examples</li>
+<li>Quality checklist</li>
+</ul>
+</li>
+</ul>
+<h3 id="evaluation-guide-load-during-phase-4">Evaluation Guide (Load During Phase 4)</h3>
+<ul>
+<li><a href="../../../blob/master/mcp-builder/reference/evaluation.md.html">✅ Evaluation Guide</a> - Complete evaluation creation guide with:
+<ul>
+<li>Question creation guidelines</li>
+<li>Answer verification strategies</li>
+<li>XML format specifications</li>
+<li>Example questions and answers</li>
+<li>Running an evaluation with the provided scripts</li>
+</ul>
+</li>
+</ul>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/document-skills/pdf/reference.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./../index.html">document-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">pdf</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>reference.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><h1 id="pdf-processing-advanced-reference">PDF Processing Advanced Reference</h1>
+<p>This document contains advanced PDF processing features, detailed examples, and additional libraries not covered in the main skill instructions.</p>
+<h2 id="pypdfium2-library-apachebsd-license">pypdfium2 Library (Apache/BSD License)</h2>
+<h3 id="overview">Overview</h3>
+<p>pypdfium2 is a Python binding for PDFium (Chromium’s PDF library). It’s excellent for fast PDF rendering, image generation, and serves as a PyMuPDF replacement.</p>
+<h3 id="render-pdf-to-images">Render PDF to Images</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">pypdfium2</span> <span style="color:#ff7b72">as</span> <span style="color:#ff7b72">pdfium</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">PIL</span> <span style="color:#ff7b72">import</span> Image
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Load PDF</span>
+</span></span><span style="display:flex;"><span>pdf <span style="color:#ff7b72;font-weight:bold">=</span> pdfium<span style="color:#ff7b72;font-weight:bold">.</span>PdfDocument(<span style="color:#a5d6ff">&#34;document.pdf&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Render page to image</span>
+</span></span><span style="display:flex;"><span>page <span style="color:#ff7b72;font-weight:bold">=</span> pdf[<span style="color:#a5d6ff">0</span>]  <span style="color:#8b949e;font-style:italic"># First page</span>
+</span></span><span style="display:flex;"><span>bitmap <span style="color:#ff7b72;font-weight:bold">=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>render(
+</span></span><span style="display:flex;"><span>    scale<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">2.0</span>,  <span style="color:#8b949e;font-style:italic"># Higher resolution</span>
+</span></span><span style="display:flex;"><span>    rotation<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>  <span style="color:#8b949e;font-style:italic"># No rotation</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Convert to PIL Image</span>
+</span></span><span style="display:flex;"><span>img <span style="color:#ff7b72;font-weight:bold">=</span> bitmap<span style="color:#ff7b72;font-weight:bold">.</span>to_pil()
+</span></span><span style="display:flex;"><span>img<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#a5d6ff">&#34;page_1.png&#34;</span>, <span style="color:#a5d6ff">&#34;PNG&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Process multiple pages</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i, page <span style="color:#ff7b72;font-weight:bold">in</span> enumerate(pdf):
+</span></span><span style="display:flex;"><span>    bitmap <span style="color:#ff7b72;font-weight:bold">=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>render(scale<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">1.5</span>)
+</span></span><span style="display:flex;"><span>    img <span style="color:#ff7b72;font-weight:bold">=</span> bitmap<span style="color:#ff7b72;font-weight:bold">.</span>to_pil()
+</span></span><span style="display:flex;"><span>    img<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;page_</span><span style="color:#a5d6ff">{</span>i<span style="color:#ff7b72;font-weight:bold">+</span><span style="color:#a5d6ff">1</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">.jpg&#34;</span>, <span style="color:#a5d6ff">&#34;JPEG&#34;</span>, quality<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">90</span>)
+</span></span></code></pre><h3 id="extract-text-with-pypdfium2">Extract Text with pypdfium2</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">pypdfium2</span> <span style="color:#ff7b72">as</span> <span style="color:#ff7b72">pdfium</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>pdf <span style="color:#ff7b72;font-weight:bold">=</span> pdfium<span style="color:#ff7b72;font-weight:bold">.</span>PdfDocument(<span style="color:#a5d6ff">&#34;document.pdf&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">for</span> i, page <span style="color:#ff7b72;font-weight:bold">in</span> enumerate(pdf):
+</span></span><span style="display:flex;"><span>    text <span style="color:#ff7b72;font-weight:bold">=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>get_text()
+</span></span><span style="display:flex;"><span>    print(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Page </span><span style="color:#a5d6ff">{</span>i<span style="color:#ff7b72;font-weight:bold">+</span><span style="color:#a5d6ff">1</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> text length: </span><span style="color:#a5d6ff">{</span>len(text)<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> chars&#34;</span>)
+</span></span></code></pre><h2 id="javascript-libraries">JavaScript Libraries</h2>
+<h3 id="pdf-lib-mit-license">pdf-lib (MIT License)</h3>
+<p>pdf-lib is a powerful JavaScript library for creating and modifying PDF documents in any JavaScript environment.</p>
+<h4 id="load-and-manipulate-existing-pdf">Load and Manipulate Existing PDF</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { PDFDocument } from <span style="color:#a5d6ff">&#39;pdf-lib&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> fs from <span style="color:#a5d6ff">&#39;fs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> manipulatePDF() {
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Load existing PDF
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> existingPdfBytes <span style="color:#ff7b72;font-weight:bold">=</span> fs.readFileSync(<span style="color:#a5d6ff">&#39;input.pdf&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdfDoc <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> PDFDocument.load(existingPdfBytes);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Get page count
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> pageCount <span style="color:#ff7b72;font-weight:bold">=</span> pdfDoc.getPageCount();
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#a5d6ff">`Document has </span><span style="color:#a5d6ff">${</span>pageCount<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> pages`</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Add new page
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> newPage <span style="color:#ff7b72;font-weight:bold">=</span> pdfDoc.addPage([<span style="color:#a5d6ff">600</span>, <span style="color:#a5d6ff">400</span>]);
+</span></span><span style="display:flex;"><span>    newPage.drawText(<span style="color:#a5d6ff">&#39;Added by pdf-lib&#39;</span>, {
+</span></span><span style="display:flex;"><span>        x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">100</span>,
+</span></span><span style="display:flex;"><span>        y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">300</span>,
+</span></span><span style="display:flex;"><span>        size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">16</span>
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Save modified PDF
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> pdfBytes <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> pdfDoc.save();
+</span></span><span style="display:flex;"><span>    fs.writeFileSync(<span style="color:#a5d6ff">&#39;modified.pdf&#39;</span>, pdfBytes);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h4 id="create-complex-pdfs-from-scratch">Create Complex PDFs from Scratch</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { PDFDocument, rgb, StandardFonts } from <span style="color:#a5d6ff">&#39;pdf-lib&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> fs from <span style="color:#a5d6ff">&#39;fs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> createPDF() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdfDoc <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> PDFDocument.create();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Add fonts
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> helveticaFont <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> pdfDoc.embedFont(StandardFonts.Helvetica);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> helveticaBold <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> pdfDoc.embedFont(StandardFonts.HelveticaBold);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Add page
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> page <span style="color:#ff7b72;font-weight:bold">=</span> pdfDoc.addPage([<span style="color:#a5d6ff">595</span>, <span style="color:#a5d6ff">842</span>]); <span style="color:#8b949e;font-style:italic">// A4 size
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> { width, height } <span style="color:#ff7b72;font-weight:bold">=</span> page.getSize();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Add text with styling
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    page.drawText(<span style="color:#a5d6ff">&#39;Invoice #12345&#39;</span>, {
+</span></span><span style="display:flex;"><span>        x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">50</span>,
+</span></span><span style="display:flex;"><span>        y<span style="color:#ff7b72;font-weight:bold">:</span> height <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">50</span>,
+</span></span><span style="display:flex;"><span>        size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">18</span>,
+</span></span><span style="display:flex;"><span>        font<span style="color:#ff7b72;font-weight:bold">:</span> helveticaBold,
+</span></span><span style="display:flex;"><span>        color<span style="color:#ff7b72;font-weight:bold">:</span> rgb(<span style="color:#a5d6ff">0.2</span>, <span style="color:#a5d6ff">0.2</span>, <span style="color:#a5d6ff">0.8</span>)
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Add rectangle (header background)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    page.drawRectangle({
+</span></span><span style="display:flex;"><span>        x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">40</span>,
+</span></span><span style="display:flex;"><span>        y<span style="color:#ff7b72;font-weight:bold">:</span> height <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">100</span>,
+</span></span><span style="display:flex;"><span>        width<span style="color:#ff7b72;font-weight:bold">:</span> width <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">80</span>,
+</span></span><span style="display:flex;"><span>        height<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">30</span>,
+</span></span><span style="display:flex;"><span>        color<span style="color:#ff7b72;font-weight:bold">:</span> rgb(<span style="color:#a5d6ff">0.9</span>, <span style="color:#a5d6ff">0.9</span>, <span style="color:#a5d6ff">0.9</span>)
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Add table-like content
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> items <span style="color:#ff7b72;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span>        [<span style="color:#a5d6ff">&#39;Item&#39;</span>, <span style="color:#a5d6ff">&#39;Qty&#39;</span>, <span style="color:#a5d6ff">&#39;Price&#39;</span>, <span style="color:#a5d6ff">&#39;Total&#39;</span>],
+</span></span><span style="display:flex;"><span>        [<span style="color:#a5d6ff">&#39;Widget&#39;</span>, <span style="color:#a5d6ff">&#39;2&#39;</span>, <span style="color:#a5d6ff">&#39;$50&#39;</span>, <span style="color:#a5d6ff">&#39;$100&#39;</span>],
+</span></span><span style="display:flex;"><span>        [<span style="color:#a5d6ff">&#39;Gadget&#39;</span>, <span style="color:#a5d6ff">&#39;1&#39;</span>, <span style="color:#a5d6ff">&#39;$75&#39;</span>, <span style="color:#a5d6ff">&#39;$75&#39;</span>]
+</span></span><span style="display:flex;"><span>    ];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">let</span> yPos <span style="color:#ff7b72;font-weight:bold">=</span> height <span style="color:#ff7b72;font-weight:bold">-</span> <span style="color:#a5d6ff">150</span>;
+</span></span><span style="display:flex;"><span>    items.forEach(row =&gt; {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">let</span> xPos <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">50</span>;
+</span></span><span style="display:flex;"><span>        row.forEach(cell =&gt; {
+</span></span><span style="display:flex;"><span>            page.drawText(cell, {
+</span></span><span style="display:flex;"><span>                x<span style="color:#ff7b72;font-weight:bold">:</span> xPos,
+</span></span><span style="display:flex;"><span>                y<span style="color:#ff7b72;font-weight:bold">:</span> yPos,
+</span></span><span style="display:flex;"><span>                size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">12</span>,
+</span></span><span style="display:flex;"><span>                font<span style="color:#ff7b72;font-weight:bold">:</span> helveticaFont
+</span></span><span style="display:flex;"><span>            });
+</span></span><span style="display:flex;"><span>            xPos <span style="color:#ff7b72;font-weight:bold">+=</span> <span style="color:#a5d6ff">120</span>;
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>        yPos <span style="color:#ff7b72;font-weight:bold">-=</span> <span style="color:#a5d6ff">25</span>;
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdfBytes <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> pdfDoc.save();
+</span></span><span style="display:flex;"><span>    fs.writeFileSync(<span style="color:#a5d6ff">&#39;created.pdf&#39;</span>, pdfBytes);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h4 id="advanced-merge-and-split-operations">Advanced Merge and Split Operations</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { PDFDocument } from <span style="color:#a5d6ff">&#39;pdf-lib&#39;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> fs from <span style="color:#a5d6ff">&#39;fs&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> mergePDFs() {
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Create new document
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> mergedPdf <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> PDFDocument.create();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Load source PDFs
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> pdf1Bytes <span style="color:#ff7b72;font-weight:bold">=</span> fs.readFileSync(<span style="color:#a5d6ff">&#39;doc1.pdf&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdf2Bytes <span style="color:#ff7b72;font-weight:bold">=</span> fs.readFileSync(<span style="color:#a5d6ff">&#39;doc2.pdf&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdf1 <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> PDFDocument.load(pdf1Bytes);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdf2 <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> PDFDocument.load(pdf2Bytes);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Copy pages from first PDF
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> pdf1Pages <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> mergedPdf.copyPages(pdf1, pdf1.getPageIndices());
+</span></span><span style="display:flex;"><span>    pdf1Pages.forEach(page =&gt; mergedPdf.addPage(page));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Copy specific pages from second PDF (pages 0, 2, 4)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> pdf2Pages <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> mergedPdf.copyPages(pdf2, [<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">2</span>, <span style="color:#a5d6ff">4</span>]);
+</span></span><span style="display:flex;"><span>    pdf2Pages.forEach(page =&gt; mergedPdf.addPage(page));
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> mergedPdfBytes <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> mergedPdf.save();
+</span></span><span style="display:flex;"><span>    fs.writeFileSync(<span style="color:#a5d6ff">&#39;merged.pdf&#39;</span>, mergedPdfBytes);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h3 id="pdfjs-dist-apache-license">pdfjs-dist (Apache License)</h3>
+<p>PDF.js is Mozilla’s JavaScript library for rendering PDFs in the browser.</p>
+<h4 id="basic-pdf-loading-and-rendering">Basic PDF Loading and Rendering</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72;font-weight:bold">*</span> as pdfjsLib from <span style="color:#a5d6ff">&#39;pdfjs-dist&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Configure worker (important for performance)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>pdfjsLib.GlobalWorkerOptions.workerSrc <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#39;./pdf.worker.js&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> renderPDF() {
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Load PDF
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> loadingTask <span style="color:#ff7b72;font-weight:bold">=</span> pdfjsLib.getDocument(<span style="color:#a5d6ff">&#39;document.pdf&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdf <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> loadingTask.promise;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#a5d6ff">`Loaded PDF with </span><span style="color:#a5d6ff">${</span>pdf.numPages<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> pages`</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Get first page
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> page <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> pdf.getPage(<span style="color:#a5d6ff">1</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> viewport <span style="color:#ff7b72;font-weight:bold">=</span> page.getViewport({ scale<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1.5</span> });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Render to canvas
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> canvas <span style="color:#ff7b72;font-weight:bold">=</span> document.createElement(<span style="color:#a5d6ff">&#39;canvas&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> context <span style="color:#ff7b72;font-weight:bold">=</span> canvas.getContext(<span style="color:#a5d6ff">&#39;2d&#39;</span>);
+</span></span><span style="display:flex;"><span>    canvas.height <span style="color:#ff7b72;font-weight:bold">=</span> viewport.height;
+</span></span><span style="display:flex;"><span>    canvas.width <span style="color:#ff7b72;font-weight:bold">=</span> viewport.width;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> renderContext <span style="color:#ff7b72;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>        canvasContext<span style="color:#ff7b72;font-weight:bold">:</span> context,
+</span></span><span style="display:flex;"><span>        viewport<span style="color:#ff7b72;font-weight:bold">:</span> viewport
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">await</span> page.render(renderContext).promise;
+</span></span><span style="display:flex;"><span>    document.body.appendChild(canvas);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h4 id="extract-text-with-coordinates">Extract Text with Coordinates</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72;font-weight:bold">*</span> as pdfjsLib from <span style="color:#a5d6ff">&#39;pdfjs-dist&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> extractText() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> loadingTask <span style="color:#ff7b72;font-weight:bold">=</span> pdfjsLib.getDocument(<span style="color:#a5d6ff">&#39;document.pdf&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdf <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> loadingTask.promise;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">let</span> fullText <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#39;&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Extract text from all pages
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">for</span> (<span style="color:#ff7b72">let</span> i <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">1</span>; i <span style="color:#ff7b72;font-weight:bold">&lt;=</span> pdf.numPages; i<span style="color:#ff7b72;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">const</span> page <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> pdf.getPage(i);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">const</span> textContent <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> page.getTextContent();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">const</span> pageText <span style="color:#ff7b72;font-weight:bold">=</span> textContent.items
+</span></span><span style="display:flex;"><span>            .map(item =&gt; item.str)
+</span></span><span style="display:flex;"><span>            .join(<span style="color:#a5d6ff">&#39; &#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        fullText <span style="color:#ff7b72;font-weight:bold">+=</span> <span style="color:#a5d6ff">`\n--- Page </span><span style="color:#a5d6ff">${</span>i<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> ---\n</span><span style="color:#a5d6ff">${</span>pageText<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic">// Get text with coordinates for advanced processing
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        <span style="color:#ff7b72">const</span> textWithCoords <span style="color:#ff7b72;font-weight:bold">=</span> textContent.items.map(item =&gt; ({
+</span></span><span style="display:flex;"><span>            text<span style="color:#ff7b72;font-weight:bold">:</span> item.str,
+</span></span><span style="display:flex;"><span>            x<span style="color:#ff7b72;font-weight:bold">:</span> item.transform[<span style="color:#a5d6ff">4</span>],
+</span></span><span style="display:flex;"><span>            y<span style="color:#ff7b72;font-weight:bold">:</span> item.transform[<span style="color:#a5d6ff">5</span>],
+</span></span><span style="display:flex;"><span>            width<span style="color:#ff7b72;font-weight:bold">:</span> item.width,
+</span></span><span style="display:flex;"><span>            height<span style="color:#ff7b72;font-weight:bold">:</span> item.height
+</span></span><span style="display:flex;"><span>        }));
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    console.log(fullText);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> fullText;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h4 id="extract-annotations-and-forms">Extract Annotations and Forms</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72;font-weight:bold">*</span> as pdfjsLib from <span style="color:#a5d6ff">&#39;pdfjs-dist&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> extractAnnotations() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> loadingTask <span style="color:#ff7b72;font-weight:bold">=</span> pdfjsLib.getDocument(<span style="color:#a5d6ff">&#39;annotated.pdf&#39;</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pdf <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> loadingTask.promise;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> (<span style="color:#ff7b72">let</span> i <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">1</span>; i <span style="color:#ff7b72;font-weight:bold">&lt;=</span> pdf.numPages; i<span style="color:#ff7b72;font-weight:bold">++</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">const</span> page <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> pdf.getPage(i);
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">const</span> annotations <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> page.getAnnotations();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        annotations.forEach(annotation =&gt; {
+</span></span><span style="display:flex;"><span>            console.log(<span style="color:#a5d6ff">`Annotation type: </span><span style="color:#a5d6ff">${</span>annotation.subtype<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>);
+</span></span><span style="display:flex;"><span>            console.log(<span style="color:#a5d6ff">`Content: </span><span style="color:#a5d6ff">${</span>annotation.contents<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>);
+</span></span><span style="display:flex;"><span>            console.log(<span style="color:#a5d6ff">`Coordinates: </span><span style="color:#a5d6ff">${</span>JSON.stringify(annotation.rect)<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>);
+</span></span><span style="display:flex;"><span>        });
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h2 id="advanced-command-line-operations">Advanced Command-Line Operations</h2>
+<h3 id="poppler-utils-advanced-features">poppler-utils Advanced Features</h3>
+<h4 id="extract-text-with-bounding-box-coordinates">Extract Text with Bounding Box Coordinates</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Extract text with bounding box coordinates (essential for structured data)</span>
+</span></span><span style="display:flex;"><span>pdftotext -bbox-layout document.pdf output.xml
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># The XML output contains precise coordinates for each text element</span>
+</span></span></code></pre><h4 id="advanced-image-conversion">Advanced Image Conversion</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Convert to PNG images with specific resolution</span>
+</span></span><span style="display:flex;"><span>pdftoppm -png -r <span style="color:#a5d6ff">300</span> document.pdf output_prefix
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Convert specific page range with high resolution</span>
+</span></span><span style="display:flex;"><span>pdftoppm -png -r <span style="color:#a5d6ff">600</span> -f <span style="color:#a5d6ff">1</span> -l <span style="color:#a5d6ff">3</span> document.pdf high_res_pages
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Convert to JPEG with quality setting</span>
+</span></span><span style="display:flex;"><span>pdftoppm -jpeg -jpegopt <span style="color:#79c0ff">quality</span><span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">85</span> -r <span style="color:#a5d6ff">200</span> document.pdf jpeg_output
+</span></span></code></pre><h4 id="extract-embedded-images">Extract Embedded Images</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Extract all embedded images with metadata</span>
+</span></span><span style="display:flex;"><span>pdfimages -j -p document.pdf page_images
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># List image info without extracting</span>
+</span></span><span style="display:flex;"><span>pdfimages -list document.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Extract images in their original format</span>
+</span></span><span style="display:flex;"><span>pdfimages -all document.pdf images/img
+</span></span></code></pre><h3 id="qpdf-advanced-features">qpdf Advanced Features</h3>
+<h4 id="complex-page-manipulation">Complex Page Manipulation</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Split PDF into groups of pages</span>
+</span></span><span style="display:flex;"><span>qpdf --split-pages<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">3</span> input.pdf output_group_%02d.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Extract specific pages with complex ranges</span>
+</span></span><span style="display:flex;"><span>qpdf input.pdf --pages input.pdf 1,3-5,8,10-end -- extracted.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Merge specific pages from multiple PDFs</span>
+</span></span><span style="display:flex;"><span>qpdf --empty --pages doc1.pdf 1-3 doc2.pdf 5-7 doc3.pdf 2,4 -- combined.pdf
+</span></span></code></pre><h4 id="pdf-optimization-and-repair">PDF Optimization and Repair</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Optimize PDF for web (linearize for streaming)</span>
+</span></span><span style="display:flex;"><span>qpdf --linearize input.pdf optimized.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Remove unused objects and compress</span>
+</span></span><span style="display:flex;"><span>qpdf --optimize-level<span style="color:#ff7b72;font-weight:bold">=</span>all input.pdf compressed.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Attempt to repair corrupted PDF structure</span>
+</span></span><span style="display:flex;"><span>qpdf --check input.pdf
+</span></span><span style="display:flex;"><span>qpdf --fix-qdf damaged.pdf repaired.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Show detailed PDF structure for debugging</span>
+</span></span><span style="display:flex;"><span>qpdf --show-all-pages input.pdf &gt; structure.txt
+</span></span></code></pre><h4 id="advanced-encryption">Advanced Encryption</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add password protection with specific permissions</span>
+</span></span><span style="display:flex;"><span>qpdf --encrypt user_pass owner_pass <span style="color:#a5d6ff">256</span> --print<span style="color:#ff7b72;font-weight:bold">=</span>none --modify<span style="color:#ff7b72;font-weight:bold">=</span>none -- input.pdf encrypted.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Check encryption status</span>
+</span></span><span style="display:flex;"><span>qpdf --show-encryption encrypted.pdf
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Remove password protection (requires password)</span>
+</span></span><span style="display:flex;"><span>qpdf --password<span style="color:#ff7b72;font-weight:bold">=</span>secret123 --decrypt encrypted.pdf decrypted.pdf
+</span></span></code></pre><h2 id="advanced-python-techniques">Advanced Python Techniques</h2>
+<h3 id="pdfplumber-advanced-features">pdfplumber Advanced Features</h3>
+<h4 id="extract-text-with-precise-coordinates">Extract Text with Precise Coordinates</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">pdfplumber</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">with</span> pdfplumber<span style="color:#ff7b72;font-weight:bold">.</span>open(<span style="color:#a5d6ff">&#34;document.pdf&#34;</span>) <span style="color:#ff7b72">as</span> pdf:
+</span></span><span style="display:flex;"><span>    page <span style="color:#ff7b72;font-weight:bold">=</span> pdf<span style="color:#ff7b72;font-weight:bold">.</span>pages[<span style="color:#a5d6ff">0</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Extract all text with coordinates</span>
+</span></span><span style="display:flex;"><span>    chars <span style="color:#ff7b72;font-weight:bold">=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>chars
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> char <span style="color:#ff7b72;font-weight:bold">in</span> chars[:<span style="color:#a5d6ff">10</span>]:  <span style="color:#8b949e;font-style:italic"># First 10 characters</span>
+</span></span><span style="display:flex;"><span>        print(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Char: &#39;</span><span style="color:#a5d6ff">{</span>char[<span style="color:#a5d6ff">&#39;text&#39;</span>]<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#39; at x:</span><span style="color:#a5d6ff">{</span>char[<span style="color:#a5d6ff">&#39;x0&#39;</span>]<span style="color:#a5d6ff">:</span><span style="color:#a5d6ff">.1f</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> y:</span><span style="color:#a5d6ff">{</span>char[<span style="color:#a5d6ff">&#39;y0&#39;</span>]<span style="color:#a5d6ff">:</span><span style="color:#a5d6ff">.1f</span><span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span>)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Extract text by bounding box (left, top, right, bottom)</span>
+</span></span><span style="display:flex;"><span>    bbox_text <span style="color:#ff7b72;font-weight:bold">=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>within_bbox((<span style="color:#a5d6ff">100</span>, <span style="color:#a5d6ff">100</span>, <span style="color:#a5d6ff">400</span>, <span style="color:#a5d6ff">200</span>))<span style="color:#ff7b72;font-weight:bold">.</span>extract_text()
+</span></span></code></pre><h4 id="advanced-table-extraction-with-custom-settings">Advanced Table Extraction with Custom Settings</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">pdfplumber</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">pandas</span> <span style="color:#ff7b72">as</span> <span style="color:#ff7b72">pd</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">with</span> pdfplumber<span style="color:#ff7b72;font-weight:bold">.</span>open(<span style="color:#a5d6ff">&#34;complex_table.pdf&#34;</span>) <span style="color:#ff7b72">as</span> pdf:
+</span></span><span style="display:flex;"><span>    page <span style="color:#ff7b72;font-weight:bold">=</span> pdf<span style="color:#ff7b72;font-weight:bold">.</span>pages[<span style="color:#a5d6ff">0</span>]
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Extract tables with custom settings for complex layouts</span>
+</span></span><span style="display:flex;"><span>    table_settings <span style="color:#ff7b72;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;vertical_strategy&#34;</span>: <span style="color:#a5d6ff">&#34;lines&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;horizontal_strategy&#34;</span>: <span style="color:#a5d6ff">&#34;lines&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;snap_tolerance&#34;</span>: <span style="color:#a5d6ff">3</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;intersection_tolerance&#34;</span>: <span style="color:#a5d6ff">15</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    tables <span style="color:#ff7b72;font-weight:bold">=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>extract_tables(table_settings)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic"># Visual debugging for table extraction</span>
+</span></span><span style="display:flex;"><span>    img <span style="color:#ff7b72;font-weight:bold">=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>to_image(resolution<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">150</span>)
+</span></span><span style="display:flex;"><span>    img<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#a5d6ff">&#34;debug_layout.png&#34;</span>)
+</span></span></code></pre><h3 id="reportlab-advanced-features">reportlab Advanced Features</h3>
+<h4 id="create-professional-reports-with-tables">Create Professional Reports with Tables</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">reportlab.platypus</span> <span style="color:#ff7b72">import</span> SimpleDocTemplate, Table, TableStyle, Paragraph
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">reportlab.lib.styles</span> <span style="color:#ff7b72">import</span> getSampleStyleSheet
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">reportlab.lib</span> <span style="color:#ff7b72">import</span> colors
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Sample data</span>
+</span></span><span style="display:flex;"><span>data <span style="color:#ff7b72;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#39;Product&#39;</span>, <span style="color:#a5d6ff">&#39;Q1&#39;</span>, <span style="color:#a5d6ff">&#39;Q2&#39;</span>, <span style="color:#a5d6ff">&#39;Q3&#39;</span>, <span style="color:#a5d6ff">&#39;Q4&#39;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#39;Widgets&#39;</span>, <span style="color:#a5d6ff">&#39;120&#39;</span>, <span style="color:#a5d6ff">&#39;135&#39;</span>, <span style="color:#a5d6ff">&#39;142&#39;</span>, <span style="color:#a5d6ff">&#39;158&#39;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#39;Gadgets&#39;</span>, <span style="color:#a5d6ff">&#39;85&#39;</span>, <span style="color:#a5d6ff">&#39;92&#39;</span>, <span style="color:#a5d6ff">&#39;98&#39;</span>, <span style="color:#a5d6ff">&#39;105&#39;</span>]
+</span></span><span style="display:flex;"><span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Create PDF with table</span>
+</span></span><span style="display:flex;"><span>doc <span style="color:#ff7b72;font-weight:bold">=</span> SimpleDocTemplate(<span style="color:#a5d6ff">&#34;report.pdf&#34;</span>)
+</span></span><span style="display:flex;"><span>elements <span style="color:#ff7b72;font-weight:bold">=</span> []
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add title</span>
+</span></span><span style="display:flex;"><span>styles <span style="color:#ff7b72;font-weight:bold">=</span> getSampleStyleSheet()
+</span></span><span style="display:flex;"><span>title <span style="color:#ff7b72;font-weight:bold">=</span> Paragraph(<span style="color:#a5d6ff">&#34;Quarterly Sales Report&#34;</span>, styles[<span style="color:#a5d6ff">&#39;Title&#39;</span>])
+</span></span><span style="display:flex;"><span>elements<span style="color:#ff7b72;font-weight:bold">.</span>append(title)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add table with advanced styling</span>
+</span></span><span style="display:flex;"><span>table <span style="color:#ff7b72;font-weight:bold">=</span> Table(data)
+</span></span><span style="display:flex;"><span>table<span style="color:#ff7b72;font-weight:bold">.</span>setStyle(TableStyle([
+</span></span><span style="display:flex;"><span>    (<span style="color:#a5d6ff">&#39;BACKGROUND&#39;</span>, (<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>), (<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>, <span style="color:#a5d6ff">0</span>), colors<span style="color:#ff7b72;font-weight:bold">.</span>grey),
+</span></span><span style="display:flex;"><span>    (<span style="color:#a5d6ff">&#39;TEXTCOLOR&#39;</span>, (<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>), (<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>, <span style="color:#a5d6ff">0</span>), colors<span style="color:#ff7b72;font-weight:bold">.</span>whitesmoke),
+</span></span><span style="display:flex;"><span>    (<span style="color:#a5d6ff">&#39;ALIGN&#39;</span>, (<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>), (<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>, <span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>), <span style="color:#a5d6ff">&#39;CENTER&#39;</span>),
+</span></span><span style="display:flex;"><span>    (<span style="color:#a5d6ff">&#39;FONTNAME&#39;</span>, (<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>), (<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>, <span style="color:#a5d6ff">0</span>), <span style="color:#a5d6ff">&#39;Helvetica-Bold&#39;</span>),
+</span></span><span style="display:flex;"><span>    (<span style="color:#a5d6ff">&#39;FONTSIZE&#39;</span>, (<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>), (<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>, <span style="color:#a5d6ff">0</span>), <span style="color:#a5d6ff">14</span>),
+</span></span><span style="display:flex;"><span>    (<span style="color:#a5d6ff">&#39;BOTTOMPADDING&#39;</span>, (<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>), (<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>, <span style="color:#a5d6ff">0</span>), <span style="color:#a5d6ff">12</span>),
+</span></span><span style="display:flex;"><span>    (<span style="color:#a5d6ff">&#39;BACKGROUND&#39;</span>, (<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">1</span>), (<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>, <span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>), colors<span style="color:#ff7b72;font-weight:bold">.</span>beige),
+</span></span><span style="display:flex;"><span>    (<span style="color:#a5d6ff">&#39;GRID&#39;</span>, (<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>), (<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>, <span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>), <span style="color:#a5d6ff">1</span>, colors<span style="color:#ff7b72;font-weight:bold">.</span>black)
+</span></span><span style="display:flex;"><span>]))
+</span></span><span style="display:flex;"><span>elements<span style="color:#ff7b72;font-weight:bold">.</span>append(table)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>doc<span style="color:#ff7b72;font-weight:bold">.</span>build(elements)
+</span></span></code></pre><h2 id="complex-workflows">Complex Workflows</h2>
+<h3 id="extract-figuresimages-from-pdf">Extract Figures/Images from PDF</h3>
+<h4 id="method-1-using-pdfimages-fastest">Method 1: Using pdfimages (fastest)</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Extract all images with original quality</span>
+</span></span><span style="display:flex;"><span>pdfimages -all document.pdf images/img
+</span></span></code></pre><h4 id="method-2-using-pypdfium2--image-processing">Method 2: Using pypdfium2 + Image Processing</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">pypdfium2</span> <span style="color:#ff7b72">as</span> <span style="color:#ff7b72">pdfium</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">PIL</span> <span style="color:#ff7b72">import</span> Image
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">numpy</span> <span style="color:#ff7b72">as</span> <span style="color:#ff7b72">np</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">extract_figures</span>(pdf_path, output_dir):
+</span></span><span style="display:flex;"><span>    pdf <span style="color:#ff7b72;font-weight:bold">=</span> pdfium<span style="color:#ff7b72;font-weight:bold">.</span>PdfDocument(pdf_path)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> page_num, page <span style="color:#ff7b72;font-weight:bold">in</span> enumerate(pdf):
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># Render high-resolution page</span>
+</span></span><span style="display:flex;"><span>        bitmap <span style="color:#ff7b72;font-weight:bold">=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>render(scale<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">3.0</span>)
+</span></span><span style="display:flex;"><span>        img <span style="color:#ff7b72;font-weight:bold">=</span> bitmap<span style="color:#ff7b72;font-weight:bold">.</span>to_pil()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># Convert to numpy for processing</span>
+</span></span><span style="display:flex;"><span>        img_array <span style="color:#ff7b72;font-weight:bold">=</span> np<span style="color:#ff7b72;font-weight:bold">.</span>array(img)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># Simple figure detection (non-white regions)</span>
+</span></span><span style="display:flex;"><span>        mask <span style="color:#ff7b72;font-weight:bold">=</span> np<span style="color:#ff7b72;font-weight:bold">.</span>any(img_array <span style="color:#ff7b72;font-weight:bold">!=</span> [<span style="color:#a5d6ff">255</span>, <span style="color:#a5d6ff">255</span>, <span style="color:#a5d6ff">255</span>], axis<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">2</span>)
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># Find contours and extract bounding boxes</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># (This is simplified - real implementation would need more sophisticated detection)</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># Save detected figures</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># ... implementation depends on specific needs</span>
+</span></span></code></pre><h3 id="batch-pdf-processing-with-error-handling">Batch PDF Processing with Error Handling</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">os</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">glob</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">pypdf</span> <span style="color:#ff7b72">import</span> PdfReader, PdfWriter
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">logging</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>logging<span style="color:#ff7b72;font-weight:bold">.</span>basicConfig(level<span style="color:#ff7b72;font-weight:bold">=</span>logging<span style="color:#ff7b72;font-weight:bold">.</span>INFO)
+</span></span><span style="display:flex;"><span>logger <span style="color:#ff7b72;font-weight:bold">=</span> logging<span style="color:#ff7b72;font-weight:bold">.</span>getLogger(<span style="color:#79c0ff">__name__</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">batch_process_pdfs</span>(input_dir, operation<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;merge&#39;</span>):
+</span></span><span style="display:flex;"><span>    pdf_files <span style="color:#ff7b72;font-weight:bold">=</span> glob<span style="color:#ff7b72;font-weight:bold">.</span>glob(os<span style="color:#ff7b72;font-weight:bold">.</span>path<span style="color:#ff7b72;font-weight:bold">.</span>join(input_dir, <span style="color:#a5d6ff">&#34;*.pdf&#34;</span>))
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> operation <span style="color:#ff7b72;font-weight:bold">==</span> <span style="color:#a5d6ff">&#39;merge&#39;</span>:
+</span></span><span style="display:flex;"><span>        writer <span style="color:#ff7b72;font-weight:bold">=</span> PdfWriter()
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">for</span> pdf_file <span style="color:#ff7b72;font-weight:bold">in</span> pdf_files:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff7b72">try</span>:
+</span></span><span style="display:flex;"><span>                reader <span style="color:#ff7b72;font-weight:bold">=</span> PdfReader(pdf_file)
+</span></span><span style="display:flex;"><span>                <span style="color:#ff7b72">for</span> page <span style="color:#ff7b72;font-weight:bold">in</span> reader<span style="color:#ff7b72;font-weight:bold">.</span>pages:
+</span></span><span style="display:flex;"><span>                    writer<span style="color:#ff7b72;font-weight:bold">.</span>add_page(page)
+</span></span><span style="display:flex;"><span>                logger<span style="color:#ff7b72;font-weight:bold">.</span>info(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Processed: </span><span style="color:#a5d6ff">{</span>pdf_file<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#ff7b72">except</span> <span style="color:#f0883e;font-weight:bold">Exception</span> <span style="color:#ff7b72">as</span> e:
+</span></span><span style="display:flex;"><span>                logger<span style="color:#ff7b72;font-weight:bold">.</span>error(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Failed to process </span><span style="color:#a5d6ff">{</span>pdf_file<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">: </span><span style="color:#a5d6ff">{</span>e<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#ff7b72">continue</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">with</span> open(<span style="color:#a5d6ff">&#34;batch_merged.pdf&#34;</span>, <span style="color:#a5d6ff">&#34;wb&#34;</span>) <span style="color:#ff7b72">as</span> output:
+</span></span><span style="display:flex;"><span>            writer<span style="color:#ff7b72;font-weight:bold">.</span>write(output)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">elif</span> operation <span style="color:#ff7b72;font-weight:bold">==</span> <span style="color:#a5d6ff">&#39;extract_text&#39;</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">for</span> pdf_file <span style="color:#ff7b72;font-weight:bold">in</span> pdf_files:
+</span></span><span style="display:flex;"><span>            <span style="color:#ff7b72">try</span>:
+</span></span><span style="display:flex;"><span>                reader <span style="color:#ff7b72;font-weight:bold">=</span> PdfReader(pdf_file)
+</span></span><span style="display:flex;"><span>                text <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#ff7b72">for</span> page <span style="color:#ff7b72;font-weight:bold">in</span> reader<span style="color:#ff7b72;font-weight:bold">.</span>pages:
+</span></span><span style="display:flex;"><span>                    text <span style="color:#ff7b72;font-weight:bold">+=</span> page<span style="color:#ff7b72;font-weight:bold">.</span>extract_text()
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>                output_file <span style="color:#ff7b72;font-weight:bold">=</span> pdf_file<span style="color:#ff7b72;font-weight:bold">.</span>replace(<span style="color:#a5d6ff">&#39;.pdf&#39;</span>, <span style="color:#a5d6ff">&#39;.txt&#39;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#ff7b72">with</span> open(output_file, <span style="color:#a5d6ff">&#39;w&#39;</span>, encoding<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#39;utf-8&#39;</span>) <span style="color:#ff7b72">as</span> f:
+</span></span><span style="display:flex;"><span>                    f<span style="color:#ff7b72;font-weight:bold">.</span>write(text)
+</span></span><span style="display:flex;"><span>                logger<span style="color:#ff7b72;font-weight:bold">.</span>info(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Extracted text from: </span><span style="color:#a5d6ff">{</span>pdf_file<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span>)
+</span></span><span style="display:flex;"><span>                
+</span></span><span style="display:flex;"><span>            <span style="color:#ff7b72">except</span> <span style="color:#f0883e;font-weight:bold">Exception</span> <span style="color:#ff7b72">as</span> e:
+</span></span><span style="display:flex;"><span>                logger<span style="color:#ff7b72;font-weight:bold">.</span>error(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Failed to extract text from </span><span style="color:#a5d6ff">{</span>pdf_file<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">: </span><span style="color:#a5d6ff">{</span>e<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#ff7b72">continue</span>
+</span></span></code></pre><h3 id="advanced-pdf-cropping">Advanced PDF Cropping</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">pypdf</span> <span style="color:#ff7b72">import</span> PdfWriter, PdfReader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>reader <span style="color:#ff7b72;font-weight:bold">=</span> PdfReader(<span style="color:#a5d6ff">&#34;input.pdf&#34;</span>)
+</span></span><span style="display:flex;"><span>writer <span style="color:#ff7b72;font-weight:bold">=</span> PdfWriter()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Crop page (left, bottom, right, top in points)</span>
+</span></span><span style="display:flex;"><span>page <span style="color:#ff7b72;font-weight:bold">=</span> reader<span style="color:#ff7b72;font-weight:bold">.</span>pages[<span style="color:#a5d6ff">0</span>]
+</span></span><span style="display:flex;"><span>page<span style="color:#ff7b72;font-weight:bold">.</span>mediabox<span style="color:#ff7b72;font-weight:bold">.</span>left <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">50</span>
+</span></span><span style="display:flex;"><span>page<span style="color:#ff7b72;font-weight:bold">.</span>mediabox<span style="color:#ff7b72;font-weight:bold">.</span>bottom <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">50</span>
+</span></span><span style="display:flex;"><span>page<span style="color:#ff7b72;font-weight:bold">.</span>mediabox<span style="color:#ff7b72;font-weight:bold">.</span>right <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">550</span>
+</span></span><span style="display:flex;"><span>page<span style="color:#ff7b72;font-weight:bold">.</span>mediabox<span style="color:#ff7b72;font-weight:bold">.</span>top <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">750</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>writer<span style="color:#ff7b72;font-weight:bold">.</span>add_page(page)
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">with</span> open(<span style="color:#a5d6ff">&#34;cropped.pdf&#34;</span>, <span style="color:#a5d6ff">&#34;wb&#34;</span>) <span style="color:#ff7b72">as</span> output:
+</span></span><span style="display:flex;"><span>    writer<span style="color:#ff7b72;font-weight:bold">.</span>write(output)
+</span></span></code></pre><h2 id="performance-optimization-tips">Performance Optimization Tips</h2>
+<h3 id="1-for-large-pdfs">1. For Large PDFs</h3>
+<ul>
+<li>Use streaming approaches instead of loading entire PDF in memory</li>
+<li>Use <code>qpdf --split-pages</code> for splitting large files</li>
+<li>Process pages individually with pypdfium2</li>
+</ul>
+<h3 id="2-for-text-extraction">2. For Text Extraction</h3>
+<ul>
+<li><code>pdftotext -bbox-layout</code> is fastest for plain text extraction</li>
+<li>Use pdfplumber for structured data and tables</li>
+<li>Avoid <code>pypdf.extract_text()</code> for very large documents</li>
+</ul>
+<h3 id="3-for-image-extraction">3. For Image Extraction</h3>
+<ul>
+<li><code>pdfimages</code> is much faster than rendering pages</li>
+<li>Use low resolution for previews, high resolution for final output</li>
+</ul>
+<h3 id="4-for-form-filling">4. For Form Filling</h3>
+<ul>
+<li>pdf-lib maintains form structure better than most alternatives</li>
+<li>Pre-validate form fields before processing</li>
+</ul>
+<h3 id="5-memory-management">5. Memory Management</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Process PDFs in chunks</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">process_large_pdf</span>(pdf_path, chunk_size<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">10</span>):
+</span></span><span style="display:flex;"><span>    reader <span style="color:#ff7b72;font-weight:bold">=</span> PdfReader(pdf_path)
+</span></span><span style="display:flex;"><span>    total_pages <span style="color:#ff7b72;font-weight:bold">=</span> len(reader<span style="color:#ff7b72;font-weight:bold">.</span>pages)
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> start_idx <span style="color:#ff7b72;font-weight:bold">in</span> range(<span style="color:#a5d6ff">0</span>, total_pages, chunk_size):
+</span></span><span style="display:flex;"><span>        end_idx <span style="color:#ff7b72;font-weight:bold">=</span> min(start_idx <span style="color:#ff7b72;font-weight:bold">+</span> chunk_size, total_pages)
+</span></span><span style="display:flex;"><span>        writer <span style="color:#ff7b72;font-weight:bold">=</span> PdfWriter()
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">for</span> i <span style="color:#ff7b72;font-weight:bold">in</span> range(start_idx, end_idx):
+</span></span><span style="display:flex;"><span>            writer<span style="color:#ff7b72;font-weight:bold">.</span>add_page(reader<span style="color:#ff7b72;font-weight:bold">.</span>pages[i])
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic"># Process chunk</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">with</span> open(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;chunk_</span><span style="color:#a5d6ff">{</span>start_idx<span style="color:#ff7b72;font-weight:bold">//</span>chunk_size<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">.pdf&#34;</span>, <span style="color:#a5d6ff">&#34;wb&#34;</span>) <span style="color:#ff7b72">as</span> output:
+</span></span><span style="display:flex;"><span>            writer<span style="color:#ff7b72;font-weight:bold">.</span>write(output)
+</span></span></code></pre><h2 id="troubleshooting-common-issues">Troubleshooting Common Issues</h2>
+<h3 id="encrypted-pdfs">Encrypted PDFs</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Handle password-protected PDFs</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">pypdf</span> <span style="color:#ff7b72">import</span> PdfReader
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">try</span>:
+</span></span><span style="display:flex;"><span>    reader <span style="color:#ff7b72;font-weight:bold">=</span> PdfReader(<span style="color:#a5d6ff">&#34;encrypted.pdf&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> reader<span style="color:#ff7b72;font-weight:bold">.</span>is_encrypted:
+</span></span><span style="display:flex;"><span>        reader<span style="color:#ff7b72;font-weight:bold">.</span>decrypt(<span style="color:#a5d6ff">&#34;password&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">except</span> <span style="color:#f0883e;font-weight:bold">Exception</span> <span style="color:#ff7b72">as</span> e:
+</span></span><span style="display:flex;"><span>    print(<span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Failed to decrypt: </span><span style="color:#a5d6ff">{</span>e<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;</span>)
+</span></span></code></pre><h3 id="corrupted-pdfs">Corrupted PDFs</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Use qpdf to repair</span>
+</span></span><span style="display:flex;"><span>qpdf --check corrupted.pdf
+</span></span><span style="display:flex;"><span>qpdf --replace-input corrupted.pdf
+</span></span></code></pre><h3 id="text-extraction-issues">Text Extraction Issues</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Fallback to OCR for scanned PDFs</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">pytesseract</span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">pdf2image</span> <span style="color:#ff7b72">import</span> convert_from_path
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">def</span> <span style="color:#d2a8ff;font-weight:bold">extract_text_with_ocr</span>(pdf_path):
+</span></span><span style="display:flex;"><span>    images <span style="color:#ff7b72;font-weight:bold">=</span> convert_from_path(pdf_path)
+</span></span><span style="display:flex;"><span>    text <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">for</span> i, image <span style="color:#ff7b72;font-weight:bold">in</span> enumerate(images):
+</span></span><span style="display:flex;"><span>        text <span style="color:#ff7b72;font-weight:bold">+=</span> pytesseract<span style="color:#ff7b72;font-weight:bold">.</span>image_to_string(image)
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> text
+</span></span></code></pre><h2 id="license-information">License Information</h2>
+<ul>
+<li><strong>pypdf</strong>: BSD License</li>
+<li><strong>pdfplumber</strong>: MIT License</li>
+<li><strong>pypdfium2</strong>: Apache/BSD License</li>
+<li><strong>reportlab</strong>: BSD License</li>
+<li><strong>poppler-utils</strong>: GPL-2 License</li>
+<li><strong>qpdf</strong>: Apache License</li>
+<li><strong>pdf-lib</strong>: MIT License</li>
+<li><strong>pdfjs-dist</strong>: Apache License</li>
+</ul>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

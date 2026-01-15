@@ -1,0 +1,1806 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/tailored-resume-generator/SKILL.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">tailored-resume-generator</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>SKILL.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><hr/>
+<h2 id="description-analyzes-job-descriptions-and-generates-tailored-resumes-that-highlight-relevant-experience-skills-and-achievements-to-maximize-interview-chances">name: tailored-resume-generator
+description: Analyzes job descriptions and generates tailored resumes that highlight relevant experience, skills, and achievements to maximize interview chances</h2>
+<h1 id="tailored-resume-generator">Tailored Resume Generator</h1>
+<h2 id="when-to-use-this-skill">When to Use This Skill</h2>
+<ul>
+<li>Applying for a specific job position</li>
+<li>Customizing your resume for different industries or roles</li>
+<li>Highlighting relevant experience for career transitions</li>
+<li>Optimizing your resume for ATS (Applicant Tracking Systems)</li>
+<li>Creating multiple resume versions for different job applications</li>
+<li>Emphasizing specific skills mentioned in job postings</li>
+</ul>
+<h2 id="what-this-skill-does">What This Skill Does</h2>
+<ol>
+<li><strong>Analyzes Job Descriptions</strong>: Extracts key requirements, skills, qualifications, and keywords from job postings</li>
+<li><strong>Identifies Priorities</strong>: Determines what employers value most based on the job description language and structure</li>
+<li><strong>Tailors Content</strong>: Reorganizes and emphasizes relevant experience, skills, and achievements</li>
+<li><strong>Optimizes Keywords</strong>: Incorporates ATS-friendly keywords naturally throughout the resume</li>
+<li><strong>Formats Professionally</strong>: Creates clean, professional resume layouts suitable for various formats</li>
+<li><strong>Provides Recommendations</strong>: Suggests improvements and highlights gaps to address</li>
+</ol>
+<h2 id="how-to-use">How to Use</h2>
+<h3 id="basic-usage">Basic Usage</h3>
+<p>Provide a job description and your background information:</p>
+<pre><code>I&#39;m applying for this job:
+
+[paste job description]
+
+Here&#39;s my background:
+- 5 years as software engineer at TechCorp
+- Led team of 3 developers on mobile app project
+- Expert in Python, JavaScript, React
+- Computer Science degree from State University
+</code></pre>
+<h3 id="with-existing-resume">With Existing Resume</h3>
+<p>Upload or paste your current resume along with the job description:</p>
+<pre><code>Please tailor my resume for this position:
+
+Job Description:
+[paste job description]
+
+My Current Resume:
+[paste resume content]
+</code></pre>
+<h3 id="career-transition">Career Transition</h3>
+<p>When changing industries or roles:</p>
+<pre><code>I&#39;m transitioning from marketing to product management.
+Here&#39;s the job I&#39;m applying for:
+
+[paste job description]
+
+My transferable experience:
+- 7 years in digital marketing
+- Led cross-functional teams
+- Managed product launches
+- Data analysis and A/B testing
+</code></pre>
+<h2 id="example">Example</h2>
+<p><strong>User Request:</strong></p>
+<pre><code>I need a tailored resume for this job:
+
+Senior Data Analyst Position
+
+Requirements:
+- 5+ years experience in data analysis
+- Expert in SQL, Python, and data visualization tools
+- Experience with A/B testing and statistical analysis
+- Strong communication skills to present findings
+- Healthcare industry experience preferred
+
+My background:
+- Data Analyst at RetailCo (2019-2024)
+- Created dashboards using Tableau and Power BI
+- Built Python scripts for data automation
+- Worked with marketing team on campaign analysis
+- Business Analytics degree
+- Also did 1 year internship at HealthPlus clinic
+</code></pre>
+<p><strong>Generated Output:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"># JOHN DOE
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"></span>Email: john.doe<span style="color:#ffa657">@email</span>.com | Phone: (555) 123-4567 | LinkedIn: linkedin.com/in/johndoe
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## PROFESSIONAL SUMMARY
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>Results-driven Data Analyst with 5+ years of experience leveraging SQL, Python, and advanced
+</span></span><span style="display:flex;"><span>visualization tools to deliver actionable insights. Proven track record in statistical analysis,
+</span></span><span style="display:flex;"><span>A/B testing, and cross-functional collaboration. Healthcare industry experience with strong
+</span></span><span style="display:flex;"><span>ability to communicate complex data findings to stakeholders.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## TECHNICAL SKILLS
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> **Data Analysis &amp; Programming**: SQL, Python, Statistical Analysis, A/B Testing
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> **Visualization Tools**: Tableau, Power BI, Advanced Dashboard Development
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> **Data Management**: Data Automation, ETL Processes, Database Optimization
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> **Business Intelligence**: Campaign Analytics, Performance Metrics, KPI Tracking
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## PROFESSIONAL EXPERIENCE
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">**Data Analyst**</span> | RetailCo | 2019 - 2024
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Designed and implemented 50+ SQL queries and Python automation scripts, reducing manual
+</span></span><span style="display:flex;"><span>  data processing time by 60%
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Conducted rigorous A/B testing and statistical analysis for marketing campaigns,
+</span></span><span style="display:flex;"><span>  improving campaign ROI by 35%
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Built interactive Tableau and Power BI dashboards for executive team, enabling
+</span></span><span style="display:flex;"><span>  data-driven decision making
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Presented analytical findings to cross-functional stakeholders including marketing,
+</span></span><span style="display:flex;"><span>  operations, and executive leadership
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Collaborated with marketing team to analyze customer behavior patterns and optimize
+</span></span><span style="display:flex;"><span>  targeting strategies
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">**Data Analysis Intern**</span> | HealthPlus Clinic | 2018 - 2019
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Supported healthcare analytics initiatives by analyzing patient data and operational metrics
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Gained exposure to healthcare industry data management and HIPAA compliance requirements
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Assisted in creating reports for clinical staff to improve patient care workflows
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## EDUCATION
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">**Bachelor of Science in Business Analytics**</span>
+</span></span><span style="display:flex;"><span>State University | Graduated 2018
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## KEY ACHIEVEMENTS
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Reduced data processing time by 60% through Python automation
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Improved marketing campaign ROI by 35% through A/B testing and optimization
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Created data visualization system now used across entire organization
+</span></span></code></pre><p><strong>Additional Recommendations:</strong></p>
+<ul>
+<li>Consider adding any specific healthcare projects or certifications</li>
+<li>Quantify more achievements with metrics when possible</li>
+<li>If you have experience with R or advanced statistical methods, add them</li>
+<li>Consider mentioning any familiarity with healthcare regulations (HIPAA, etc.)</li>
+</ul>
+<hr/>
+<h2 id="instructions">Instructions</h2>
+<p>When a user requests resume tailoring:</p>
+<h3 id="1-gather-information">1. Gather Information</h3>
+<p><strong>Job Description Analysis</strong>:</p>
+<ul>
+<li>Request the full job description if not provided</li>
+<li>Ask for the company name and job title</li>
+</ul>
+<p><strong>Candidate Background</strong>:</p>
+<ul>
+<li>If user provides existing resume, use it as the foundation</li>
+<li>If not, request:
+<ul>
+<li>Work history (job titles, companies, dates, responsibilities)</li>
+<li>Education background</li>
+<li>Key skills and technical proficiencies</li>
+<li>Notable achievements and metrics</li>
+<li>Certifications or awards</li>
+<li>Any other relevant information</li>
+</ul>
+</li>
+</ul>
+<h3 id="2-analyze-job-requirements">2. Analyze Job Requirements</h3>
+<p>Extract and prioritize:</p>
+<ul>
+<li><strong>Must-have qualifications</strong>: Years of experience, required skills, education</li>
+<li><strong>Key skills</strong>: Technical tools, methodologies, competencies</li>
+<li><strong>Soft skills</strong>: Communication, leadership, teamwork</li>
+<li><strong>Industry knowledge</strong>: Domain-specific experience</li>
+<li><strong>Keywords</strong>: Repeated terms, phrases, and buzzwords for ATS optimization</li>
+<li><strong>Company values</strong>: Cultural fit indicators from job description</li>
+</ul>
+<p>Create a mental map of:</p>
+<ul>
+<li>Priority 1: Critical requirements (deal-breakers)</li>
+<li>Priority 2: Important qualifications (strongly desired)</li>
+<li>Priority 3: Nice-to-have skills (bonus points)</li>
+</ul>
+<h3 id="3-map-candidate-experience-to-requirements">3. Map Candidate Experience to Requirements</h3>
+<p>For each job requirement:</p>
+<ul>
+<li>Identify matching experience from candidate’s background</li>
+<li>Find transferable skills if no direct match</li>
+<li>Note gaps that need to be addressed or de-emphasized</li>
+<li>Identify unique strengths to highlight</li>
+</ul>
+<h3 id="4-structure-the-tailored-resume">4. Structure the Tailored Resume</h3>
+<p><strong>Professional Summary</strong> (3-4 lines):</p>
+<ul>
+<li>Lead with years of experience in the target role/field</li>
+<li>Include top 3-4 required skills from job description</li>
+<li>Mention industry experience if relevant</li>
+<li>Highlight unique value proposition</li>
+</ul>
+<p><strong>Technical/Core Skills Section</strong>:</p>
+<ul>
+<li>Group skills by category matching job requirements</li>
+<li>List required tools and technologies first</li>
+<li>Use exact terminology from job description</li>
+<li>Only include skills you can substantiate with experience</li>
+</ul>
+<p><strong>Professional Experience</strong>:</p>
+<ul>
+<li>For each role, emphasize responsibilities and achievements aligned with job requirements</li>
+<li>Use action verbs: Led, Developed, Implemented, Optimized, Managed, Created, Analyzed</li>
+<li><strong>Quantify achievements</strong>: Include numbers, percentages, timeframes, scale</li>
+<li>Reorder bullet points to prioritize most relevant experience</li>
+<li>Use keywords naturally from job description</li>
+<li>Format: <strong>[Action Verb] + [What] + [How/Why] + [Result/Impact]</strong></li>
+</ul>
+<p><strong>Education</strong>:</p>
+<ul>
+<li>List degrees, certifications relevant to position</li>
+<li>Include relevant coursework if early career</li>
+<li>Add certifications that match job requirements</li>
+</ul>
+<p><strong>Optional Sections</strong> (if applicable):</p>
+<ul>
+<li>Certifications &amp; Licenses</li>
+<li>Publications or Speaking Engagements</li>
+<li>Awards &amp; Recognition</li>
+<li>Volunteer Work (if relevant to role)</li>
+<li>Projects (especially for technical roles)</li>
+</ul>
+<h3 id="5-optimize-for-ats-applicant-tracking-systems">5. Optimize for ATS (Applicant Tracking Systems)</h3>
+<ul>
+<li>Use standard section headings (Professional Experience, Education, Skills)</li>
+<li>Incorporate exact keywords from job description naturally</li>
+<li>Avoid tables, graphics, headers/footers, or complex formatting</li>
+<li>Use standard fonts and bullet points</li>
+<li>Include both acronyms and full terms (e.g., “SQL (Structured Query Language)”)</li>
+<li>Match job title terminology where truthful</li>
+</ul>
+<h3 id="6-format-and-present">6. Format and Present</h3>
+<p><strong>Format Options</strong>:</p>
+<ul>
+<li><strong>Markdown</strong>: Clean, readable, easy to copy</li>
+<li><strong>Plain Text</strong>: ATS-optimized, safe for all systems</li>
+<li><strong>Tips for Word/PDF</strong>: Provide formatting guidance</li>
+</ul>
+<p><strong>Resume Structure Guidelines</strong>:</p>
+<ul>
+<li>Keep to 1 page for &lt;10 years experience, 2 pages for 10+ years</li>
+<li>Use consistent formatting and spacing</li>
+<li>Ensure contact information is prominent</li>
+<li>Use reverse chronological order (most recent first)</li>
+<li>Maintain clean, scannable layout with white space</li>
+</ul>
+<h3 id="7-provide-strategic-recommendations">7. Provide Strategic Recommendations</h3>
+<p>After presenting the tailored resume, offer:</p>
+<p><strong>Strengths Analysis</strong>:</p>
+<ul>
+<li>What makes this candidate competitive</li>
+<li>Unique qualifications to emphasize in cover letter or interview</li>
+</ul>
+<p><strong>Gap Analysis</strong>:</p>
+<ul>
+<li>Requirements not fully met</li>
+<li>Suggestions for addressing gaps (courses, projects, reframing experience)</li>
+</ul>
+<p><strong>Interview Preparation Tips</strong>:</p>
+<ul>
+<li>Key talking points aligned with resume</li>
+<li>Stories to prepare based on job requirements</li>
+<li>Questions to ask that demonstrate fit</li>
+</ul>
+<p><strong>Cover Letter Hooks</strong>:</p>
+<ul>
+<li>Suggest 2-3 opening lines for cover letter</li>
+<li>Key achievements to expand upon</li>
+</ul>
+<h3 id="8-iterate-and-refine">8. Iterate and Refine</h3>
+<p>Ask if user wants to:</p>
+<ul>
+<li>Adjust emphasis or tone</li>
+<li>Add or remove sections</li>
+<li>Generate alternative versions for different roles</li>
+<li>Create format variations (traditional vs. modern)</li>
+<li>Develop role-specific versions (if applying to multiple similar positions)</li>
+</ul>
+<h3 id="9-best-practices-to-follow">9. Best Practices to Follow</h3>
+<p><strong>Do</strong>:</p>
+<ul>
+<li>Be truthful and accurate - never fabricate experience</li>
+<li>Use industry-standard terminology</li>
+<li>Quantify achievements with specific metrics</li>
+<li>Tailor each resume to specific job</li>
+<li>Proofread for grammar and consistency</li>
+<li>Keep language concise and impactful</li>
+</ul>
+<p><strong>Don’t</strong>:</p>
+<ul>
+<li>Include personal information (age, marital status, photo unless requested)</li>
+<li>Use first-person pronouns (I, me, my)</li>
+<li>Include references (“available upon request” is outdated)</li>
+<li>List every job if career is 20+ years (focus on relevant, recent experience)</li>
+<li>Use generic templates without customization</li>
+<li>Exceed 2 pages unless very senior role</li>
+</ul>
+<h3 id="10-special-considerations">10. Special Considerations</h3>
+<p><strong>Career Changers</strong>:</p>
+<ul>
+<li>Use functional or hybrid resume format</li>
+<li>Emphasize transferable skills</li>
+<li>Create compelling narrative in summary</li>
+<li>Focus on relevant projects and coursework</li>
+</ul>
+<p><strong>Recent Graduates</strong>:</p>
+<ul>
+<li>Lead with education</li>
+<li>Include relevant coursework, projects, internships</li>
+<li>Emphasize leadership in student organizations</li>
+<li>Include GPA if 3.5+</li>
+</ul>
+<p><strong>Senior Executives</strong>:</p>
+<ul>
+<li>Lead with executive summary</li>
+<li>Focus on leadership and strategic impact</li>
+<li>Include board memberships, speaking engagements</li>
+<li>Emphasize revenue growth, team building, vision</li>
+</ul>
+<p><strong>Technical Roles</strong>:</p>
+<ul>
+<li>Include technical skills section prominently</li>
+<li>List programming languages, frameworks, tools</li>
+<li>Include GitHub, portfolio, or project links</li>
+<li>Mention methodologies (Agile, Scrum, etc.)</li>
+</ul>
+<p><strong>Creative Roles</strong>:</p>
+<ul>
+<li>Include link to portfolio</li>
+<li>Highlight creative achievements and campaigns</li>
+<li>Mention tools and software proficiencies</li>
+<li>Consider more creative formatting (while maintaining ATS compatibility)</li>
+</ul>
+<hr/>
+<h2 id="tips-for-best-results">Tips for Best Results</h2>
+<ul>
+<li><strong>Be specific</strong>: Provide complete job descriptions and detailed background information</li>
+<li><strong>Share metrics</strong>: Include numbers, percentages, and quantifiable achievements when describing your experience</li>
+<li><strong>Indicate format preference</strong>: Let the skill know if you need ATS-optimized, creative, or traditional format</li>
+<li><strong>Mention constraints</strong>: Share any specific requirements (page limits, sections to include/exclude)</li>
+<li><strong>Iterate</strong>: Don’t hesitate to ask for revisions or alternative approaches</li>
+<li><strong>Multiple applications</strong>: Generate separate tailored versions for different roles</li>
+</ul>
+<h2 id="privacy-note">Privacy Note</h2>
+<p>This skill processes your personal and professional information to generate tailored resumes. Always review the output before submitting to ensure accuracy and appropriateness. Remove or modify any information you prefer not to share with potential employers.</p>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

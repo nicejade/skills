@@ -1,0 +1,2074 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/mcp-builder/reference/evaluation.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./../index.html">mcp-builder</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">reference</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>evaluation.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><h1 id="mcp-server-evaluation-guide">MCP Server Evaluation Guide</h1>
+<h2 id="overview">Overview</h2>
+<p>This document provides guidance on creating comprehensive evaluations for MCP servers. Evaluations test whether LLMs can effectively use your MCP server to answer realistic, complex questions using only the tools provided.</p>
+<hr/>
+<h2 id="quick-reference">Quick Reference</h2>
+<h3 id="evaluation-requirements">Evaluation Requirements</h3>
+<ul>
+<li>Create 10 human-readable questions</li>
+<li>Questions must be READ-ONLY, INDEPENDENT, NON-DESTRUCTIVE</li>
+<li>Each question requires multiple tool calls (potentially dozens)</li>
+<li>Answers must be single, verifiable values</li>
+<li>Answers must be STABLE (won’t change over time)</li>
+</ul>
+<h3 id="output-format">Output Format</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;evaluation&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Your question here<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>Single verifiable answer<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/evaluation&gt;</span>
+</span></span></code></pre><hr/>
+<h2 id="purpose-of-evaluations">Purpose of Evaluations</h2>
+<p>The measure of quality of an MCP server is NOT how well or comprehensively the server implements tools, but how well these implementations (input/output schemas, docstrings/descriptions, functionality) enable LLMs with no other context and access ONLY to the MCP servers to answer realistic and difficult questions.</p>
+<h2 id="evaluation-overview">Evaluation Overview</h2>
+<p>Create 10 human-readable questions requiring ONLY READ-ONLY, INDEPENDENT, NON-DESTRUCTIVE, and IDEMPOTENT operations to answer. Each question should be:</p>
+<ul>
+<li>Realistic</li>
+<li>Clear and concise</li>
+<li>Unambiguous</li>
+<li>Complex, requiring potentially dozens of tool calls or steps</li>
+<li>Answerable with a single, verifiable value that you identify in advance</li>
+</ul>
+<h2 id="question-guidelines">Question Guidelines</h2>
+<h3 id="core-requirements">Core Requirements</h3>
+<ol>
+<li>
+<p><strong>Questions MUST be independent</strong></p>
+<ul>
+<li>Each question should NOT depend on the answer to any other question</li>
+<li>Should not assume prior write operations from processing another question</li>
+</ul>
+</li>
+<li>
+<p><strong>Questions MUST require ONLY NON-DESTRUCTIVE AND IDEMPOTENT tool use</strong></p>
+<ul>
+<li>Should not instruct or require modifying state to arrive at the correct answer</li>
+</ul>
+</li>
+<li>
+<p><strong>Questions must be REALISTIC, CLEAR, CONCISE, and COMPLEX</strong></p>
+<ul>
+<li>Must require another LLM to use multiple (potentially dozens of) tools or steps to answer</li>
+</ul>
+</li>
+</ol>
+<h3 id="complexity-and-depth">Complexity and Depth</h3>
+<ol start="4">
+<li>
+<p><strong>Questions must require deep exploration</strong></p>
+<ul>
+<li>Consider multi-hop questions requiring multiple sub-questions and sequential tool calls</li>
+<li>Each step should benefit from information found in previous questions</li>
+</ul>
+</li>
+<li>
+<p><strong>Questions may require extensive paging</strong></p>
+<ul>
+<li>May need paging through multiple pages of results</li>
+<li>May require querying old data (1-2 years out-of-date) to find niche information</li>
+<li>The questions must be DIFFICULT</li>
+</ul>
+</li>
+<li>
+<p><strong>Questions must require deep understanding</strong></p>
+<ul>
+<li>Rather than surface-level knowledge</li>
+<li>May pose complex ideas as True/False questions requiring evidence</li>
+<li>May use multiple-choice format where LLM must search different hypotheses</li>
+</ul>
+</li>
+<li>
+<p><strong>Questions must not be solvable with straightforward keyword search</strong></p>
+<ul>
+<li>Do not include specific keywords from the target content</li>
+<li>Use synonyms, related concepts, or paraphrases</li>
+<li>Require multiple searches, analyzing multiple related items, extracting context, then deriving the answer</li>
+</ul>
+</li>
+</ol>
+<h3 id="tool-testing">Tool Testing</h3>
+<ol start="8">
+<li>
+<p><strong>Questions should stress-test tool return values</strong></p>
+<ul>
+<li>May elicit tools returning large JSON objects or lists, overwhelming the LLM</li>
+<li>Should require understanding multiple modalities of data:
+<ul>
+<li>IDs and names</li>
+<li>Timestamps and datetimes (months, days, years, seconds)</li>
+<li>File IDs, names, extensions, and mimetypes</li>
+<li>URLs, GIDs, etc.</li>
+</ul>
+</li>
+<li>Should probe the tool’s ability to return all useful forms of data</li>
+</ul>
+</li>
+<li>
+<p><strong>Questions should MOSTLY reflect real human use cases</strong></p>
+<ul>
+<li>The kinds of information retrieval tasks that HUMANS assisted by an LLM would care about</li>
+</ul>
+</li>
+<li>
+<p><strong>Questions may require dozens of tool calls</strong></p>
+<ul>
+<li>This challenges LLMs with limited context</li>
+<li>Encourages MCP server tools to reduce information returned</li>
+</ul>
+</li>
+<li>
+<p><strong>Include ambiguous questions</strong></p>
+<ul>
+<li>May be ambiguous OR require difficult decisions on which tools to call</li>
+<li>Force the LLM to potentially make mistakes or misinterpret</li>
+<li>Ensure that despite AMBIGUITY, there is STILL A SINGLE VERIFIABLE ANSWER</li>
+</ul>
+</li>
+</ol>
+<h3 id="stability">Stability</h3>
+<ol start="12">
+<li>
+<p><strong>Questions must be designed so the answer DOES NOT CHANGE</strong></p>
+<ul>
+<li>Do not ask questions that rely on “current state” which is dynamic</li>
+<li>For example, do not count:
+<ul>
+<li>Number of reactions to a post</li>
+<li>Number of replies to a thread</li>
+<li>Number of members in a channel</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>DO NOT let the MCP server RESTRICT the kinds of questions you create</strong></p>
+<ul>
+<li>Create challenging and complex questions</li>
+<li>Some may not be solvable with the available MCP server tools</li>
+<li>Questions may require specific output formats (datetime vs. epoch time, JSON vs. MARKDOWN)</li>
+<li>Questions may require dozens of tool calls to complete</li>
+</ul>
+</li>
+</ol>
+<h2 id="answer-guidelines">Answer Guidelines</h2>
+<h3 id="verification">Verification</h3>
+<ol>
+<li><strong>Answers must be VERIFIABLE via direct string comparison</strong>
+<ul>
+<li>If the answer can be re-written in many formats, clearly specify the output format in the QUESTION</li>
+<li>Examples: “Use YYYY/MM/DD.”, “Respond True or False.”, “Answer A, B, C, or D and nothing else.”</li>
+<li>Answer should be a single VERIFIABLE value such as:
+<ul>
+<li>User ID, user name, display name, first name, last name</li>
+<li>Channel ID, channel name</li>
+<li>Message ID, string</li>
+<li>URL, title</li>
+<li>Numerical quantity</li>
+<li>Timestamp, datetime</li>
+<li>Boolean (for True/False questions)</li>
+<li>Email address, phone number</li>
+<li>File ID, file name, file extension</li>
+<li>Multiple choice answer</li>
+</ul>
+</li>
+<li>Answers must not require special formatting or complex, structured output</li>
+<li>Answer will be verified using DIRECT STRING COMPARISON</li>
+</ul>
+</li>
+</ol>
+<h3 id="readability">Readability</h3>
+<ol start="2">
+<li><strong>Answers should generally prefer HUMAN-READABLE formats</strong>
+<ul>
+<li>Examples: names, first name, last name, datetime, file name, message string, URL, yes/no, true/false, a/b/c/d</li>
+<li>Rather than opaque IDs (though IDs are acceptable)</li>
+<li>The VAST MAJORITY of answers should be human-readable</li>
+</ul>
+</li>
+</ol>
+<h3 id="stability-1">Stability</h3>
+<ol start="3">
+<li>
+<p><strong>Answers must be STABLE/STATIONARY</strong></p>
+<ul>
+<li>Look at old content (e.g., conversations that have ended, projects that have launched, questions answered)</li>
+<li>Create QUESTIONS based on “closed” concepts that will always return the same answer</li>
+<li>Questions may ask to consider a fixed time window to insulate from non-stationary answers</li>
+<li>Rely on context UNLIKELY to change</li>
+<li>Example: if finding a paper name, be SPECIFIC enough so answer is not confused with papers published later</li>
+</ul>
+</li>
+<li>
+<p><strong>Answers must be CLEAR and UNAMBIGUOUS</strong></p>
+<ul>
+<li>Questions must be designed so there is a single, clear answer</li>
+<li>Answer can be derived from using the MCP server tools</li>
+</ul>
+</li>
+</ol>
+<h3 id="diversity">Diversity</h3>
+<ol start="5">
+<li>
+<p><strong>Answers must be DIVERSE</strong></p>
+<ul>
+<li>Answer should be a single VERIFIABLE value in diverse modalities and formats</li>
+<li>User concept: user ID, user name, display name, first name, last name, email address, phone number</li>
+<li>Channel concept: channel ID, channel name, channel topic</li>
+<li>Message concept: message ID, message string, timestamp, month, day, year</li>
+</ul>
+</li>
+<li>
+<p><strong>Answers must NOT be complex structures</strong></p>
+<ul>
+<li>Not a list of values</li>
+<li>Not a complex object</li>
+<li>Not a list of IDs or strings</li>
+<li>Not natural language text</li>
+<li>UNLESS the answer can be straightforwardly verified using DIRECT STRING COMPARISON</li>
+<li>And can be realistically reproduced</li>
+<li>It should be unlikely that an LLM would return the same list in any other order or format</li>
+</ul>
+</li>
+</ol>
+<h2 id="evaluation-process">Evaluation Process</h2>
+<h3 id="step-1-documentation-inspection">Step 1: Documentation Inspection</h3>
+<p>Read the documentation of the target API to understand:</p>
+<ul>
+<li>Available endpoints and functionality</li>
+<li>If ambiguity exists, fetch additional information from the web</li>
+<li>Parallelize this step AS MUCH AS POSSIBLE</li>
+<li>Ensure each subagent is ONLY examining documentation from the file system or on the web</li>
+</ul>
+<h3 id="step-2-tool-inspection">Step 2: Tool Inspection</h3>
+<p>List the tools available in the MCP server:</p>
+<ul>
+<li>Inspect the MCP server directly</li>
+<li>Understand input/output schemas, docstrings, and descriptions</li>
+<li>WITHOUT calling the tools themselves at this stage</li>
+</ul>
+<h3 id="step-3-developing-understanding">Step 3: Developing Understanding</h3>
+<p>Repeat steps 1 &amp; 2 until you have a good understanding:</p>
+<ul>
+<li>Iterate multiple times</li>
+<li>Think about the kinds of tasks you want to create</li>
+<li>Refine your understanding</li>
+<li>At NO stage should you READ the code of the MCP server implementation itself</li>
+<li>Use your intuition and understanding to create reasonable, realistic, but VERY challenging tasks</li>
+</ul>
+<h3 id="step-4-read-only-content-inspection">Step 4: Read-Only Content Inspection</h3>
+<p>After understanding the API and tools, USE the MCP server tools:</p>
+<ul>
+<li>Inspect content using READ-ONLY and NON-DESTRUCTIVE operations ONLY</li>
+<li>Goal: identify specific content (e.g., users, channels, messages, projects, tasks) for creating realistic questions</li>
+<li>Should NOT call any tools that modify state</li>
+<li>Will NOT read the code of the MCP server implementation itself</li>
+<li>Parallelize this step with individual sub-agents pursuing independent explorations</li>
+<li>Ensure each subagent is only performing READ-ONLY, NON-DESTRUCTIVE, and IDEMPOTENT operations</li>
+<li>BE CAREFUL: SOME TOOLS may return LOTS OF DATA which would cause you to run out of CONTEXT</li>
+<li>Make INCREMENTAL, SMALL, AND TARGETED tool calls for exploration</li>
+<li>In all tool call requests, use the <code>limit</code> parameter to limit results (&lt;10)</li>
+<li>Use pagination</li>
+</ul>
+<h3 id="step-5-task-generation">Step 5: Task Generation</h3>
+<p>After inspecting the content, create 10 human-readable questions:</p>
+<ul>
+<li>An LLM should be able to answer these with the MCP server</li>
+<li>Follow all question and answer guidelines above</li>
+</ul>
+<h2 id="output-format-1">Output Format</h2>
+<p>Each QA pair consists of a question and an answer. The output should be an XML file with this structure:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;evaluation&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Find the project created in Q2 2024 with the highest number of completed tasks. What is the project name?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>Website Redesign<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Search for issues labeled as &#34;bug&#34; that were closed in March 2024. Which user closed the most issues? Provide their username.<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>sarah_dev<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Look for pull requests that modified files in the /api directory and were merged between January 1 and January 31, 2024. How many different contributors worked on these PRs?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>7<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Find the repository with the most stars that was created before 2023. What is the repository name?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>data-pipeline<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/evaluation&gt;</span>
+</span></span></code></pre><h2 id="evaluation-examples">Evaluation Examples</h2>
+<h3 id="good-questions">Good Questions</h3>
+<p><strong>Example 1: Multi-hop question requiring deep exploration (GitHub MCP)</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;question&gt;</span>Find the repository that was archived in Q3 2023 and had previously been the most forked project in the organization. What was the primary programming language used in that repository?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;answer&gt;</span>Python<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span></code></pre><p>This question is good because:</p>
+<ul>
+<li>Requires multiple searches to find archived repositories</li>
+<li>Needs to identify which had the most forks before archival</li>
+<li>Requires examining repository details for the language</li>
+<li>Answer is a simple, verifiable value</li>
+<li>Based on historical (closed) data that won’t change</li>
+</ul>
+<p><strong>Example 2: Requires understanding context without keyword matching (Project Management MCP)</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;question&gt;</span>Locate the initiative focused on improving customer onboarding that was completed in late 2023. The project lead created a retrospective document after completion. What was the lead&#39;s role title at that time?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;answer&gt;</span>Product Manager<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span></code></pre><p>This question is good because:</p>
+<ul>
+<li>Doesn’t use specific project name (“initiative focused on improving customer onboarding”)</li>
+<li>Requires finding completed projects from specific timeframe</li>
+<li>Needs to identify the project lead and their role</li>
+<li>Requires understanding context from retrospective documents</li>
+<li>Answer is human-readable and stable</li>
+<li>Based on completed work (won’t change)</li>
+</ul>
+<p><strong>Example 3: Complex aggregation requiring multiple steps (Issue Tracker MCP)</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;question&gt;</span>Among all bugs reported in January 2024 that were marked as critical priority, which assignee resolved the highest percentage of their assigned bugs within 48 hours? Provide the assignee&#39;s username.<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;answer&gt;</span>alex_eng<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span></code></pre><p>This question is good because:</p>
+<ul>
+<li>Requires filtering bugs by date, priority, and status</li>
+<li>Needs to group by assignee and calculate resolution rates</li>
+<li>Requires understanding timestamps to determine 48-hour windows</li>
+<li>Tests pagination (potentially many bugs to process)</li>
+<li>Answer is a single username</li>
+<li>Based on historical data from specific time period</li>
+</ul>
+<p><strong>Example 4: Requires synthesis across multiple data types (CRM MCP)</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;question&gt;</span>Find the account that upgraded from the Starter to Enterprise plan in Q4 2023 and had the highest annual contract value. What industry does this account operate in?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;answer&gt;</span>Healthcare<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span></code></pre><p>This question is good because:</p>
+<ul>
+<li>Requires understanding subscription tier changes</li>
+<li>Needs to identify upgrade events in specific timeframe</li>
+<li>Requires comparing contract values</li>
+<li>Must access account industry information</li>
+<li>Answer is simple and verifiable</li>
+<li>Based on completed historical transactions</li>
+</ul>
+<h3 id="poor-questions">Poor Questions</h3>
+<p><strong>Example 1: Answer changes over time</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;question&gt;</span>How many open issues are currently assigned to the engineering team?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;answer&gt;</span>47<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span></code></pre><p>This question is poor because:</p>
+<ul>
+<li>The answer will change as issues are created, closed, or reassigned</li>
+<li>Not based on stable/stationary data</li>
+<li>Relies on “current state” which is dynamic</li>
+</ul>
+<p><strong>Example 2: Too easy with keyword search</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;question&gt;</span>Find the pull request with title &#34;Add authentication feature&#34; and tell me who created it.<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;answer&gt;</span>developer123<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span></code></pre><p>This question is poor because:</p>
+<ul>
+<li>Can be solved with a straightforward keyword search for exact title</li>
+<li>Doesn’t require deep exploration or understanding</li>
+<li>No synthesis or analysis needed</li>
+</ul>
+<p><strong>Example 3: Ambiguous answer format</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;question&gt;</span>List all the repositories that have Python as their primary language.<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;answer&gt;</span>repo1, repo2, repo3, data-pipeline, ml-tools<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span></code></pre><p>This question is poor because:</p>
+<ul>
+<li>Answer is a list that could be returned in any order</li>
+<li>Difficult to verify with direct string comparison</li>
+<li>LLM might format differently (JSON array, comma-separated, newline-separated)</li>
+<li>Better to ask for a specific aggregate (count) or superlative (most stars)</li>
+</ul>
+<h2 id="verification-process">Verification Process</h2>
+<p>After creating evaluations:</p>
+<ol>
+<li><strong>Examine the XML file</strong> to understand the schema</li>
+<li><strong>Load each task instruction</strong> and in parallel using the MCP server and tools, identify the correct answer by attempting to solve the task YOURSELF</li>
+<li><strong>Flag any operations</strong> that require WRITE or DESTRUCTIVE operations</li>
+<li><strong>Accumulate all CORRECT answers</strong> and replace any incorrect answers in the document</li>
+<li><strong>Remove any <code>&lt;qa_pair&gt;</code></strong> that require WRITE or DESTRUCTIVE operations</li>
+</ol>
+<p>Remember to parallelize solving tasks to avoid running out of context, then accumulate all answers and make changes to the file at the end.</p>
+<h2 id="tips-for-creating-quality-evaluations">Tips for Creating Quality Evaluations</h2>
+<ol>
+<li><strong>Think Hard and Plan Ahead</strong> before generating tasks</li>
+<li><strong>Parallelize Where Opportunity Arises</strong> to speed up the process and manage context</li>
+<li><strong>Focus on Realistic Use Cases</strong> that humans would actually want to accomplish</li>
+<li><strong>Create Challenging Questions</strong> that test the limits of the MCP server’s capabilities</li>
+<li><strong>Ensure Stability</strong> by using historical data and closed concepts</li>
+<li><strong>Verify Answers</strong> by solving the questions yourself using the MCP server tools</li>
+<li><strong>Iterate and Refine</strong> based on what you learn during the process</li>
+</ol>
+<hr/>
+<h1 id="running-evaluations">Running Evaluations</h1>
+<p>After creating your evaluation file, you can use the provided evaluation harness to test your MCP server.</p>
+<h2 id="setup">Setup</h2>
+<ol>
+<li>
+<p><strong>Install Dependencies</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>pip install -r scripts/requirements.txt
+</span></span></code></pre><p>Or install manually:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>pip install anthropic mcp
+</span></span></code></pre></li>
+<li>
+<p><strong>Set API Key</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>export <span style="color:#79c0ff">ANTHROPIC_API_KEY</span><span style="color:#ff7b72;font-weight:bold">=</span>your_api_key_here
+</span></span></code></pre></li>
+</ol>
+<h2 id="evaluation-file-format">Evaluation File Format</h2>
+<p>Evaluation files use XML format with <code>&lt;qa_pair&gt;</code> elements:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;evaluation&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Find the project created in Q2 2024 with the highest number of completed tasks. What is the project name?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>Website Redesign<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Search for issues labeled as &#34;bug&#34; that were closed in March 2024. Which user closed the most issues? Provide their username.<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>sarah_dev<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/evaluation&gt;</span>
+</span></span></code></pre><h2 id="running-evaluations-1">Running Evaluations</h2>
+<p>The evaluation script (<code>scripts/evaluation.py</code>) supports three transport types:</p>
+<p><strong>Important:</strong></p>
+<ul>
+<li><strong>stdio transport</strong>: The evaluation script automatically launches and manages the MCP server process for you. Do not run the server manually.</li>
+<li><strong>sse/http transports</strong>: You must start the MCP server separately before running the evaluation. The script connects to the already-running server at the specified URL.</li>
+</ul>
+<h3 id="1-local-stdio-server">1. Local STDIO Server</h3>
+<p>For locally-run MCP servers (script launches the server automatically):</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>python scripts/evaluation.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -t stdio <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -c python <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -a my_mcp_server.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  evaluation.xml
+</span></span></code></pre><p>With environment variables:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>python scripts/evaluation.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -t stdio <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -c python <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -a my_mcp_server.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -e <span style="color:#79c0ff">API_KEY</span><span style="color:#ff7b72;font-weight:bold">=</span>abc123 <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -e <span style="color:#79c0ff">DEBUG</span><span style="color:#ff7b72;font-weight:bold">=</span>true <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  evaluation.xml
+</span></span></code></pre><h3 id="2-server-sent-events-sse">2. Server-Sent Events (SSE)</h3>
+<p>For SSE-based MCP servers (you must start the server first):</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>python scripts/evaluation.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -t sse <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -u https://example.com/mcp <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -H <span style="color:#a5d6ff">&#34;Authorization: Bearer token123&#34;</span> <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -H <span style="color:#a5d6ff">&#34;X-Custom-Header: value&#34;</span> <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  evaluation.xml
+</span></span></code></pre><h3 id="3-http-streamable-http">3. HTTP (Streamable HTTP)</h3>
+<p>For HTTP-based MCP servers (you must start the server first):</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>python scripts/evaluation.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -t http <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -u https://example.com/mcp <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -H <span style="color:#a5d6ff">&#34;Authorization: Bearer token123&#34;</span> <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  evaluation.xml
+</span></span></code></pre><h2 id="command-line-options">Command-Line Options</h2>
+<pre><code>usage: evaluation.py [-h] [-t {stdio,sse,http}] [-m MODEL] [-c COMMAND]
+                     [-a ARGS [ARGS ...]] [-e ENV [ENV ...]] [-u URL]
+                     [-H HEADERS [HEADERS ...]] [-o OUTPUT]
+                     eval_file
+
+positional arguments:
+  eval_file             Path to evaluation XML file
+
+optional arguments:
+  -h, --help            Show help message
+  -t, --transport       Transport type: stdio, sse, or http (default: stdio)
+  -m, --model           Claude model to use (default: claude-3-7-sonnet-20250219)
+  -o, --output          Output file for report (default: print to stdout)
+
+stdio options:
+  -c, --command         Command to run MCP server (e.g., python, node)
+  -a, --args            Arguments for the command (e.g., server.py)
+  -e, --env             Environment variables in KEY=VALUE format
+
+sse/http options:
+  -u, --url             MCP server URL
+  -H, --header          HTTP headers in &#39;Key: Value&#39; format
+</code></pre>
+<h2 id="output">Output</h2>
+<p>The evaluation script generates a detailed report including:</p>
+<ul>
+<li>
+<p><strong>Summary Statistics</strong>:</p>
+<ul>
+<li>Accuracy (correct/total)</li>
+<li>Average task duration</li>
+<li>Average tool calls per task</li>
+<li>Total tool calls</li>
+</ul>
+</li>
+<li>
+<p><strong>Per-Task Results</strong>:</p>
+<ul>
+<li>Prompt and expected response</li>
+<li>Actual response from the agent</li>
+<li>Whether the answer was correct (✅/❌)</li>
+<li>Duration and tool call details</li>
+<li>Agent’s summary of its approach</li>
+<li>Agent’s feedback on the tools</li>
+</ul>
+</li>
+</ul>
+<h3 id="save-report-to-file">Save Report to File</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>python scripts/evaluation.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -t stdio <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -c python <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -a my_server.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -o evaluation_report.md <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  evaluation.xml
+</span></span></code></pre><h2 id="complete-example-workflow">Complete Example Workflow</h2>
+<p>Here’s a complete example of creating and running an evaluation:</p>
+<ol>
+<li><strong>Create your evaluation file</strong> (<code>my_evaluation.xml</code>):</li>
+</ol>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;evaluation&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Find the user who created the most issues in January 2024. What is their username?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>alice_developer<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Among all pull requests merged in Q1 2024, which repository had the highest number? Provide the repository name.<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>backend-api<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;question&gt;</span>Find the project that was completed in December 2023 and had the longest duration from start to finish. How many days did it take?<span style="color:#7ee787">&lt;/question&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;answer&gt;</span>127<span style="color:#7ee787">&lt;/answer&gt;</span>
+</span></span><span style="display:flex;"><span>   <span style="color:#7ee787">&lt;/qa_pair&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/evaluation&gt;</span>
+</span></span></code></pre><ol start="2">
+<li><strong>Install dependencies</strong>:</li>
+</ol>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>pip install -r scripts/requirements.txt
+</span></span><span style="display:flex;"><span>export <span style="color:#79c0ff">ANTHROPIC_API_KEY</span><span style="color:#ff7b72;font-weight:bold">=</span>your_api_key
+</span></span></code></pre><ol start="3">
+<li><strong>Run evaluation</strong>:</li>
+</ol>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>python scripts/evaluation.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -t stdio <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -c python <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -a github_mcp_server.py <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -e <span style="color:#79c0ff">GITHUB_TOKEN</span><span style="color:#ff7b72;font-weight:bold">=</span>ghp_xxx <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  -o github_eval_report.md <span style="color:#79c0ff">\
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>  my_evaluation.xml
+</span></span></code></pre><ol start="4">
+<li><strong>Review the report</strong> in <code>github_eval_report.md</code> to:
+<ul>
+<li>See which questions passed/failed</li>
+<li>Read the agent’s feedback on your tools</li>
+<li>Identify areas for improvement</li>
+<li>Iterate on your MCP server design</li>
+</ul>
+</li>
+</ol>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="connection-errors">Connection Errors</h3>
+<p>If you get connection errors:</p>
+<ul>
+<li><strong>STDIO</strong>: Verify the command and arguments are correct</li>
+<li><strong>SSE/HTTP</strong>: Check the URL is accessible and headers are correct</li>
+<li>Ensure any required API keys are set in environment variables or headers</li>
+</ul>
+<h3 id="low-accuracy">Low Accuracy</h3>
+<p>If many evaluations fail:</p>
+<ul>
+<li>Review the agent’s feedback for each task</li>
+<li>Check if tool descriptions are clear and comprehensive</li>
+<li>Verify input parameters are well-documented</li>
+<li>Consider whether tools return too much or too little data</li>
+<li>Ensure error messages are actionable</li>
+</ul>
+<h3 id="timeout-issues">Timeout Issues</h3>
+<p>If tasks are timing out:</p>
+<ul>
+<li>Use a more capable model (e.g., <code>claude-3-7-sonnet-20250219</code>)</li>
+<li>Check if tools are returning too much data</li>
+<li>Verify pagination is working correctly</li>
+<li>Consider simplifying complex questions</li>
+</ul>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

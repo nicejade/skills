@@ -1,0 +1,2389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/mcp-builder/reference/mcp_best_practices.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./../index.html">mcp-builder</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">reference</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>mcp_best_practices.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><h1 id="mcp-server-development-best-practices-and-guidelines">MCP Server Development Best Practices and Guidelines</h1>
+<h2 id="overview">Overview</h2>
+<p>This document compiles essential best practices and guidelines for building Model Context Protocol (MCP) servers. It covers naming conventions, tool design, response formats, pagination, error handling, security, and compliance requirements.</p>
+<hr/>
+<h2 id="quick-reference">Quick Reference</h2>
+<h3 id="server-naming">Server Naming</h3>
+<ul>
+<li><strong>Python</strong>: <code>{service}_mcp</code> (e.g., <code>slack_mcp</code>)</li>
+<li><strong>Node/TypeScript</strong>: <code>{service}-mcp-server</code> (e.g., <code>slack-mcp-server</code>)</li>
+</ul>
+<h3 id="tool-naming">Tool Naming</h3>
+<ul>
+<li>Use snake_case with service prefix</li>
+<li>Format: <code>{service}_{action}_{resource}</code></li>
+<li>Example: <code>slack_send_message</code>, <code>github_create_issue</code></li>
+</ul>
+<h3 id="response-formats">Response Formats</h3>
+<ul>
+<li>Support both JSON and Markdown formats</li>
+<li>JSON for programmatic processing</li>
+<li>Markdown for human readability</li>
+</ul>
+<h3 id="pagination">Pagination</h3>
+<ul>
+<li>Always respect <code>limit</code> parameter</li>
+<li>Return <code>has_more</code>, <code>next_offset</code>, <code>total_count</code></li>
+<li>Default to 20-50 items</li>
+</ul>
+<h3 id="character-limits">Character Limits</h3>
+<ul>
+<li>Set CHARACTER_LIMIT constant (typically 25,000)</li>
+<li>Truncate gracefully with clear messages</li>
+<li>Provide guidance on filtering</li>
+</ul>
+<hr/>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li>Server Naming Conventions</li>
+<li>Tool Naming and Design</li>
+<li>Response Format Guidelines</li>
+<li>Pagination Best Practices</li>
+<li>Character Limits and Truncation</li>
+<li>Tool Development Best Practices</li>
+<li>Transport Best Practices</li>
+<li>Testing Requirements</li>
+<li>OAuth and Security Best Practices</li>
+<li>Resource Management Best Practices</li>
+<li>Prompt Management Best Practices</li>
+<li>Error Handling Standards</li>
+<li>Documentation Requirements</li>
+<li>Compliance and Monitoring</li>
+</ol>
+<hr/>
+<h2 id="1-server-naming-conventions">1. Server Naming Conventions</h2>
+<p>Follow these standardized naming patterns for MCP servers:</p>
+<p><strong>Python</strong>: Use format <code>{service}_mcp</code> (lowercase with underscores)</p>
+<ul>
+<li>Examples: <code>slack_mcp</code>, <code>github_mcp</code>, <code>jira_mcp</code>, <code>stripe_mcp</code></li>
+</ul>
+<p><strong>Node/TypeScript</strong>: Use format <code>{service}-mcp-server</code> (lowercase with hyphens)</p>
+<ul>
+<li>Examples: <code>slack-mcp-server</code>, <code>github-mcp-server</code>, <code>jira-mcp-server</code></li>
+</ul>
+<p>The name should be:</p>
+<ul>
+<li>General (not tied to specific features)</li>
+<li>Descriptive of the service/API being integrated</li>
+<li>Easy to infer from the task description</li>
+<li>Without version numbers or dates</li>
+</ul>
+<hr/>
+<h2 id="2-tool-naming-and-design">2. Tool Naming and Design</h2>
+<h3 id="tool-naming-best-practices">Tool Naming Best Practices</h3>
+<ol>
+<li><strong>Use snake_case</strong>: <code>search_users</code>, <code>create_project</code>, <code>get_channel_info</code></li>
+<li><strong>Include service prefix</strong>: Anticipate that your MCP server may be used alongside other MCP servers
+<ul>
+<li>Use <code>slack_send_message</code> instead of just <code>send_message</code></li>
+<li>Use <code>github_create_issue</code> instead of just <code>create_issue</code></li>
+<li>Use <code>asana_list_tasks</code> instead of just <code>list_tasks</code></li>
+</ul>
+</li>
+<li><strong>Be action-oriented</strong>: Start with verbs (get, list, search, create, etc.)</li>
+<li><strong>Be specific</strong>: Avoid generic names that could conflict with other servers</li>
+<li><strong>Maintain consistency</strong>: Use consistent naming patterns within your server</li>
+</ol>
+<h3 id="tool-design-guidelines">Tool Design Guidelines</h3>
+<ul>
+<li>Tool descriptions must narrowly and unambiguously describe functionality</li>
+<li>Descriptions must precisely match actual functionality</li>
+<li>Should not create confusion with other MCP servers</li>
+<li>Should provide tool annotations (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)</li>
+<li>Keep tool operations focused and atomic</li>
+</ul>
+<hr/>
+<h2 id="3-response-format-guidelines">3. Response Format Guidelines</h2>
+<p>All tools that return data should support multiple formats for flexibility:</p>
+<h3 id="json-format-response-formatjson">JSON Format (<code>response_format=&#34;json&#34;</code>)</h3>
+<ul>
+<li>Machine-readable structured data</li>
+<li>Include all available fields and metadata</li>
+<li>Consistent field names and types</li>
+<li>Suitable for programmatic processing</li>
+<li>Use for when LLMs need to process data further</li>
+</ul>
+<h3 id="markdown-format-response-formatmarkdown-typically-default">Markdown Format (<code>response_format=&#34;markdown&#34;</code>, typically default)</h3>
+<ul>
+<li>Human-readable formatted text</li>
+<li>Use headers, lists, and formatting for clarity</li>
+<li>Convert timestamps to human-readable format (e.g., “2024-01-15 10:30:00 UTC” instead of epoch)</li>
+<li>Show display names with IDs in parentheses (e.g., “@john.doe (U123456)”)</li>
+<li>Omit verbose metadata (e.g., show only one profile image URL, not all sizes)</li>
+<li>Group related information logically</li>
+<li>Use for when presenting information to users</li>
+</ul>
+<hr/>
+<h2 id="4-pagination-best-practices">4. Pagination Best Practices</h2>
+<p>For tools that list resources:</p>
+<ul>
+<li><strong>Always respect the <code>limit</code> parameter</strong>: Never load all results when a limit is specified</li>
+<li><strong>Implement pagination</strong>: Use <code>offset</code> or cursor-based pagination</li>
+<li><strong>Return pagination metadata</strong>: Include <code>has_more</code>, <code>next_offset</code>/<code>next_cursor</code>, <code>total_count</code></li>
+<li><strong>Never load all results into memory</strong>: Especially important for large datasets</li>
+<li><strong>Default to reasonable limits</strong>: 20-50 items is typical</li>
+<li><strong>Include clear pagination info in responses</strong>: Make it easy for LLMs to request more data</li>
+</ul>
+<p>Example pagination response structure:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;total&#34;</span>: <span style="color:#a5d6ff">150</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;count&#34;</span>: <span style="color:#a5d6ff">20</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;offset&#34;</span>: <span style="color:#a5d6ff">0</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;items&#34;</span>: [<span style="color:#f85149">...</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;has_more&#34;</span>: <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;next_offset&#34;</span>: <span style="color:#a5d6ff">20</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><hr/>
+<h2 id="5-character-limits-and-truncation">5. Character Limits and Truncation</h2>
+<p>To prevent overwhelming responses with too much data:</p>
+<ul>
+<li><strong>Define CHARACTER_LIMIT constant</strong>: Typically 25,000 characters at module level</li>
+<li><strong>Check response size before returning</strong>: Measure the final response length</li>
+<li><strong>Truncate gracefully with clear indicators</strong>: Let the LLM know data was truncated</li>
+<li><strong>Provide guidance on filtering</strong>: Suggest how to use parameters to reduce results</li>
+<li><strong>Include truncation metadata</strong>: Show what was truncated and how to get more</li>
+</ul>
+<p>Example truncation handling:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>CHARACTER_LIMIT <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">25000</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">if</span> len(result) <span style="color:#ff7b72;font-weight:bold">&gt;</span> CHARACTER_LIMIT:
+</span></span><span style="display:flex;"><span>    truncated_data <span style="color:#ff7b72;font-weight:bold">=</span> data[:max(<span style="color:#a5d6ff">1</span>, len(data) <span style="color:#ff7b72;font-weight:bold">//</span> <span style="color:#a5d6ff">2</span>)]
+</span></span><span style="display:flex;"><span>    response[<span style="color:#a5d6ff">&#34;truncated&#34;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">True</span>
+</span></span><span style="display:flex;"><span>    response[<span style="color:#a5d6ff">&#34;truncation_message&#34;</span>] <span style="color:#ff7b72;font-weight:bold">=</span> (
+</span></span><span style="display:flex;"><span>        <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Response truncated from </span><span style="color:#a5d6ff">{</span>len(data)<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> to </span><span style="color:#a5d6ff">{</span>len(truncated_data)<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> items. &#34;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#34;Use &#39;offset&#39; parameter or add filters to see more results.&#34;</span>
+</span></span><span style="display:flex;"><span>    )
+</span></span></code></pre><hr/>
+<h2 id="6-transport-options">6. Transport Options</h2>
+<p>MCP servers support multiple transport mechanisms for different deployment scenarios:</p>
+<h3 id="stdio-transport">Stdio Transport</h3>
+<p><strong>Best for</strong>: Command-line tools, local integrations, subprocess execution</p>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>Standard input/output stream communication</li>
+<li>Simple setup, no network configuration needed</li>
+<li>Runs as a subprocess of the client</li>
+<li>Ideal for desktop applications and CLI tools</li>
+</ul>
+<p><strong>Use when</strong>:</p>
+<ul>
+<li>Building tools for local development environments</li>
+<li>Integrating with desktop applications (e.g., Claude Desktop)</li>
+<li>Creating command-line utilities</li>
+<li>Single-user, single-session scenarios</li>
+</ul>
+<h3 id="http-transport">HTTP Transport</h3>
+<p><strong>Best for</strong>: Web services, remote access, multi-client scenarios</p>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>Request-response pattern over HTTP</li>
+<li>Supports multiple simultaneous clients</li>
+<li>Can be deployed as a web service</li>
+<li>Requires network configuration and security considerations</li>
+</ul>
+<p><strong>Use when</strong>:</p>
+<ul>
+<li>Serving multiple clients simultaneously</li>
+<li>Deploying as a cloud service</li>
+<li>Integration with web applications</li>
+<li>Need for load balancing or scaling</li>
+</ul>
+<h3 id="server-sent-events-sse-transport">Server-Sent Events (SSE) Transport</h3>
+<p><strong>Best for</strong>: Real-time updates, push notifications, streaming data</p>
+<p><strong>Characteristics</strong>:</p>
+<ul>
+<li>One-way server-to-client streaming over HTTP</li>
+<li>Enables real-time updates without polling</li>
+<li>Long-lived connections for continuous data flow</li>
+<li>Built on standard HTTP infrastructure</li>
+</ul>
+<p><strong>Use when</strong>:</p>
+<ul>
+<li>Clients need real-time data updates</li>
+<li>Implementing push notifications</li>
+<li>Streaming logs or monitoring data</li>
+<li>Progressive result delivery for long operations</li>
+</ul>
+<h3 id="transport-selection-criteria">Transport Selection Criteria</h3>
+<table>
+<thead>
+<tr>
+<th>Criterion</th>
+<th>Stdio</th>
+<th>HTTP</th>
+<th>SSE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Deployment</strong></td>
+<td>Local</td>
+<td>Remote</td>
+<td>Remote</td>
+</tr>
+<tr>
+<td><strong>Clients</strong></td>
+<td>Single</td>
+<td>Multiple</td>
+<td>Multiple</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Bidirectional</td>
+<td>Request-Response</td>
+<td>Server-Push</td>
+</tr>
+<tr>
+<td><strong>Complexity</strong></td>
+<td>Low</td>
+<td>Medium</td>
+<td>Medium-High</td>
+</tr>
+<tr>
+<td><strong>Real-time</strong></td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<hr/>
+<h2 id="7-tool-development-best-practices">7. Tool Development Best Practices</h2>
+<h3 id="general-guidelines">General Guidelines</h3>
+<ol>
+<li>Tool names should be descriptive and action-oriented</li>
+<li>Use parameter validation with detailed JSON schemas</li>
+<li>Include examples in tool descriptions</li>
+<li>Implement proper error handling and validation</li>
+<li>Use progress reporting for long operations</li>
+<li>Keep tool operations focused and atomic</li>
+<li>Document expected return value structures</li>
+<li>Implement proper timeouts</li>
+<li>Consider rate limiting for resource-intensive operations</li>
+<li>Log tool usage for debugging and monitoring</li>
+</ol>
+<h3 id="security-considerations-for-tools">Security Considerations for Tools</h3>
+<h4 id="input-validation">Input Validation</h4>
+<ul>
+<li>Validate all parameters against schema</li>
+<li>Sanitize file paths and system commands</li>
+<li>Validate URLs and external identifiers</li>
+<li>Check parameter sizes and ranges</li>
+<li>Prevent command injection</li>
+</ul>
+<h4 id="access-control">Access Control</h4>
+<ul>
+<li>Implement authentication where needed</li>
+<li>Use appropriate authorization checks</li>
+<li>Audit tool usage</li>
+<li>Rate limit requests</li>
+<li>Monitor for abuse</li>
+</ul>
+<h4 id="error-handling">Error Handling</h4>
+<ul>
+<li>Don’t expose internal errors to clients</li>
+<li>Log security-relevant errors</li>
+<li>Handle timeouts appropriately</li>
+<li>Clean up resources after errors</li>
+<li>Validate return values</li>
+</ul>
+<h3 id="tool-annotations">Tool Annotations</h3>
+<ul>
+<li>Provide readOnlyHint and destructiveHint annotations</li>
+<li>Remember annotations are hints, not security guarantees</li>
+<li>Clients should not make security-critical decisions based solely on annotations</li>
+</ul>
+<hr/>
+<h2 id="8-transport-best-practices">8. Transport Best Practices</h2>
+<h3 id="general-transport-guidelines">General Transport Guidelines</h3>
+<ol>
+<li>Handle connection lifecycle properly</li>
+<li>Implement proper error handling</li>
+<li>Use appropriate timeout values</li>
+<li>Implement connection state management</li>
+<li>Clean up resources on disconnection</li>
+</ol>
+<h3 id="security-best-practices-for-transport">Security Best Practices for Transport</h3>
+<ul>
+<li>Follow security considerations for DNS rebinding attacks</li>
+<li>Implement proper authentication mechanisms</li>
+<li>Validate message formats</li>
+<li>Handle malformed messages gracefully</li>
+</ul>
+<h3 id="stdio-transport-specific">Stdio Transport Specific</h3>
+<ul>
+<li>Local MCP servers should NOT log to stdout (interferes with protocol)</li>
+<li>Use stderr for logging messages</li>
+<li>Handle standard I/O streams properly</li>
+</ul>
+<hr/>
+<h2 id="9-testing-requirements">9. Testing Requirements</h2>
+<p>A comprehensive testing strategy should cover:</p>
+<h3 id="functional-testing">Functional Testing</h3>
+<ul>
+<li>Verify correct execution with valid/invalid inputs</li>
+</ul>
+<h3 id="integration-testing">Integration Testing</h3>
+<ul>
+<li>Test interaction with external systems</li>
+</ul>
+<h3 id="security-testing">Security Testing</h3>
+<ul>
+<li>Validate auth, input sanitization, rate limiting</li>
+</ul>
+<h3 id="performance-testing">Performance Testing</h3>
+<ul>
+<li>Check behavior under load, timeouts</li>
+</ul>
+<h3 id="error-handling-1">Error Handling</h3>
+<ul>
+<li>Ensure proper error reporting and cleanup</li>
+</ul>
+<hr/>
+<h2 id="10-oauth-and-security-best-practices">10. OAuth and Security Best Practices</h2>
+<h3 id="authentication-and-authorization">Authentication and Authorization</h3>
+<p>MCP servers that connect to external services should implement proper authentication:</p>
+<p><strong>OAuth 2.1 Implementation:</strong></p>
+<ul>
+<li>Use secure OAuth 2.1 with certificates from recognized authorities</li>
+<li>Validate access tokens before processing requests</li>
+<li>Only accept tokens specifically intended for your server</li>
+<li>Reject tokens without proper audience claims</li>
+<li>Never pass through tokens received from MCP clients</li>
+</ul>
+<p><strong>API Key Management:</strong></p>
+<ul>
+<li>Store API keys in environment variables, never in code</li>
+<li>Validate keys on server startup</li>
+<li>Provide clear error messages when authentication fails</li>
+<li>Use secure transmission for sensitive credentials</li>
+</ul>
+<h3 id="input-validation-and-security">Input Validation and Security</h3>
+<p><strong>Always validate inputs:</strong></p>
+<ul>
+<li>Sanitize file paths to prevent directory traversal</li>
+<li>Validate URLs and external identifiers</li>
+<li>Check parameter sizes and ranges</li>
+<li>Prevent command injection in system calls</li>
+<li>Use schema validation (Pydantic/Zod) for all inputs</li>
+</ul>
+<p><strong>Error handling security:</strong></p>
+<ul>
+<li>Don’t expose internal errors to clients</li>
+<li>Log security-relevant errors server-side</li>
+<li>Provide helpful but not revealing error messages</li>
+<li>Clean up resources after errors</li>
+</ul>
+<h3 id="privacy-and-data-protection">Privacy and Data Protection</h3>
+<p><strong>Data collection principles:</strong></p>
+<ul>
+<li>Only collect data strictly necessary for functionality</li>
+<li>Don’t collect extraneous conversation data</li>
+<li>Don’t collect PII unless explicitly required for the tool’s purpose</li>
+<li>Provide clear information about what data is accessed</li>
+</ul>
+<p><strong>Data transmission:</strong></p>
+<ul>
+<li>Don’t send data to servers outside your organization without disclosure</li>
+<li>Use secure transmission (HTTPS) for all network communication</li>
+<li>Validate certificates for external services</li>
+</ul>
+<hr/>
+<h2 id="11-resource-management-best-practices">11. Resource Management Best Practices</h2>
+<ol>
+<li>Only suggest necessary resources</li>
+<li>Use clear, descriptive names for roots</li>
+<li>Handle resource boundaries properly</li>
+<li>Respect client control over resources</li>
+<li>Use model-controlled primitives (tools) for automatic data exposure</li>
+</ol>
+<hr/>
+<h2 id="12-prompt-management-best-practices">12. Prompt Management Best Practices</h2>
+<ul>
+<li>Clients should show users proposed prompts</li>
+<li>Users should be able to modify or reject prompts</li>
+<li>Clients should show users completions</li>
+<li>Users should be able to modify or reject completions</li>
+<li>Consider costs when using sampling</li>
+</ul>
+<hr/>
+<h2 id="13-error-handling-standards">13. Error Handling Standards</h2>
+<ul>
+<li>Use standard JSON-RPC error codes</li>
+<li>Report tool errors within result objects (not protocol-level)</li>
+<li>Provide helpful, specific error messages</li>
+<li>Don’t expose internal implementation details</li>
+<li>Clean up resources properly on errors</li>
+</ul>
+<hr/>
+<h2 id="14-documentation-requirements">14. Documentation Requirements</h2>
+<ul>
+<li>Provide clear documentation of all tools and capabilities</li>
+<li>Include working examples (at least 3 per major feature)</li>
+<li>Document security considerations</li>
+<li>Specify required permissions and access levels</li>
+<li>Document rate limits and performance characteristics</li>
+</ul>
+<hr/>
+<h2 id="15-compliance-and-monitoring">15. Compliance and Monitoring</h2>
+<ul>
+<li>Implement logging for debugging and monitoring</li>
+<li>Track tool usage patterns</li>
+<li>Monitor for potential abuse</li>
+<li>Maintain audit trails for security-relevant operations</li>
+<li>Be prepared for ongoing compliance reviews</li>
+</ul>
+<hr/>
+<h2 id="summary">Summary</h2>
+<p>These best practices represent the comprehensive guidelines for building secure, efficient, and compliant MCP servers that work well within the ecosystem. Developers should follow these guidelines to ensure their MCP servers meet the standards for inclusion in the MCP directory and provide a safe, reliable experience for users.</p>
+<hr/>
+<h1 id="tools">Tools</h1>
+<blockquote>
+<p>Enable LLMs to perform actions through your server</p>
+</blockquote>
+<p>Tools are a powerful primitive in the Model Context Protocol (MCP) that enable servers to expose executable functionality to clients. Through tools, LLMs can interact with external systems, perform computations, and take actions in the real world.</p>
+<note>
+  Tools are designed to be **model-controlled**, meaning that tools are exposed from servers to clients with the intention of the AI model being able to automatically invoke them (with a human in the loop to grant approval).
+</note>
+<h2 id="overview-1">Overview</h2>
+<p>Tools in MCP allow servers to expose executable functions that can be invoked by clients and used by LLMs to perform actions. Key aspects of tools include:</p>
+<ul>
+<li><strong>Discovery</strong>: Clients can obtain a list of available tools by sending a <code>tools/list</code> request</li>
+<li><strong>Invocation</strong>: Tools are called using the <code>tools/call</code> request, where servers perform the requested operation and return results</li>
+<li><strong>Flexibility</strong>: Tools can range from simple calculations to complex API interactions</li>
+</ul>
+<p>Like <a href="/docs/concepts/resources">resources</a>, tools are identified by unique names and can include descriptions to guide their usage. However, unlike resources, tools represent dynamic operations that can modify state or interact with external systems.</p>
+<h2 id="tool-definition-structure">Tool definition structure</h2>
+<p>Each tool is defined with the following structure:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  name: <span style="color:#ff7b72">string</span>;          <span style="color:#8b949e;font-style:italic">// Unique identifier for the tool
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  description?: <span style="color:#ff7b72">string</span>;  <span style="color:#8b949e;font-style:italic">// Human-readable description
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  inputSchema<span style="color:#ff7b72;font-weight:bold">:</span> {         <span style="color:#8b949e;font-style:italic">// JSON Schema for the tool&#39;s parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> { ... }  <span style="color:#8b949e;font-style:italic">// Tool-specific parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  },
+</span></span><span style="display:flex;"><span>  annotations<span style="color:#ff7b72;font-weight:bold">?:</span> {        <span style="color:#8b949e;font-style:italic">// Optional hints about tool behavior
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    title?: <span style="color:#ff7b72">string</span>;      <span style="color:#8b949e;font-style:italic">// Human-readable title for the tool
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    readOnlyHint?: <span style="color:#ff7b72">boolean</span>;    <span style="color:#8b949e;font-style:italic">// If true, the tool does not modify its environment
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    destructiveHint?: <span style="color:#ff7b72">boolean</span>; <span style="color:#8b949e;font-style:italic">// If true, the tool may perform destructive updates
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    idempotentHint?: <span style="color:#ff7b72">boolean</span>;  <span style="color:#8b949e;font-style:italic">// If true, repeated calls with same args have no additional effect
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    openWorldHint?: <span style="color:#ff7b72">boolean</span>;   <span style="color:#8b949e;font-style:italic">// If true, tool interacts with external entities
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h2 id="implementing-tools">Implementing tools</h2>
+<p>Here’s an example of implementing a basic tool in an MCP server:</p>
+<tabs>
+  <tab title="TypeScript">
+    ```typescript
+    const server = new Server({
+      name: &#34;example-server&#34;,
+      version: &#34;1.0.0&#34;
+    }, {
+      capabilities: {
+        tools: {}
+      }
+    });
+<pre><code>// Define available tools
+server.setRequestHandler(ListToolsRequestSchema, async () =&gt; {
+  return {
+    tools: [{
+      name: &#34;calculate_sum&#34;,
+      description: &#34;Add two numbers together&#34;,
+      inputSchema: {
+        type: &#34;object&#34;,
+        properties: {
+          a: { type: &#34;number&#34; },
+          b: { type: &#34;number&#34; }
+        },
+        required: [&#34;a&#34;, &#34;b&#34;]
+      }
+    }]
+  };
+});
+
+// Handle tool execution
+server.setRequestHandler(CallToolRequestSchema, async (request) =&gt; {
+  if (request.params.name === &#34;calculate_sum&#34;) {
+    const { a, b } = request.params.arguments;
+    return {
+      content: [
+        {
+          type: &#34;text&#34;,
+          text: String(a + b)
+        }
+      ]
+    };
+  }
+  throw new Error(&#34;Tool not found&#34;);
+});
+```
+</code></pre>
+  </tab>
+  <tab title="Python">
+    ```python
+    app = Server(&#34;example-server&#34;)
+<pre><code>@app.list_tools()
+async def list_tools() -&gt; list[types.Tool]:
+    return [
+        types.Tool(
+            name=&#34;calculate_sum&#34;,
+            description=&#34;Add two numbers together&#34;,
+            inputSchema={
+                &#34;type&#34;: &#34;object&#34;,
+                &#34;properties&#34;: {
+                    &#34;a&#34;: {&#34;type&#34;: &#34;number&#34;},
+                    &#34;b&#34;: {&#34;type&#34;: &#34;number&#34;}
+                },
+                &#34;required&#34;: [&#34;a&#34;, &#34;b&#34;]
+            }
+        )
+    ]
+
+@app.call_tool()
+async def call_tool(
+    name: str,
+    arguments: dict
+) -&gt; list[types.TextContent | types.ImageContent | types.EmbeddedResource]:
+    if name == &#34;calculate_sum&#34;:
+        a = arguments[&#34;a&#34;]
+        b = arguments[&#34;b&#34;]
+        result = a + b
+        return [types.TextContent(type=&#34;text&#34;, text=str(result))]
+    raise ValueError(f&#34;Tool not found: {name}&#34;)
+```
+</code></pre>
+  </tab>
+</tabs>
+<h2 id="example-tool-patterns">Example tool patterns</h2>
+<p>Here are some examples of types of tools that a server could provide:</p>
+<h3 id="system-operations">System operations</h3>
+<p>Tools that interact with the local system:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;execute_command&#34;</span>,
+</span></span><span style="display:flex;"><span>  description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Run a shell command&#34;</span>,
+</span></span><span style="display:flex;"><span>  inputSchema<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      command<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> },
+</span></span><span style="display:flex;"><span>      args<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;array&#34;</span>, items<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> } }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h3 id="api-integrations">API integrations</h3>
+<p>Tools that wrap external APIs:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;github_create_issue&#34;</span>,
+</span></span><span style="display:flex;"><span>  description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Create a GitHub issue&#34;</span>,
+</span></span><span style="display:flex;"><span>  inputSchema<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      title<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> },
+</span></span><span style="display:flex;"><span>      body<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> },
+</span></span><span style="display:flex;"><span>      labels<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;array&#34;</span>, items<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> } }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h3 id="data-processing">Data processing</h3>
+<p>Tools that transform or analyze data:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;analyze_csv&#34;</span>,
+</span></span><span style="display:flex;"><span>  description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Analyze a CSV file&#34;</span>,
+</span></span><span style="display:flex;"><span>  inputSchema<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      filepath<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> },
+</span></span><span style="display:flex;"><span>      operations<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;array&#34;</span>,
+</span></span><span style="display:flex;"><span>        items<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">enum</span><span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;sum&#34;</span>, <span style="color:#a5d6ff">&#34;average&#34;</span>, <span style="color:#a5d6ff">&#34;count&#34;</span>]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h2 id="best-practices">Best practices</h2>
+<p>When implementing tools:</p>
+<ol>
+<li>Provide clear, descriptive names and descriptions</li>
+<li>Use detailed JSON Schema definitions for parameters</li>
+<li>Include examples in tool descriptions to demonstrate how the model should use them</li>
+<li>Implement proper error handling and validation</li>
+<li>Use progress reporting for long operations</li>
+<li>Keep tool operations focused and atomic</li>
+<li>Document expected return value structures</li>
+<li>Implement proper timeouts</li>
+<li>Consider rate limiting for resource-intensive operations</li>
+<li>Log tool usage for debugging and monitoring</li>
+</ol>
+<h3 id="tool-name-conflicts">Tool name conflicts</h3>
+<p>MCP client applications and MCP server proxies may encounter tool name conflicts when building their own tool lists. For example, two connected MCP servers <code>web1</code> and <code>web2</code> may both expose a tool named <code>search_web</code>.</p>
+<p>Applications may disambiguiate tools with one of the following strategies (among others; not an exhaustive list):</p>
+<ul>
+<li>Concatenating a unique, user-defined server name with the tool name, e.g. <code>web1___search_web</code> and <code>web2___search_web</code>. This strategy may be preferable when unique server names are already provided by the user in a configuration file.</li>
+<li>Generating a random prefix for the tool name, e.g. <code>jrwxs___search_web</code> and <code>6cq52___search_web</code>. This strategy may be preferable in server proxies where user-defined unique names are not available.</li>
+<li>Using the server URI as a prefix for the tool name, e.g. <code>web1.example.com:search_web</code> and <code>web2.example.com:search_web</code>. This strategy may be suitable when working with remote MCP servers.</li>
+</ul>
+<p>Note that the server-provided name from the initialization flow is not guaranteed to be unique and is not generally suitable for disambiguation purposes.</p>
+<h2 id="security-considerations">Security considerations</h2>
+<p>When exposing tools:</p>
+<h3 id="input-validation-1">Input validation</h3>
+<ul>
+<li>Validate all parameters against the schema</li>
+<li>Sanitize file paths and system commands</li>
+<li>Validate URLs and external identifiers</li>
+<li>Check parameter sizes and ranges</li>
+<li>Prevent command injection</li>
+</ul>
+<h3 id="access-control-1">Access control</h3>
+<ul>
+<li>Implement authentication where needed</li>
+<li>Use appropriate authorization checks</li>
+<li>Audit tool usage</li>
+<li>Rate limit requests</li>
+<li>Monitor for abuse</li>
+</ul>
+<h3 id="error-handling-2">Error handling</h3>
+<ul>
+<li>Don’t expose internal errors to clients</li>
+<li>Log security-relevant errors</li>
+<li>Handle timeouts appropriately</li>
+<li>Clean up resources after errors</li>
+<li>Validate return values</li>
+</ul>
+<h2 id="tool-discovery-and-updates">Tool discovery and updates</h2>
+<p>MCP supports dynamic tool discovery:</p>
+<ol>
+<li>Clients can list available tools at any time</li>
+<li>Servers can notify clients when tools change using <code>notifications/tools/list_changed</code></li>
+<li>Tools can be added or removed during runtime</li>
+<li>Tool definitions can be updated (though this should be done carefully)</li>
+</ol>
+<h2 id="error-handling-3">Error handling</h2>
+<p>Tool errors should be reported within the result object, not as MCP protocol-level errors. This allows the LLM to see and potentially handle the error. When a tool encounters an error:</p>
+<ol>
+<li>Set <code>isError</code> to <code>true</code> in the result</li>
+<li>Include error details in the <code>content</code> array</li>
+</ol>
+<p>Here’s an example of proper error handling for tools:</p>
+<tabs>
+  <tab title="TypeScript">
+    ```typescript
+    try {
+      // Tool operation
+      const result = performOperation();
+      return {
+        content: [
+          {
+            type: &#34;text&#34;,
+            text: `Operation successful: ${result}`
+          }
+        ]
+      };
+    } catch (error) {
+      return {
+        isError: true,
+        content: [
+          {
+            type: &#34;text&#34;,
+            text: `Error: ${error.message}`
+          }
+        ]
+      };
+    }
+    ```
+  </tab>
+  <tab title="Python">
+    ```python
+    try:
+        # Tool operation
+        result = perform_operation()
+        return types.CallToolResult(
+            content=[
+                types.TextContent(
+                    type=&#34;text&#34;,
+                    text=f&#34;Operation successful: {result}&#34;
+                )
+            ]
+        )
+    except Exception as error:
+        return types.CallToolResult(
+            isError=True,
+            content=[
+                types.TextContent(
+                    type=&#34;text&#34;,
+                    text=f&#34;Error: {str(error)}&#34;
+                )
+            ]
+        )
+    ```
+  </tab>
+</tabs>
+<p>This approach allows the LLM to see that an error occurred and potentially take corrective action or request human intervention.</p>
+<h2 id="tool-annotations-1">Tool annotations</h2>
+<p>Tool annotations provide additional metadata about a tool’s behavior, helping clients understand how to present and manage tools. These annotations are hints that describe the nature and impact of a tool, but should not be relied upon for security decisions.</p>
+<h3 id="purpose-of-tool-annotations">Purpose of tool annotations</h3>
+<p>Tool annotations serve several key purposes:</p>
+<ol>
+<li>Provide UX-specific information without affecting model context</li>
+<li>Help clients categorize and present tools appropriately</li>
+<li>Convey information about a tool’s potential side effects</li>
+<li>Assist in developing intuitive interfaces for tool approval</li>
+</ol>
+<h3 id="available-tool-annotations">Available tool annotations</h3>
+<p>The MCP specification defines the following annotations for tools:</p>
+<table>
+<thead>
+<tr>
+<th>Annotation</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>title</code></td>
+<td>string</td>
+<td>-</td>
+<td>A human-readable title for the tool, useful for UI display</td>
+</tr>
+<tr>
+<td><code>readOnlyHint</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>If true, indicates the tool does not modify its environment</td>
+</tr>
+<tr>
+<td><code>destructiveHint</code></td>
+<td>boolean</td>
+<td>true</td>
+<td>If true, the tool may perform destructive updates (only meaningful when <code>readOnlyHint</code> is false)</td>
+</tr>
+<tr>
+<td><code>idempotentHint</code></td>
+<td>boolean</td>
+<td>false</td>
+<td>If true, calling the tool repeatedly with the same arguments has no additional effect (only meaningful when <code>readOnlyHint</code> is false)</td>
+</tr>
+<tr>
+<td><code>openWorldHint</code></td>
+<td>boolean</td>
+<td>true</td>
+<td>If true, the tool may interact with an “open world” of external entities</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-usage">Example usage</h3>
+<p>Here’s how to define tools with annotations for different scenarios:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// A read-only search tool
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>{
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;web_search&#34;</span>,
+</span></span><span style="display:flex;"><span>  description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Search the web for information&#34;</span>,
+</span></span><span style="display:flex;"><span>  inputSchema<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      query<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    required<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;query&#34;</span>]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  annotations<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    title<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Web Search&#34;</span>,
+</span></span><span style="display:flex;"><span>    readOnlyHint: <span style="color:#ff7b72">true</span>,
+</span></span><span style="display:flex;"><span>    openWorldHint: <span style="color:#ff7b72">true</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// A destructive file deletion tool
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>{
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;delete_file&#34;</span>,
+</span></span><span style="display:flex;"><span>  description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Delete a file from the filesystem&#34;</span>,
+</span></span><span style="display:flex;"><span>  inputSchema<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      path<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    required<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;path&#34;</span>]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  annotations<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    title<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Delete File&#34;</span>,
+</span></span><span style="display:flex;"><span>    readOnlyHint: <span style="color:#ff7b72">false</span>,
+</span></span><span style="display:flex;"><span>    destructiveHint: <span style="color:#ff7b72">true</span>,
+</span></span><span style="display:flex;"><span>    idempotentHint: <span style="color:#ff7b72">true</span>,
+</span></span><span style="display:flex;"><span>    openWorldHint: <span style="color:#ff7b72">false</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// A non-destructive database record creation tool
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>{
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;create_record&#34;</span>,
+</span></span><span style="display:flex;"><span>  description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Create a new record in the database&#34;</span>,
+</span></span><span style="display:flex;"><span>  inputSchema<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;object&#34;</span>,
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      table<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;string&#34;</span> },
+</span></span><span style="display:flex;"><span>      data<span style="color:#ff7b72;font-weight:bold">:</span> { <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;object&#34;</span> }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    required<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;table&#34;</span>, <span style="color:#a5d6ff">&#34;data&#34;</span>]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  annotations<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    title<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Create Database Record&#34;</span>,
+</span></span><span style="display:flex;"><span>    readOnlyHint: <span style="color:#ff7b72">false</span>,
+</span></span><span style="display:flex;"><span>    destructiveHint: <span style="color:#ff7b72">false</span>,
+</span></span><span style="display:flex;"><span>    idempotentHint: <span style="color:#ff7b72">false</span>,
+</span></span><span style="display:flex;"><span>    openWorldHint: <span style="color:#ff7b72">false</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h3 id="integrating-annotations-in-server-implementation">Integrating annotations in server implementation</h3>
+<tabs>
+  <tab title="TypeScript">
+    ```typescript
+    server.setRequestHandler(ListToolsRequestSchema, async () =&gt; {
+      return {
+        tools: [{
+          name: &#34;calculate_sum&#34;,
+          description: &#34;Add two numbers together&#34;,
+          inputSchema: {
+            type: &#34;object&#34;,
+            properties: {
+              a: { type: &#34;number&#34; },
+              b: { type: &#34;number&#34; }
+            },
+            required: [&#34;a&#34;, &#34;b&#34;]
+          },
+          annotations: {
+            title: &#34;Calculate Sum&#34;,
+            readOnlyHint: true,
+            openWorldHint: false
+          }
+        }]
+      };
+    });
+    ```
+  </tab>
+  <tab title="Python">
+    ```python
+    from mcp.server.fastmcp import FastMCP
+<pre><code>mcp = FastMCP(&#34;example-server&#34;)
+
+@mcp.tool(
+    annotations={
+        &#34;title&#34;: &#34;Calculate Sum&#34;,
+        &#34;readOnlyHint&#34;: True,
+        &#34;openWorldHint&#34;: False
+    }
+)
+async def calculate_sum(a: float, b: float) -&gt; str:
+    &#34;&#34;&#34;Add two numbers together.
+
+    Args:
+        a: First number to add
+        b: Second number to add
+    &#34;&#34;&#34;
+    result = a + b
+    return str(result)
+```
+</code></pre>
+  </tab>
+</tabs>
+<h3 id="best-practices-for-tool-annotations">Best practices for tool annotations</h3>
+<ol>
+<li>
+<p><strong>Be accurate about side effects</strong>: Clearly indicate whether a tool modifies its environment and whether those modifications are destructive.</p>
+</li>
+<li>
+<p><strong>Use descriptive titles</strong>: Provide human-friendly titles that clearly describe the tool’s purpose.</p>
+</li>
+<li>
+<p><strong>Indicate idempotency properly</strong>: Mark tools as idempotent only if repeated calls with the same arguments truly have no additional effect.</p>
+</li>
+<li>
+<p><strong>Set appropriate open/closed world hints</strong>: Indicate whether a tool interacts with a closed system (like a database) or an open system (like the web).</p>
+</li>
+<li>
+<p><strong>Remember annotations are hints</strong>: All properties in ToolAnnotations are hints and not guaranteed to provide a faithful description of tool behavior. Clients should never make security-critical decisions based solely on annotations.</p>
+</li>
+</ol>
+<h2 id="testing-tools">Testing tools</h2>
+<p>A comprehensive testing strategy for MCP tools should cover:</p>
+<ul>
+<li><strong>Functional testing</strong>: Verify tools execute correctly with valid inputs and handle invalid inputs appropriately</li>
+<li><strong>Integration testing</strong>: Test tool interaction with external systems using both real and mocked dependencies</li>
+<li><strong>Security testing</strong>: Validate authentication, authorization, input sanitization, and rate limiting</li>
+<li><strong>Performance testing</strong>: Check behavior under load, timeout handling, and resource cleanup</li>
+<li><strong>Error handling</strong>: Ensure tools properly report errors through the MCP protocol and clean up resources</li>
+</ul>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

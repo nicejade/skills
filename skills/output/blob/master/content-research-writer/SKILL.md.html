@@ -1,0 +1,1970 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/content-research-writer/SKILL.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">content-research-writer</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>SKILL.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><hr/>
+<h2 id="description-assists-in-writing-high-quality-content-by-conducting-research-adding-citations-improving-hooks-iterating-on-outlines-and-providing-real-time-feedback-on-each-section-transforms-your-writing-process-from-solo-effort-to-collaborative-partnership">name: content-research-writer
+description: Assists in writing high-quality content by conducting research, adding citations, improving hooks, iterating on outlines, and providing real-time feedback on each section. Transforms your writing process from solo effort to collaborative partnership.</h2>
+<h1 id="content-research-writer">Content Research Writer</h1>
+<p>This skill acts as your writing partner, helping you research, outline, draft, and refine content while maintaining your unique voice and style.</p>
+<h2 id="when-to-use-this-skill">When to Use This Skill</h2>
+<ul>
+<li>Writing blog posts, articles, or newsletters</li>
+<li>Creating educational content or tutorials</li>
+<li>Drafting thought leadership pieces</li>
+<li>Researching and writing case studies</li>
+<li>Producing technical documentation with sources</li>
+<li>Writing with proper citations and references</li>
+<li>Improving hooks and introductions</li>
+<li>Getting section-by-section feedback while writing</li>
+</ul>
+<h2 id="what-this-skill-does">What This Skill Does</h2>
+<ol>
+<li><strong>Collaborative Outlining</strong>: Helps you structure ideas into coherent outlines</li>
+<li><strong>Research Assistance</strong>: Finds relevant information and adds citations</li>
+<li><strong>Hook Improvement</strong>: Strengthens your opening to capture attention</li>
+<li><strong>Section Feedback</strong>: Reviews each section as you write</li>
+<li><strong>Voice Preservation</strong>: Maintains your writing style and tone</li>
+<li><strong>Citation Management</strong>: Adds and formats references properly</li>
+<li><strong>Iterative Refinement</strong>: Helps you improve through multiple drafts</li>
+</ol>
+<h2 id="how-to-use">How to Use</h2>
+<h3 id="setup-your-writing-environment">Setup Your Writing Environment</h3>
+<p>Create a dedicated folder for your article:</p>
+<pre><code>mkdir ~/writing/my-article-title
+cd ~/writing/my-article-title
+</code></pre>
+<p>Create your draft file:</p>
+<pre><code>touch article-draft.md
+</code></pre>
+<p>Open Claude Code from this directory and start writing.</p>
+<h3 id="basic-workflow">Basic Workflow</h3>
+<ol>
+<li><strong>Start with an outline</strong>:</li>
+</ol>
+<pre><code>Help me create an outline for an article about [topic]
+</code></pre>
+<ol start="2">
+<li><strong>Research and add citations</strong>:</li>
+</ol>
+<pre><code>Research [specific topic] and add citations to my outline
+</code></pre>
+<ol start="3">
+<li><strong>Improve the hook</strong>:</li>
+</ol>
+<pre><code>Here&#39;s my introduction. Help me make the hook more compelling.
+</code></pre>
+<ol start="4">
+<li><strong>Get section feedback</strong>:</li>
+</ol>
+<pre><code>I just finished the &#34;Why This Matters&#34; section. Review it and give feedback.
+</code></pre>
+<ol start="5">
+<li><strong>Refine and polish</strong>:</li>
+</ol>
+<pre><code>Review the full draft for flow, clarity, and consistency.
+</code></pre>
+<h2 id="instructions">Instructions</h2>
+<p>When a user requests writing assistance:</p>
+<ol>
+<li>
+<p><strong>Understand the Writing Project</strong></p>
+<p>Ask clarifying questions:</p>
+<ul>
+<li>What’s the topic and main argument?</li>
+<li>Who’s the target audience?</li>
+<li>What’s the desired length/format?</li>
+<li>What’s your goal? (educate, persuade, entertain, explain)</li>
+<li>Any existing research or sources to include?</li>
+<li>What’s your writing style? (formal, conversational, technical)</li>
+</ul>
+</li>
+<li>
+<p><strong>Collaborative Outlining</strong></p>
+<p>Help structure the content:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"># Article Outline: [Title]
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Hook
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Opening line/story/statistic]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Why reader should care]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Introduction
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Context and background
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Problem statement
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> What this article covers
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Main Sections
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Section 1: [Title]
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Key point A
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Key point B
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Example/evidence
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Research needed: specific topic]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Section 2: [Title]
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Key point C
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Key point D
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Data/citation needed
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Section 3: [Title]
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Key point E
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Counter-arguments
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Resolution
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Conclusion
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Summary of main points
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Call to action
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Final thought
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Research To-Do
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">- [ ]</span> Find data on [topic]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">- [ ]</span> Get examples of [concept]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">- [ ]</span> Source citation for [claim]
+</span></span></code></pre><p><strong>Iterate on outline</strong>:</p>
+<ul>
+<li>Adjust based on feedback</li>
+<li>Ensure logical flow</li>
+<li>Identify research gaps</li>
+<li>Mark sections for deep dives</li>
+</ul>
+</li>
+<li>
+<p><strong>Conduct Research</strong></p>
+<p>When user requests research on a topic:</p>
+<ul>
+<li>Search for relevant information</li>
+<li>Find credible sources</li>
+<li>Extract key facts, quotes, and data</li>
+<li>Add citations in requested format</li>
+</ul>
+<p>Example output:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff">## Research: AI Impact on Productivity
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span>Key Findings:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">1.</span> <span style="font-weight:bold">**Productivity Gains**</span>: Studies show 40% time savings for 
+</span></span><span style="display:flex;"><span>   content creation tasks [1]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">2.</span> <span style="font-weight:bold">**Adoption Rates**</span>: 67% of knowledge workers use AI tools 
+</span></span><span style="display:flex;"><span>   weekly [2]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">3.</span> <span style="font-weight:bold">**Expert Quote**</span>: &#34;AI augments rather than replaces human 
+</span></span><span style="display:flex;"><span>   creativity&#34; - Dr. Jane Smith, MIT [3]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Citations:
+</span></span><span style="display:flex;"><span>[1] McKinsey Global Institute. (2024). &#34;The Economic Potential 
+</span></span><span style="display:flex;"><span>    of Generative AI&#34;
+</span></span><span style="display:flex;"><span>[2] Stack Overflow Developer Survey (2024)
+</span></span><span style="display:flex;"><span>[3] Smith, J. (2024). MIT Technology Review interview
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Added to outline under Section 2.
+</span></span></code></pre></li>
+<li>
+<p><strong>Improve Hooks</strong></p>
+<p>When user shares an introduction, analyze and strengthen:</p>
+<p><strong>Current Hook Analysis</strong>:</p>
+<ul>
+<li>What works: [positive elements]</li>
+<li>What could be stronger: [areas for improvement]</li>
+<li>Emotional impact: [current vs. potential]</li>
+</ul>
+<p><strong>Suggested Alternatives</strong>:</p>
+<p>Option 1: [Bold statement]</p>
+<blockquote>
+<p>[Example]
+<em>Why it works: [explanation]</em></p>
+</blockquote>
+<p>Option 2: [Personal story]</p>
+<blockquote>
+<p>[Example]
+<em>Why it works: [explanation]</em></p>
+</blockquote>
+<p>Option 3: [Surprising data]</p>
+<blockquote>
+<p>[Example]
+<em>Why it works: [explanation]</em></p>
+</blockquote>
+<p><strong>Questions to hook</strong>:</p>
+<ul>
+<li>Does it create curiosity?</li>
+<li>Does it promise value?</li>
+<li>Is it specific enough?</li>
+<li>Does it match the audience?</li>
+</ul>
+</li>
+<li>
+<p><strong>Provide Section-by-Section Feedback</strong></p>
+<p>As user writes each section, review for:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"># Feedback: [Section Name]
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## What Works Well ✓
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Strength 1]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Strength 2]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Strength 3]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Suggestions for Improvement
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Clarity
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Specific issue] → [Suggested fix]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Complex sentence] → [Simpler alternative]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Flow
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Transition issue] → [Better connection]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Paragraph order] → [Suggested reordering]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Evidence
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Claim needing support] → [Add citation or example]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Generic statement] → [Make more specific]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Style
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Tone inconsistency] → [Match your voice better]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Word choice] → [Stronger alternative]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Specific Line Edits
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span>Original:
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">&gt; </span><span style="font-style:italic">[Exact quote from draft]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>Suggested:
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">&gt; </span><span style="font-style:italic">[Improved version]
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>Why: [Explanation]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Questions to Consider
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Thought-provoking question 1]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Thought-provoking question 2]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Ready to move to next section!
+</span></span></code></pre></li>
+<li>
+<p><strong>Preserve Writer’s Voice</strong></p>
+<p>Important principles:</p>
+<ul>
+<li><strong>Learn their style</strong>: Read existing writing samples</li>
+<li><strong>Suggest, don’t replace</strong>: Offer options, not directives</li>
+<li><strong>Match tone</strong>: Formal, casual, technical, friendly</li>
+<li><strong>Respect choices</strong>: If they prefer their version, support it</li>
+<li><strong>Enhance, don’t override</strong>: Make their writing better, not different</li>
+</ul>
+<p>Ask periodically:</p>
+<ul>
+<li>“Does this sound like you?”</li>
+<li>“Is this the right tone?”</li>
+<li>“Should I be more/less [formal/casual/technical]?”</li>
+</ul>
+</li>
+<li>
+<p><strong>Citation Management</strong></p>
+<p>Handle references based on user preference:</p>
+<p><strong>Inline Citations</strong>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>Studies show 40% productivity improvement (McKinsey, 2024).
+</span></span></code></pre><p><strong>Numbered References</strong>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>Studies show 40% productivity improvement [1].
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>[1] McKinsey Global Institute. (2024)...
+</span></span></code></pre><p><strong>Footnote Style</strong>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>Studies show 40% productivity improvement^1
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>^1: McKinsey Global Institute. (2024)...
+</span></span></code></pre><p>Maintain a running citations list:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff">## References
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">1.</span> Author. (Year). &#34;Title&#34;. Publication.
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">2.</span> Author. (Year). &#34;Title&#34;. Publication.
+</span></span><span style="display:flex;"><span>...
+</span></span></code></pre></li>
+<li>
+<p><strong>Final Review and Polish</strong></p>
+<p>When draft is complete, provide comprehensive feedback:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"># Full Draft Review
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Overall Assessment
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">**Strengths**</span>:
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Major strength 1]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Major strength 2]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Major strength 3]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="font-weight:bold">**Impact**</span>: [Overall effectiveness assessment]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Structure &amp; Flow
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Comments on organization]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Transition quality]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Pacing assessment]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Content Quality
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> [Argument strength]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Evidence sufficiency]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Example effectiveness]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Technical Quality
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Grammar and mechanics: [assessment]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Consistency: [assessment]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Citations: [completeness check]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Readability
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Clarity score: [evaluation]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Sentence variety: [evaluation]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Paragraph length: [evaluation]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Final Polish Suggestions
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">1.</span> <span style="font-weight:bold">**Introduction**</span>: [Specific improvements]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">2.</span> <span style="font-weight:bold">**Body**</span>: [Specific improvements]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">3.</span> <span style="font-weight:bold">**Conclusion**</span>: [Specific improvements]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">4.</span> <span style="font-weight:bold">**Title**</span>: [Options if needed]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Pre-Publish Checklist
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">- [ ]</span> All claims sourced
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">- [ ]</span> Citations formatted
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">- [ ]</span> Examples clear
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">- [ ]</span> Transitions smooth
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">- [ ]</span> Call to action present
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">- [ ]</span> Proofread for typos
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Ready to publish! 🚀
+</span></span></code></pre></li>
+</ol>
+<h2 id="examples">Examples</h2>
+<h3 id="example-1-teresa-torress-workflow">Example 1: Teresa Torres’s Workflow</h3>
+<p><strong>User</strong>: “I’m writing an article about continuous discovery. Help me create an outline.”</p>
+<p><strong>Process</strong>:</p>
+<ol>
+<li>Collaborates on outline structure</li>
+<li>Identifies research needs</li>
+<li>User starts writing introduction</li>
+<li>Reviews and improves the hook</li>
+<li>User writes each section</li>
+<li>Provides feedback after each section</li>
+<li>Conducts research and adds citations</li>
+<li>Final review of complete draft</li>
+<li>Polish and prep for publishing</li>
+</ol>
+<p><strong>Result</strong>: Well-researched, properly cited article written in Teresa’s voice with strong structure and flow.</p>
+<h3 id="example-2-research-heavy-article">Example 2: Research-Heavy Article</h3>
+<p><strong>User</strong>: “I’m writing about AI’s impact on product management. Help me find current data and examples.”</p>
+<p><strong>Output</strong>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff">## Research Compiled
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Recent Data
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Gartner: 80% of PMs will use AI tools by 2025 [1]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Survey: 45% report faster feature shipping [2]
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Case study: Airbnb&#39;s AI-assisted prioritization [3]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Expert Quotes
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> &#34;AI amplifies PM judgment, not replaces it&#34; - Marty Cagan
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> [Additional quotes with citations]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Real Examples
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">1.</span> <span style="font-weight:bold">**Company A**</span>: Used AI for user research synthesis
+</span></span><span style="display:flex;"><span>   <span style="color:#ff7b72">-</span> Result: 60% time savings
+</span></span><span style="display:flex;"><span>   <span style="color:#ff7b72">-</span> Source: [citation]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">2.</span> <span style="font-weight:bold">**Company B**</span>: AI-powered roadmap analysis
+</span></span><span style="display:flex;"><span>   <span style="color:#ff7b72">-</span> Result: Better stakeholder alignment
+</span></span><span style="display:flex;"><span>   <span style="color:#ff7b72">-</span> Source: [citation]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>All added to your outline with proper citations.
+</span></span></code></pre><h3 id="example-3-hook-improvement">Example 3: Hook Improvement</h3>
+<p><strong>User’s Original Hook</strong>:</p>
+<blockquote>
+<p>“Product management is changing because of AI. In this article, I’ll discuss some ways AI affects product managers.”</p>
+</blockquote>
+<p><strong>Improved Options</strong>:</p>
+<p><strong>Option 1 (Data-driven)</strong>:</p>
+<blockquote>
+<p>“Last month, I asked AI to analyze 500 customer interviews. It took 30 minutes instead of 3 weeks. Product management will never be the same.”</p>
+</blockquote>
+<p><strong>Option 2 (Question)</strong>:</p>
+<blockquote>
+<p>“What if you could talk to every customer, read every review, and analyze every support ticket—all before your morning coffee?”</p>
+</blockquote>
+<p><strong>Option 3 (Story)</strong>:</p>
+<blockquote>
+<p>“Sarah spent two weeks building the wrong feature. Not because she didn’t understand her users, but because she couldn’t process the hundreds of interviews fast enough to spot the pattern.”</p>
+</blockquote>
+<h3 id="example-4-section-feedback">Example 4: Section Feedback</h3>
+<p><strong>User</strong>: “Just finished my ‘Common Mistakes’ section. Thoughts?”</p>
+<p><strong>Response</strong>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"># Feedback: Common Mistakes Section
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## What Works Well ✓
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span><span style="color:#ff7b72">-</span> Strong examples (the Slack notification story)
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Clear structure (3 mistakes, clean layout)
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Practical advice for each mistake
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Suggestions
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Make It More Specific
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>Your second point says &#34;Bad prioritization&#34; but could be stronger:
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Current:
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">&gt; </span><span style="font-style:italic">&#34;Many teams prioritize badly by focusing on features instead of outcomes.&#34;
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span>Suggested:
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">&gt; </span><span style="font-style:italic">&#34;I&#39;ve watched teams ship 14 features in a quarter yet move none of their key metrics. They prioritized activity over progress.&#34;
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Add Data
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>The third mistake would benefit from evidence:
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">&gt; </span><span style="font-style:italic">&#34;[Add citation]: Studies show teams without regular user contact are 3x more likely to build unused features [needs source]&#34;
+</span></span></span><span style="display:flex;"><span><span style="font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">### Flow Improvement
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>Consider reordering: Mistake 3 → Mistake 2 → Mistake 1
+</span></span><span style="display:flex;"><span>This builds from small to big impact.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Ready for the next section!
+</span></span></code></pre><h2 id="writing-workflows">Writing Workflows</h2>
+<h3 id="blog-post-workflow">Blog Post Workflow</h3>
+<ol>
+<li>Outline together</li>
+<li>Research key points</li>
+<li>Write introduction → get feedback</li>
+<li>Write body sections → feedback each</li>
+<li>Write conclusion → final review</li>
+<li>Polish and edit</li>
+</ol>
+<h3 id="newsletter-workflow">Newsletter Workflow</h3>
+<ol>
+<li>Discuss hook ideas</li>
+<li>Quick outline (shorter format)</li>
+<li>Draft in one session</li>
+<li>Review for clarity and links</li>
+<li>Quick polish</li>
+</ol>
+<h3 id="technical-tutorial-workflow">Technical Tutorial Workflow</h3>
+<ol>
+<li>Outline steps</li>
+<li>Write code examples</li>
+<li>Add explanations</li>
+<li>Test instructions</li>
+<li>Add troubleshooting section</li>
+<li>Final review for accuracy</li>
+</ol>
+<h3 id="thought-leadership-workflow">Thought Leadership Workflow</h3>
+<ol>
+<li>Brainstorm unique angle</li>
+<li>Research existing perspectives</li>
+<li>Develop your thesis</li>
+<li>Write with strong POV</li>
+<li>Add supporting evidence</li>
+<li>Craft compelling conclusion</li>
+</ol>
+<h2 id="pro-tips">Pro Tips</h2>
+<ol>
+<li><strong>Work in VS Code</strong>: Better than web Claude for long-form writing</li>
+<li><strong>One section at a time</strong>: Get feedback incrementally</li>
+<li><strong>Save research separately</strong>: Keep a research.md file</li>
+<li><strong>Version your drafts</strong>: article-v1.md, article-v2.md, etc.</li>
+<li><strong>Read aloud</strong>: Use feedback to identify clunky sentences</li>
+<li><strong>Set deadlines</strong>: “I want to finish the draft today”</li>
+<li><strong>Take breaks</strong>: Write, get feedback, pause, revise</li>
+</ol>
+<h2 id="file-organization">File Organization</h2>
+<p>Recommended structure for writing projects:</p>
+<pre><code>~/writing/article-name/
+├── outline.md          # Your outline
+├── research.md         # All research and citations
+├── draft-v1.md         # First draft
+├── draft-v2.md         # Revised draft
+├── final.md            # Publication-ready
+├── feedback.md         # Collected feedback
+└── sources/            # Reference materials
+    ├── study1.pdf
+    └── article2.md
+</code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<h3 id="for-research">For Research</h3>
+<ul>
+<li>Verify sources before citing</li>
+<li>Use recent data when possible</li>
+<li>Balance different perspectives</li>
+<li>Link to original sources</li>
+</ul>
+<h3 id="for-feedback">For Feedback</h3>
+<ul>
+<li>Be specific about what you want: “Is this too technical?”</li>
+<li>Share your concerns: “I’m worried this section drags”</li>
+<li>Ask questions: “Does this flow logically?”</li>
+<li>Request alternatives: “What’s another way to explain this?”</li>
+</ul>
+<h3 id="for-voice">For Voice</h3>
+<ul>
+<li>Share examples of your writing</li>
+<li>Specify tone preferences</li>
+<li>Point out good matches: “That sounds like me!”</li>
+<li>Flag mismatches: “Too formal for my style”</li>
+</ul>
+<h2 id="related-use-cases">Related Use Cases</h2>
+<ul>
+<li>Creating social media posts from articles</li>
+<li>Adapting content for different audiences</li>
+<li>Writing email newsletters</li>
+<li>Drafting technical documentation</li>
+<li>Creating presentation content</li>
+<li>Writing case studies</li>
+<li>Developing course outlines</li>
+</ul>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

@@ -1,0 +1,1993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/document-skills/docx/ooxml.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./../index.html">document-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">docx</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>ooxml.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><h1 id="office-open-xml-technical-reference">Office Open XML Technical Reference</h1>
+<p><strong>Important: Read this entire document before starting.</strong> This document covers:</p>
+<ul>
+<li><a href="#technical-guidelines">Technical Guidelines</a> - Schema compliance rules and validation requirements</li>
+<li><a href="#document-content-patterns">Document Content Patterns</a> - XML patterns for headings, lists, tables, formatting, etc.</li>
+<li><a href="#document-library-python">Document Library (Python)</a> - Recommended approach for OOXML manipulation with automatic infrastructure setup</li>
+<li><a href="#tracked-changes-redlining">Tracked Changes (Redlining)</a> - XML patterns for implementing tracked changes</li>
+</ul>
+<h2 id="technical-guidelines">Technical Guidelines</h2>
+<h3 id="schema-compliance">Schema Compliance</h3>
+<ul>
+<li><strong>Element ordering in <code>&lt;w:pPr&gt;</code></strong>: <code>&lt;w:pStyle&gt;</code>, <code>&lt;w:numPr&gt;</code>, <code>&lt;w:spacing&gt;</code>, <code>&lt;w:ind&gt;</code>, <code>&lt;w:jc&gt;</code></li>
+<li><strong>Whitespace</strong>: Add <code>xml:space=&#39;preserve&#39;</code> to <code>&lt;w:t&gt;</code> elements with leading/trailing spaces</li>
+<li><strong>Unicode</strong>: Escape characters in ASCII content: <code>&#34;</code> becomes <code>&amp;#8220;</code>
+<ul>
+<li><strong>Character encoding reference</strong>: Curly quotes <code>&#34;&#34;</code> become <code>&amp;#8220;&amp;#8221;</code>, apostrophe <code>&#39;</code> becomes <code>&amp;#8217;</code>, em-dash <code>—</code> becomes <code>&amp;#8212;</code></li>
+</ul>
+</li>
+<li><strong>Tracked changes</strong>: Use <code>&lt;w:del&gt;</code> and <code>&lt;w:ins&gt;</code> tags with <code>w:author=&#34;Claude&#34;</code> outside <code>&lt;w:r&gt;</code> elements
+<ul>
+<li><strong>Critical</strong>: <code>&lt;w:ins&gt;</code> closes with <code>&lt;/w:ins&gt;</code>, <code>&lt;w:del&gt;</code> closes with <code>&lt;/w:del&gt;</code> - never mix</li>
+<li><strong>RSIDs must be 8-digit hex</strong>: Use values like <code>00AB1234</code> (only 0-9, A-F characters)</li>
+<li><strong>trackRevisions placement</strong>: Add <code>&lt;w:trackRevisions/&gt;</code> after <code>&lt;w:proofState&gt;</code> in settings.xml</li>
+</ul>
+</li>
+<li><strong>Images</strong>: Add to <code>word/media/</code>, reference in <code>document.xml</code>, set dimensions to prevent overflow</li>
+</ul>
+<h2 id="document-content-patterns">Document Content Patterns</h2>
+<h3 id="basic-structure">Basic Structure</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>Text content<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span></code></pre><h3 id="headings-and-styles">Headings and Styles</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:pStyle</span> w:val=<span style="color:#a5d6ff">&#34;Title&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:jc</span> w:val=<span style="color:#a5d6ff">&#34;center&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>Document Title<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:pPr&gt;&lt;w:pStyle</span> w:val=<span style="color:#a5d6ff">&#34;Heading2&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>Section Heading<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span></code></pre><h3 id="text-formatting">Text Formatting</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Bold --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:b/&gt;&lt;w:bCs/&gt;&lt;/w:rPr&gt;&lt;w:t&gt;</span>Bold<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Italic --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:i/&gt;&lt;w:iCs/&gt;&lt;/w:rPr&gt;&lt;w:t&gt;</span>Italic<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Underline --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:u</span> w:val=<span style="color:#a5d6ff">&#34;single&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:rPr&gt;&lt;w:t&gt;</span>Underlined<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Highlight --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:r&gt;&lt;w:rPr&gt;&lt;w:highlight</span> w:val=<span style="color:#a5d6ff">&#34;yellow&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:rPr&gt;&lt;w:t&gt;</span>Highlighted<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span></code></pre><h3 id="lists">Lists</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Numbered list --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:pStyle</span> w:val=<span style="color:#a5d6ff">&#34;ListParagraph&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:numPr&gt;&lt;w:ilvl</span> w:val=<span style="color:#a5d6ff">&#34;0&#34;</span><span style="color:#7ee787">/&gt;&lt;w:numId</span> w:val=<span style="color:#a5d6ff">&#34;1&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:numPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:spacing</span> w:before=<span style="color:#a5d6ff">&#34;240&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>First item<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Restart numbered list at 1 - use different numId --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:pStyle</span> w:val=<span style="color:#a5d6ff">&#34;ListParagraph&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:numPr&gt;&lt;w:ilvl</span> w:val=<span style="color:#a5d6ff">&#34;0&#34;</span><span style="color:#7ee787">/&gt;&lt;w:numId</span> w:val=<span style="color:#a5d6ff">&#34;2&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:numPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:spacing</span> w:before=<span style="color:#a5d6ff">&#34;240&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>New list item 1<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Bullet list (level 2) --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:pStyle</span> w:val=<span style="color:#a5d6ff">&#34;ListParagraph&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:numPr&gt;&lt;w:ilvl</span> w:val=<span style="color:#a5d6ff">&#34;1&#34;</span><span style="color:#7ee787">/&gt;&lt;w:numId</span> w:val=<span style="color:#a5d6ff">&#34;1&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:numPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:spacing</span> w:before=<span style="color:#a5d6ff">&#34;240&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:ind</span> w:left=<span style="color:#a5d6ff">&#34;900&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>Bullet item<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span></code></pre><h3 id="tables">Tables</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:tbl&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:tblPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:tblStyle</span> w:val=<span style="color:#a5d6ff">&#34;TableGrid&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:tblW</span> w:w=<span style="color:#a5d6ff">&#34;0&#34;</span> w:type=<span style="color:#a5d6ff">&#34;auto&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:tblPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:tblGrid&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:gridCol</span> w:w=<span style="color:#a5d6ff">&#34;4675&#34;</span><span style="color:#7ee787">/&gt;&lt;w:gridCol</span> w:w=<span style="color:#a5d6ff">&#34;4675&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:tblGrid&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:tr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:tc&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;w:tcPr&gt;&lt;w:tcW</span> w:w=<span style="color:#a5d6ff">&#34;4675&#34;</span> w:type=<span style="color:#a5d6ff">&#34;dxa&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:tcPr&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;w:p&gt;&lt;w:r&gt;&lt;w:t&gt;</span>Cell 1<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;/w:tc&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:tc&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;w:tcPr&gt;&lt;w:tcW</span> w:w=<span style="color:#a5d6ff">&#34;4675&#34;</span> w:type=<span style="color:#a5d6ff">&#34;dxa&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:tcPr&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;w:p&gt;&lt;w:r&gt;&lt;w:t&gt;</span>Cell 2<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;/w:tc&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:tr&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:tbl&gt;</span>
+</span></span></code></pre><h3 id="layout">Layout</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Page break before new section (common pattern) --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:br</span> w:type=<span style="color:#a5d6ff">&#34;page&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:pStyle</span> w:val=<span style="color:#a5d6ff">&#34;Heading1&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:t&gt;</span>New Section Title<span style="color:#7ee787">&lt;/w:t&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Centered paragraph --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:spacing</span> w:before=<span style="color:#a5d6ff">&#34;240&#34;</span> w:after=<span style="color:#a5d6ff">&#34;0&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:jc</span> w:val=<span style="color:#a5d6ff">&#34;center&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>Centered text<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Font change - paragraph level (applies to all runs) --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:rPr&gt;&lt;w:rFonts</span> w:ascii=<span style="color:#a5d6ff">&#34;Courier New&#34;</span> w:hAnsi=<span style="color:#a5d6ff">&#34;Courier New&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:rPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:pPr&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>Monospace text<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Font change - run level (specific to this text) --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:rPr&gt;&lt;w:rFonts</span> w:ascii=<span style="color:#a5d6ff">&#34;Courier New&#34;</span> w:hAnsi=<span style="color:#a5d6ff">&#34;Courier New&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:rPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:t&gt;</span>This text is Courier New<span style="color:#7ee787">&lt;/w:t&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span> and this text uses default font<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span></code></pre><h2 id="file-updates">File Updates</h2>
+<p>When adding content, update these files:</p>
+<p><strong><code>word/_rels/document.xml.rels</code>:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;Relationship</span> Id=<span style="color:#a5d6ff">&#34;rId1&#34;</span> Type=<span style="color:#a5d6ff">&#34;http://schemas.openxmlformats.org/officeDocument/2006/relationships/numbering&#34;</span> Target=<span style="color:#a5d6ff">&#34;numbering.xml&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;Relationship</span> Id=<span style="color:#a5d6ff">&#34;rId5&#34;</span> Type=<span style="color:#a5d6ff">&#34;http://schemas.openxmlformats.org/officeDocument/2006/relationships/image&#34;</span> Target=<span style="color:#a5d6ff">&#34;media/image1.png&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span></code></pre><p><strong><code>[Content_Types].xml</code>:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;Default</span> Extension=<span style="color:#a5d6ff">&#34;png&#34;</span> ContentType=<span style="color:#a5d6ff">&#34;image/png&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;Override</span> PartName=<span style="color:#a5d6ff">&#34;/word/numbering.xml&#34;</span> ContentType=<span style="color:#a5d6ff">&#34;application/vnd.openxmlformats-officedocument.wordprocessingml.numbering+xml&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span></code></pre><h3 id="images">Images</h3>
+<p><strong>CRITICAL</strong>: Calculate dimensions to prevent page overflow and maintain aspect ratio.</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Minimal required structure --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:p&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:drawing&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;wp:inline&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7ee787">&lt;wp:extent</span> cx=<span style="color:#a5d6ff">&#34;2743200&#34;</span> cy=<span style="color:#a5d6ff">&#34;1828800&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7ee787">&lt;wp:docPr</span> id=<span style="color:#a5d6ff">&#34;1&#34;</span> name=<span style="color:#a5d6ff">&#34;Picture 1&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7ee787">&lt;a:graphic</span> xmlns:a=<span style="color:#a5d6ff">&#34;http://schemas.openxmlformats.org/drawingml/2006/main&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#7ee787">&lt;a:graphicData</span> uri=<span style="color:#a5d6ff">&#34;http://schemas.openxmlformats.org/drawingml/2006/picture&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#7ee787">&lt;pic:pic</span> xmlns:pic=<span style="color:#a5d6ff">&#34;http://schemas.openxmlformats.org/drawingml/2006/picture&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#7ee787">&lt;pic:nvPicPr&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#7ee787">&lt;pic:cNvPr</span> id=<span style="color:#a5d6ff">&#34;0&#34;</span> name=<span style="color:#a5d6ff">&#34;image1.png&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#7ee787">&lt;pic:cNvPicPr/&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#7ee787">&lt;/pic:nvPicPr&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#7ee787">&lt;pic:blipFill&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#7ee787">&lt;a:blip</span> r:embed=<span style="color:#a5d6ff">&#34;rId5&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#8b949e;font-style:italic">&lt;!-- Add for stretch fill with aspect ratio preservation --&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#7ee787">&lt;a:stretch&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#7ee787">&lt;a:fillRect/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#7ee787">&lt;/a:stretch&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#7ee787">&lt;/pic:blipFill&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#7ee787">&lt;pic:spPr&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#7ee787">&lt;a:xfrm&gt;</span>
+</span></span><span style="display:flex;"><span>                  <span style="color:#7ee787">&lt;a:ext</span> cx=<span style="color:#a5d6ff">&#34;2743200&#34;</span> cy=<span style="color:#a5d6ff">&#34;1828800&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#7ee787">&lt;/a:xfrm&gt;</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#7ee787">&lt;a:prstGeom</span> prst=<span style="color:#a5d6ff">&#34;rect&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#7ee787">&lt;/pic:spPr&gt;</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#7ee787">&lt;/pic:pic&gt;</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#7ee787">&lt;/a:graphicData&gt;</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#7ee787">&lt;/a:graphic&gt;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#7ee787">&lt;/wp:inline&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;/w:drawing&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:p&gt;</span>
+</span></span></code></pre><h3 id="links-hyperlinks">Links (Hyperlinks)</h3>
+<p><strong>IMPORTANT</strong>: All hyperlinks (both internal and external) require the Hyperlink style to be defined in styles.xml. Without this style, links will look like regular text instead of blue underlined clickable links.</p>
+<p><strong>External Links:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- In document.xml --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:hyperlink</span> r:id=<span style="color:#a5d6ff">&#34;rId5&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:rPr&gt;&lt;w:rStyle</span> w:val=<span style="color:#a5d6ff">&#34;Hyperlink&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:rPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:t&gt;</span>Link Text<span style="color:#7ee787">&lt;/w:t&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:hyperlink&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- In word/_rels/document.xml.rels --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;Relationship</span> Id=<span style="color:#a5d6ff">&#34;rId5&#34;</span> Type=<span style="color:#a5d6ff">&#34;http://schemas.openxmlformats.org/officeDocument/2006/relationships/hyperlink&#34;</span> 
+</span></span><span style="display:flex;"><span>              Target=<span style="color:#a5d6ff">&#34;https://www.example.com/&#34;</span> TargetMode=<span style="color:#a5d6ff">&#34;External&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span></code></pre><p><strong>Internal Links:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Link to bookmark --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:hyperlink</span> w:anchor=<span style="color:#a5d6ff">&#34;myBookmark&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:rPr&gt;&lt;w:rStyle</span> w:val=<span style="color:#a5d6ff">&#34;Hyperlink&#34;</span><span style="color:#7ee787">/&gt;&lt;/w:rPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:t&gt;</span>Link Text<span style="color:#7ee787">&lt;/w:t&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:hyperlink&gt;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Bookmark target --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:bookmarkStart</span> w:id=<span style="color:#a5d6ff">&#34;0&#34;</span> w:name=<span style="color:#a5d6ff">&#34;myBookmark&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>Target content<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:bookmarkEnd</span> w:id=<span style="color:#a5d6ff">&#34;0&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span></code></pre><p><strong>Hyperlink Style (required in styles.xml):</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:style</span> w:type=<span style="color:#a5d6ff">&#34;character&#34;</span> w:styleId=<span style="color:#a5d6ff">&#34;Hyperlink&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:name</span> w:val=<span style="color:#a5d6ff">&#34;Hyperlink&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:basedOn</span> w:val=<span style="color:#a5d6ff">&#34;DefaultParagraphFont&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:uiPriority</span> w:val=<span style="color:#a5d6ff">&#34;99&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:unhideWhenUsed/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:rPr&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:color</span> w:val=<span style="color:#a5d6ff">&#34;467886&#34;</span> w:themeColor=<span style="color:#a5d6ff">&#34;hyperlink&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:u</span> w:val=<span style="color:#a5d6ff">&#34;single&#34;</span><span style="color:#7ee787">/&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:rPr&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:style&gt;</span>
+</span></span></code></pre><h2 id="document-library-python">Document Library (Python)</h2>
+<p>Use the Document class from <code>scripts/document.py</code> for all tracked changes and comments. It automatically handles infrastructure setup (people.xml, RSIDs, settings.xml, comment files, relationships, content types). Only use direct XML manipulation for complex scenarios not supported by the library.</p>
+<p><strong>Working with Unicode and Entities:</strong></p>
+<ul>
+<li><strong>Searching</strong>: Both entity notation and Unicode characters work - <code>contains=&#34;&amp;#8220;Company&#34;</code> and <code>contains=&#34;\u201cCompany&#34;</code> find the same text</li>
+<li><strong>Replacing</strong>: Use either entities (<code>&amp;#8220;</code>) or Unicode (<code>\u201c</code>) - both work and will be converted appropriately based on the file’s encoding (ascii → entities, utf-8 → Unicode)</li>
+</ul>
+<h3 id="initialization">Initialization</h3>
+<p><strong>Find the docx skill root</strong> (directory containing <code>scripts/</code> and <code>ooxml/</code>):</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Search for document.py to locate the skill root</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Note: /mnt/skills is used here as an example; check your context for the actual location</span>
+</span></span><span style="display:flex;"><span>find /mnt/skills -name <span style="color:#a5d6ff">&#34;document.py&#34;</span> -path <span style="color:#a5d6ff">&#34;*/docx/scripts/*&#34;</span> 2&gt;/dev/null | head -1
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Example output: /mnt/skills/docx/scripts/document.py</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Skill root is: /mnt/skills/docx</span>
+</span></span></code></pre><p><strong>Run your script with PYTHONPATH</strong> set to the docx skill root:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#79c0ff">PYTHONPATH</span><span style="color:#ff7b72;font-weight:bold">=</span>/mnt/skills/docx python your_script.py
+</span></span></code></pre><p><strong>In your script</strong>, import from the skill root:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">scripts.document</span> <span style="color:#ff7b72">import</span> Document, DocxXMLEditor
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Basic initialization (automatically creates temp copy and sets up infrastructure)</span>
+</span></span><span style="display:flex;"><span>doc <span style="color:#ff7b72;font-weight:bold">=</span> Document(<span style="color:#a5d6ff">&#39;unpacked&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Customize author and initials</span>
+</span></span><span style="display:flex;"><span>doc <span style="color:#ff7b72;font-weight:bold">=</span> Document(<span style="color:#a5d6ff">&#39;unpacked&#39;</span>, author<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;John Doe&#34;</span>, initials<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;JD&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Enable track revisions mode</span>
+</span></span><span style="display:flex;"><span>doc <span style="color:#ff7b72;font-weight:bold">=</span> Document(<span style="color:#a5d6ff">&#39;unpacked&#39;</span>, track_revisions<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Specify custom RSID (auto-generated if not provided)</span>
+</span></span><span style="display:flex;"><span>doc <span style="color:#ff7b72;font-weight:bold">=</span> Document(<span style="color:#a5d6ff">&#39;unpacked&#39;</span>, rsid<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;07DC5ECB&#34;</span>)
+</span></span></code></pre><h3 id="creating-tracked-changes">Creating Tracked Changes</h3>
+<p><strong>CRITICAL</strong>: Only mark text that actually changes. Keep ALL unchanged text outside <code>&lt;w:del&gt;</code>/<code>&lt;w:ins&gt;</code> tags. Marking unchanged text makes edits unprofessional and harder to review.</p>
+<p><strong>Attribute Handling</strong>: The Document class auto-injects attributes (w:id, w:date, w:rsidR, w:rsidDel, w16du:dateUtc, xml:space) into new elements. When preserving unchanged text from the original document, copy the original <code>&lt;w:r&gt;</code> element with its existing attributes to maintain document integrity.</p>
+<p><strong>Method Selection Guide</strong>:</p>
+<ul>
+<li><strong>Adding your own changes to regular text</strong>: Use <code>replace_node()</code> with <code>&lt;w:del&gt;</code>/<code>&lt;w:ins&gt;</code> tags, or <code>suggest_deletion()</code> for removing entire <code>&lt;w:r&gt;</code> or <code>&lt;w:p&gt;</code> elements</li>
+<li><strong>Partially modifying another author’s tracked change</strong>: Use <code>replace_node()</code> to nest your changes inside their <code>&lt;w:ins&gt;</code>/<code>&lt;w:del&gt;</code></li>
+<li><strong>Completely rejecting another author’s insertion</strong>: Use <code>revert_insertion()</code> on the <code>&lt;w:ins&gt;</code> element (NOT <code>suggest_deletion()</code>)</li>
+<li><strong>Completely rejecting another author’s deletion</strong>: Use <code>revert_deletion()</code> on the <code>&lt;w:del&gt;</code> element to restore deleted content using tracked changes</li>
+</ul>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Minimal edit - change one word: &#34;The report is monthly&#34; → &#34;The report is quarterly&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Original: &lt;w:r w:rsidR=&#34;00AB12CD&#34;&gt;&lt;w:rPr&gt;&lt;w:rFonts w:ascii=&#34;Calibri&#34;/&gt;&lt;/w:rPr&gt;&lt;w:t&gt;The report is monthly&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;The report is monthly&#34;</span>)
+</span></span><span style="display:flex;"><span>rpr <span style="color:#ff7b72;font-weight:bold">=</span> tags[<span style="color:#a5d6ff">0</span>]<span style="color:#ff7b72;font-weight:bold">.</span>toxml() <span style="color:#ff7b72">if</span> (tags <span style="color:#ff7b72;font-weight:bold">:=</span> node<span style="color:#ff7b72;font-weight:bold">.</span>getElementsByTagName(<span style="color:#a5d6ff">&#34;w:rPr&#34;</span>)) <span style="color:#ff7b72">else</span> <span style="color:#a5d6ff">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>replacement <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#39;&lt;w:r w:rsidR=&#34;00AB12CD&#34;&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:t&gt;The report is &lt;/w:t&gt;&lt;/w:r&gt;&lt;w:del&gt;&lt;w:r&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:delText&gt;monthly&lt;/w:delText&gt;&lt;/w:r&gt;&lt;/w:del&gt;&lt;w:ins&gt;&lt;w:r&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:t&gt;quarterly&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:ins&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>replace_node(node, replacement)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Minimal edit - change number: &#34;within 30 days&#34; → &#34;within 45 days&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Original: &lt;w:r w:rsidR=&#34;00XYZ789&#34;&gt;&lt;w:rPr&gt;&lt;w:rFonts w:ascii=&#34;Calibri&#34;/&gt;&lt;/w:rPr&gt;&lt;w:t&gt;within 30 days&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;within 30 days&#34;</span>)
+</span></span><span style="display:flex;"><span>rpr <span style="color:#ff7b72;font-weight:bold">=</span> tags[<span style="color:#a5d6ff">0</span>]<span style="color:#ff7b72;font-weight:bold">.</span>toxml() <span style="color:#ff7b72">if</span> (tags <span style="color:#ff7b72;font-weight:bold">:=</span> node<span style="color:#ff7b72;font-weight:bold">.</span>getElementsByTagName(<span style="color:#a5d6ff">&#34;w:rPr&#34;</span>)) <span style="color:#ff7b72">else</span> <span style="color:#a5d6ff">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>replacement <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#39;&lt;w:r w:rsidR=&#34;00XYZ789&#34;&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:t&gt;within &lt;/w:t&gt;&lt;/w:r&gt;&lt;w:del&gt;&lt;w:r&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:delText&gt;30&lt;/w:delText&gt;&lt;/w:r&gt;&lt;/w:del&gt;&lt;w:ins&gt;&lt;w:r&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:t&gt;45&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:ins&gt;&lt;w:r w:rsidR=&#34;00XYZ789&#34;&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:t&gt; days&lt;/w:t&gt;&lt;/w:r&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>replace_node(node, replacement)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Complete replacement - preserve formatting even when replacing all text</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;apple&#34;</span>)
+</span></span><span style="display:flex;"><span>rpr <span style="color:#ff7b72;font-weight:bold">=</span> tags[<span style="color:#a5d6ff">0</span>]<span style="color:#ff7b72;font-weight:bold">.</span>toxml() <span style="color:#ff7b72">if</span> (tags <span style="color:#ff7b72;font-weight:bold">:=</span> node<span style="color:#ff7b72;font-weight:bold">.</span>getElementsByTagName(<span style="color:#a5d6ff">&#34;w:rPr&#34;</span>)) <span style="color:#ff7b72">else</span> <span style="color:#a5d6ff">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>replacement <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#39;&lt;w:del&gt;&lt;w:r&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:delText&gt;apple&lt;/w:delText&gt;&lt;/w:r&gt;&lt;/w:del&gt;&lt;w:ins&gt;&lt;w:r&gt;</span><span style="color:#a5d6ff">{</span>rpr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:t&gt;banana orange&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:ins&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>replace_node(node, replacement)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Insert new content (no attributes needed - auto-injected)</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;existing text&#34;</span>)
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>insert_after(node, <span style="color:#a5d6ff">&#39;&lt;w:ins&gt;&lt;w:r&gt;&lt;w:t&gt;new text&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:ins&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Partially delete another author&#39;s insertion</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Original: &lt;w:ins w:author=&#34;Jane Smith&#34; w:date=&#34;...&#34;&gt;&lt;w:r&gt;&lt;w:t&gt;quarterly financial report&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:ins&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Goal: Delete only &#34;financial&#34; to make it &#34;quarterly report&#34;</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:ins&#34;</span>, attrs<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#34;w:id&#34;</span>: <span style="color:#a5d6ff">&#34;5&#34;</span>})
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># IMPORTANT: Preserve w:author=&#34;Jane Smith&#34; on the outer &lt;w:ins&gt; to maintain authorship</span>
+</span></span><span style="display:flex;"><span>replacement <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#39;&#39;&#39;&lt;w:ins w:author=&#34;Jane Smith&#34; w:date=&#34;2025-01-15T10:00:00Z&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;w:r&gt;&lt;w:t&gt;quarterly &lt;/w:t&gt;&lt;/w:r&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;w:del&gt;&lt;w:r&gt;&lt;w:delText&gt;financial &lt;/w:delText&gt;&lt;/w:r&gt;&lt;/w:del&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;w:r&gt;&lt;w:t&gt;report&lt;/w:t&gt;&lt;/w:r&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">&lt;/w:ins&gt;&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>replace_node(node, replacement)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Change part of another author&#39;s insertion</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Original: &lt;w:ins w:author=&#34;Jane Smith&#34;&gt;&lt;w:r&gt;&lt;w:t&gt;in silence, safe and sound&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:ins&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Goal: Change &#34;safe and sound&#34; to &#34;soft and unbound&#34;</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:ins&#34;</span>, attrs<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#34;w:id&#34;</span>: <span style="color:#a5d6ff">&#34;8&#34;</span>})
+</span></span><span style="display:flex;"><span>replacement <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#39;&#39;&#39;&lt;w:ins w:author=&#34;Jane Smith&#34; w:date=&#34;2025-01-15T10:00:00Z&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;w:r&gt;&lt;w:t&gt;in silence, &lt;/w:t&gt;&lt;/w:r&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">&lt;/w:ins&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">&lt;w:ins&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;w:r&gt;&lt;w:t&gt;soft and unbound&lt;/w:t&gt;&lt;/w:r&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">&lt;/w:ins&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">&lt;w:ins w:author=&#34;Jane Smith&#34; w:date=&#34;2025-01-15T10:00:00Z&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;w:del&gt;&lt;w:r&gt;&lt;w:delText&gt;safe and sound&lt;/w:delText&gt;&lt;/w:r&gt;&lt;/w:del&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">&lt;/w:ins&gt;&#39;&#39;&#39;</span>
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>replace_node(node, replacement)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Delete entire run (use only when deleting all content; use replace_node for partial deletions)</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;text to delete&#34;</span>)
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>suggest_deletion(node)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Delete entire paragraph (in-place, handles both regular and numbered list paragraphs)</span>
+</span></span><span style="display:flex;"><span>para <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;paragraph to delete&#34;</span>)
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>suggest_deletion(para)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add new numbered list item</span>
+</span></span><span style="display:flex;"><span>target_para <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;existing list item&#34;</span>)
+</span></span><span style="display:flex;"><span>pPr <span style="color:#ff7b72;font-weight:bold">=</span> tags[<span style="color:#a5d6ff">0</span>]<span style="color:#ff7b72;font-weight:bold">.</span>toxml() <span style="color:#ff7b72">if</span> (tags <span style="color:#ff7b72;font-weight:bold">:=</span> target_para<span style="color:#ff7b72;font-weight:bold">.</span>getElementsByTagName(<span style="color:#a5d6ff">&#34;w:pPr&#34;</span>)) <span style="color:#ff7b72">else</span> <span style="color:#a5d6ff">&#34;&#34;</span>
+</span></span><span style="display:flex;"><span>new_item <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#39;&lt;w:p&gt;</span><span style="color:#a5d6ff">{</span>pPr<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&lt;w:r&gt;&lt;w:t&gt;New item&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>tracked_para <span style="color:#ff7b72;font-weight:bold">=</span> DocxXMLEditor<span style="color:#ff7b72;font-weight:bold">.</span>suggest_paragraph(new_item)
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>insert_after(target_para, tracked_para)
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Optional: add spacing paragraph before content for better visual separation</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># spacing = DocxXMLEditor.suggest_paragraph(&#39;&lt;w:p&gt;&lt;w:pPr&gt;&lt;w:pStyle w:val=&#34;ListParagraph&#34;/&gt;&lt;/w:pPr&gt;&lt;/w:p&gt;&#39;)</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># doc[&#34;word/document.xml&#34;].insert_after(target_para, spacing + tracked_para)</span>
+</span></span></code></pre><h3 id="adding-comments">Adding Comments</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add comment spanning two existing tracked changes</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Note: w:id is auto-generated. Only search by w:id if you know it from XML inspection</span>
+</span></span><span style="display:flex;"><span>start_node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:del&#34;</span>, attrs<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#34;w:id&#34;</span>: <span style="color:#a5d6ff">&#34;1&#34;</span>})
+</span></span><span style="display:flex;"><span>end_node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:ins&#34;</span>, attrs<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#34;w:id&#34;</span>: <span style="color:#a5d6ff">&#34;2&#34;</span>})
+</span></span><span style="display:flex;"><span>doc<span style="color:#ff7b72;font-weight:bold">.</span>add_comment(start<span style="color:#ff7b72;font-weight:bold">=</span>start_node, end<span style="color:#ff7b72;font-weight:bold">=</span>end_node, text<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;Explanation of this change&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add comment on a paragraph</span>
+</span></span><span style="display:flex;"><span>para <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;paragraph text&#34;</span>)
+</span></span><span style="display:flex;"><span>doc<span style="color:#ff7b72;font-weight:bold">.</span>add_comment(start<span style="color:#ff7b72;font-weight:bold">=</span>para, end<span style="color:#ff7b72;font-weight:bold">=</span>para, text<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;Comment on this paragraph&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add comment on newly created tracked change</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># First create the tracked change</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;old&#34;</span>)
+</span></span><span style="display:flex;"><span>new_nodes <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>replace_node(
+</span></span><span style="display:flex;"><span>    node,
+</span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#39;&lt;w:del&gt;&lt;w:r&gt;&lt;w:delText&gt;old&lt;/w:delText&gt;&lt;/w:r&gt;&lt;/w:del&gt;&lt;w:ins&gt;&lt;w:r&gt;&lt;w:t&gt;new&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:ins&gt;&#39;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Then add comment on the newly created elements</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># new_nodes[0] is the &lt;w:del&gt;, new_nodes[1] is the &lt;w:ins&gt;</span>
+</span></span><span style="display:flex;"><span>doc<span style="color:#ff7b72;font-weight:bold">.</span>add_comment(start<span style="color:#ff7b72;font-weight:bold">=</span>new_nodes[<span style="color:#a5d6ff">0</span>], end<span style="color:#ff7b72;font-weight:bold">=</span>new_nodes[<span style="color:#a5d6ff">1</span>], text<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;Changed old to new per requirements&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Reply to existing comment</span>
+</span></span><span style="display:flex;"><span>doc<span style="color:#ff7b72;font-weight:bold">.</span>reply_to_comment(parent_comment_id<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">0</span>, text<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;I agree with this change&#34;</span>)
+</span></span></code></pre><h3 id="rejecting-tracked-changes">Rejecting Tracked Changes</h3>
+<p><strong>IMPORTANT</strong>: Use <code>revert_insertion()</code> to reject insertions and <code>revert_deletion()</code> to restore deletions using tracked changes. Use <code>suggest_deletion()</code> only for regular unmarked content.</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Reject insertion (wraps it in deletion)</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Use this when another author inserted text that you want to delete</span>
+</span></span><span style="display:flex;"><span>ins <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:ins&#34;</span>, attrs<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#34;w:id&#34;</span>: <span style="color:#a5d6ff">&#34;5&#34;</span>})
+</span></span><span style="display:flex;"><span>nodes <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>revert_insertion(ins)  <span style="color:#8b949e;font-style:italic"># Returns [ins]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Reject deletion (creates insertion to restore deleted content)</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Use this when another author deleted text that you want to restore</span>
+</span></span><span style="display:flex;"><span>del_elem <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:del&#34;</span>, attrs<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#34;w:id&#34;</span>: <span style="color:#a5d6ff">&#34;3&#34;</span>})
+</span></span><span style="display:flex;"><span>nodes <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>revert_deletion(del_elem)  <span style="color:#8b949e;font-style:italic"># Returns [del_elem, new_ins]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Reject all insertions in a paragraph</span>
+</span></span><span style="display:flex;"><span>para <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;paragraph text&#34;</span>)
+</span></span><span style="display:flex;"><span>nodes <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>revert_insertion(para)  <span style="color:#8b949e;font-style:italic"># Returns [para]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Reject all deletions in a paragraph</span>
+</span></span><span style="display:flex;"><span>para <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;paragraph text&#34;</span>)
+</span></span><span style="display:flex;"><span>nodes <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>revert_deletion(para)  <span style="color:#8b949e;font-style:italic"># Returns [para]</span>
+</span></span></code></pre><h3 id="inserting-images">Inserting Images</h3>
+<p><strong>CRITICAL</strong>: The Document class works with a temporary copy at <code>doc.unpacked_path</code>. Always copy images to this temp directory, not the original unpacked folder.</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">from</span> <span style="color:#ff7b72">PIL</span> <span style="color:#ff7b72">import</span> Image
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">shutil</span><span style="color:#ff7b72;font-weight:bold">,</span> <span style="color:#ff7b72">os</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Initialize document first</span>
+</span></span><span style="display:flex;"><span>doc <span style="color:#ff7b72;font-weight:bold">=</span> Document(<span style="color:#a5d6ff">&#39;unpacked&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Copy image and calculate full-width dimensions with aspect ratio</span>
+</span></span><span style="display:flex;"><span>media_dir <span style="color:#ff7b72;font-weight:bold">=</span> os<span style="color:#ff7b72;font-weight:bold">.</span>path<span style="color:#ff7b72;font-weight:bold">.</span>join(doc<span style="color:#ff7b72;font-weight:bold">.</span>unpacked_path, <span style="color:#a5d6ff">&#39;word/media&#39;</span>)
+</span></span><span style="display:flex;"><span>os<span style="color:#ff7b72;font-weight:bold">.</span>makedirs(media_dir, exist_ok<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">True</span>)
+</span></span><span style="display:flex;"><span>shutil<span style="color:#ff7b72;font-weight:bold">.</span>copy(<span style="color:#a5d6ff">&#39;image.png&#39;</span>, os<span style="color:#ff7b72;font-weight:bold">.</span>path<span style="color:#ff7b72;font-weight:bold">.</span>join(media_dir, <span style="color:#a5d6ff">&#39;image1.png&#39;</span>))
+</span></span><span style="display:flex;"><span>img <span style="color:#ff7b72;font-weight:bold">=</span> Image<span style="color:#ff7b72;font-weight:bold">.</span>open(os<span style="color:#ff7b72;font-weight:bold">.</span>path<span style="color:#ff7b72;font-weight:bold">.</span>join(media_dir, <span style="color:#a5d6ff">&#39;image1.png&#39;</span>))
+</span></span><span style="display:flex;"><span>width_emus <span style="color:#ff7b72;font-weight:bold">=</span> int(<span style="color:#a5d6ff">6.5</span> <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">914400</span>)  <span style="color:#8b949e;font-style:italic"># 6.5&#34; usable width, 914400 EMUs/inch</span>
+</span></span><span style="display:flex;"><span>height_emus <span style="color:#ff7b72;font-weight:bold">=</span> int(width_emus <span style="color:#ff7b72;font-weight:bold">*</span> img<span style="color:#ff7b72;font-weight:bold">.</span>size[<span style="color:#a5d6ff">1</span>] <span style="color:#ff7b72;font-weight:bold">/</span> img<span style="color:#ff7b72;font-weight:bold">.</span>size[<span style="color:#a5d6ff">0</span>])
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Add relationship and content type</span>
+</span></span><span style="display:flex;"><span>rels_editor <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#39;word/_rels/document.xml.rels&#39;</span>]
+</span></span><span style="display:flex;"><span>next_rid <span style="color:#ff7b72;font-weight:bold">=</span> rels_editor<span style="color:#ff7b72;font-weight:bold">.</span>get_next_rid()
+</span></span><span style="display:flex;"><span>rels_editor<span style="color:#ff7b72;font-weight:bold">.</span>append_to(rels_editor<span style="color:#ff7b72;font-weight:bold">.</span>dom<span style="color:#ff7b72;font-weight:bold">.</span>documentElement,
+</span></span><span style="display:flex;"><span>    <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#39;&lt;Relationship Id=&#34;</span><span style="color:#a5d6ff">{</span>next_rid<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34; Type=&#34;http://schemas.openxmlformats.org/officeDocument/2006/relationships/image&#34; Target=&#34;media/image1.png&#34;/&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#39;[Content_Types].xml&#39;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>append_to(doc[<span style="color:#a5d6ff">&#39;[Content_Types].xml&#39;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>dom<span style="color:#ff7b72;font-weight:bold">.</span>documentElement,
+</span></span><span style="display:flex;"><span>    <span style="color:#a5d6ff">&#39;&lt;Default Extension=&#34;png&#34; ContentType=&#34;image/png&#34;/&gt;&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Insert image</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, line_number<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">100</span>)
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>insert_after(node, <span style="color:#79c0ff">f</span><span style="color:#a5d6ff">&#39;&#39;&#39;&lt;w:p&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;w:r&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &lt;w:drawing&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">      &lt;wp:inline distT=&#34;0&#34; distB=&#34;0&#34; distL=&#34;0&#34; distR=&#34;0&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &lt;wp:extent cx=&#34;</span><span style="color:#a5d6ff">{</span>width_emus<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34; cy=&#34;</span><span style="color:#a5d6ff">{</span>height_emus<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;/&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &lt;wp:docPr id=&#34;1&#34; name=&#34;Picture 1&#34;/&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &lt;a:graphic xmlns:a=&#34;http://schemas.openxmlformats.org/drawingml/2006/main&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">          &lt;a:graphicData uri=&#34;http://schemas.openxmlformats.org/drawingml/2006/picture&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">            &lt;pic:pic xmlns:pic=&#34;http://schemas.openxmlformats.org/drawingml/2006/picture&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">              &lt;pic:nvPicPr&gt;&lt;pic:cNvPr id=&#34;1&#34; name=&#34;image1.png&#34;/&gt;&lt;pic:cNvPicPr/&gt;&lt;/pic:nvPicPr&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">              &lt;pic:blipFill&gt;&lt;a:blip r:embed=&#34;</span><span style="color:#a5d6ff">{</span>next_rid<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;/&gt;&lt;a:stretch&gt;&lt;a:fillRect/&gt;&lt;/a:stretch&gt;&lt;/pic:blipFill&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">              &lt;pic:spPr&gt;&lt;a:xfrm&gt;&lt;a:ext cx=&#34;</span><span style="color:#a5d6ff">{</span>width_emus<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34; cy=&#34;</span><span style="color:#a5d6ff">{</span>height_emus<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#34;/&gt;&lt;/a:xfrm&gt;&lt;a:prstGeom prst=&#34;rect&#34;&gt;&lt;a:avLst/&gt;&lt;/a:prstGeom&gt;&lt;/pic:spPr&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">            &lt;/pic:pic&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">          &lt;/a:graphicData&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &lt;/a:graphic&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">      &lt;/wp:inline&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &lt;/w:drawing&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;/w:r&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">&lt;/w:p&gt;&#39;&#39;&#39;</span>)
+</span></span></code></pre><h3 id="getting-nodes">Getting Nodes</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># By text content</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;specific text&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># By line range</span>
+</span></span><span style="display:flex;"><span>para <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, line_number<span style="color:#ff7b72;font-weight:bold">=</span>range(<span style="color:#a5d6ff">100</span>, <span style="color:#a5d6ff">150</span>))
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># By attributes</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:del&#34;</span>, attrs<span style="color:#ff7b72;font-weight:bold">=</span>{<span style="color:#a5d6ff">&#34;w:id&#34;</span>: <span style="color:#a5d6ff">&#34;1&#34;</span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># By exact line number (must be line number where tag opens)</span>
+</span></span><span style="display:flex;"><span>para <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, line_number<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">42</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Combine filters</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, line_number<span style="color:#ff7b72;font-weight:bold">=</span>range(<span style="color:#a5d6ff">40</span>, <span style="color:#a5d6ff">60</span>), contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;text&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Disambiguate when text appears multiple times - add line_number range</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;Section&#34;</span>, line_number<span style="color:#ff7b72;font-weight:bold">=</span>range(<span style="color:#a5d6ff">2400</span>, <span style="color:#a5d6ff">2500</span>))
+</span></span></code></pre><h3 id="saving">Saving</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Save with automatic validation (copies back to original directory)</span>
+</span></span><span style="display:flex;"><span>doc<span style="color:#ff7b72;font-weight:bold">.</span>save()  <span style="color:#8b949e;font-style:italic"># Validates by default, raises error if validation fails</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Save to different location</span>
+</span></span><span style="display:flex;"><span>doc<span style="color:#ff7b72;font-weight:bold">.</span>save(<span style="color:#a5d6ff">&#39;modified-unpacked&#39;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Skip validation (debugging only - needing this in production indicates XML issues)</span>
+</span></span><span style="display:flex;"><span>doc<span style="color:#ff7b72;font-weight:bold">.</span>save(validate<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#79c0ff">False</span>)
+</span></span></code></pre><h3 id="direct-dom-manipulation">Direct DOM Manipulation</h3>
+<p>For complex scenarios not covered by the library:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Access any XML file</span>
+</span></span><span style="display:flex;"><span>editor <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]
+</span></span><span style="display:flex;"><span>editor <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/comments.xml&#34;</span>]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Direct DOM access (defusedxml.minidom.Document)</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, line_number<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">5</span>)
+</span></span><span style="display:flex;"><span>parent <span style="color:#ff7b72;font-weight:bold">=</span> node<span style="color:#ff7b72;font-weight:bold">.</span>parentNode
+</span></span><span style="display:flex;"><span>parent<span style="color:#ff7b72;font-weight:bold">.</span>removeChild(node)
+</span></span><span style="display:flex;"><span>parent<span style="color:#ff7b72;font-weight:bold">.</span>appendChild(node)  <span style="color:#8b949e;font-style:italic"># Move to end</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># General document manipulation (without tracked changes)</span>
+</span></span><span style="display:flex;"><span>old_node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:p&#34;</span>, contains<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;original text&#34;</span>)
+</span></span><span style="display:flex;"><span>doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>replace_node(old_node, <span style="color:#a5d6ff">&#34;&lt;w:p&gt;&lt;w:r&gt;&lt;w:t&gt;replacement text&lt;/w:t&gt;&lt;/w:r&gt;&lt;/w:p&gt;&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Multiple insertions - use return value to maintain order</span>
+</span></span><span style="display:flex;"><span>node <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>get_node(tag<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;w:r&#34;</span>, line_number<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">100</span>)
+</span></span><span style="display:flex;"><span>nodes <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>insert_after(node, <span style="color:#a5d6ff">&#34;&lt;w:r&gt;&lt;w:t&gt;A&lt;/w:t&gt;&lt;/w:r&gt;&#34;</span>)
+</span></span><span style="display:flex;"><span>nodes <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>insert_after(nodes[<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>], <span style="color:#a5d6ff">&#34;&lt;w:r&gt;&lt;w:t&gt;B&lt;/w:t&gt;&lt;/w:r&gt;&#34;</span>)
+</span></span><span style="display:flex;"><span>nodes <span style="color:#ff7b72;font-weight:bold">=</span> doc[<span style="color:#a5d6ff">&#34;word/document.xml&#34;</span>]<span style="color:#ff7b72;font-weight:bold">.</span>insert_after(nodes[<span style="color:#ff7b72;font-weight:bold">-</span><span style="color:#a5d6ff">1</span>], <span style="color:#a5d6ff">&#34;&lt;w:r&gt;&lt;w:t&gt;C&lt;/w:t&gt;&lt;/w:r&gt;&#34;</span>)
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Results in: original_node, A, B, C</span>
+</span></span></code></pre><h2 id="tracked-changes-redlining">Tracked Changes (Redlining)</h2>
+<p><strong>Use the Document class above for all tracked changes.</strong> The patterns below are for reference when constructing replacement XML strings.</p>
+<h3 id="validation-rules">Validation Rules</h3>
+<p>The validator checks that the document text matches the original after reverting Claude’s changes. This means:</p>
+<ul>
+<li><strong>NEVER modify text inside another author’s <code>&lt;w:ins&gt;</code> or <code>&lt;w:del&gt;</code> tags</strong></li>
+<li><strong>ALWAYS use nested deletions</strong> to remove another author’s insertions</li>
+<li><strong>Every edit must be properly tracked</strong> with <code>&lt;w:ins&gt;</code> or <code>&lt;w:del&gt;</code> tags</li>
+</ul>
+<h3 id="tracked-change-patterns">Tracked Change Patterns</h3>
+<p><strong>CRITICAL RULES</strong>:</p>
+<ol>
+<li>Never modify the content inside another author’s tracked changes. Always use nested deletions.</li>
+<li><strong>XML Structure</strong>: Always place <code>&lt;w:del&gt;</code> and <code>&lt;w:ins&gt;</code> at paragraph level containing complete <code>&lt;w:r&gt;</code> elements. Never nest inside <code>&lt;w:r&gt;</code> elements - this creates invalid XML that breaks document processing.</li>
+</ol>
+<p><strong>Text Insertion:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:ins</span> w:id=<span style="color:#a5d6ff">&#34;1&#34;</span> w:author=<span style="color:#a5d6ff">&#34;Claude&#34;</span> w:date=<span style="color:#a5d6ff">&#34;2025-07-30T23:05:00Z&#34;</span> w16du:dateUtc=<span style="color:#a5d6ff">&#34;2025-07-31T06:05:00Z&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r</span> w:rsidR=<span style="color:#a5d6ff">&#34;00792858&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:t&gt;</span>inserted text<span style="color:#7ee787">&lt;/w:t&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:ins&gt;</span>
+</span></span></code></pre><p><strong>Text Deletion:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:del</span> w:id=<span style="color:#a5d6ff">&#34;2&#34;</span> w:author=<span style="color:#a5d6ff">&#34;Claude&#34;</span> w:date=<span style="color:#a5d6ff">&#34;2025-07-30T23:05:00Z&#34;</span> w16du:dateUtc=<span style="color:#a5d6ff">&#34;2025-07-31T06:05:00Z&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r</span> w:rsidDel=<span style="color:#a5d6ff">&#34;00792858&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:delText&gt;</span>deleted text<span style="color:#7ee787">&lt;/w:delText&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:del&gt;</span>
+</span></span></code></pre><p><strong>Deleting Another Author’s Insertion (MUST use nested structure):</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Nest deletion inside the original insertion --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:ins</span> w:author=<span style="color:#a5d6ff">&#34;Jane Smith&#34;</span> w:id=<span style="color:#a5d6ff">&#34;16&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:del</span> w:author=<span style="color:#a5d6ff">&#34;Claude&#34;</span> w:id=<span style="color:#a5d6ff">&#34;40&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&lt;w:r&gt;&lt;w:delText&gt;</span>monthly<span style="color:#7ee787">&lt;/w:delText&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;/w:del&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:ins&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:ins</span> w:author=<span style="color:#a5d6ff">&#34;Claude&#34;</span> w:id=<span style="color:#a5d6ff">&#34;41&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>weekly<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:ins&gt;</span>
+</span></span></code></pre><p><strong>Restoring Another Author’s Deletion:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">&lt;!-- Leave their deletion unchanged, add new insertion after it --&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:del</span> w:author=<span style="color:#a5d6ff">&#34;Jane Smith&#34;</span> w:id=<span style="color:#a5d6ff">&#34;50&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:delText&gt;</span>within 30 days<span style="color:#7ee787">&lt;/w:delText&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:del&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;w:ins</span> w:author=<span style="color:#a5d6ff">&#34;Claude&#34;</span> w:id=<span style="color:#a5d6ff">&#34;51&#34;</span><span style="color:#7ee787">&gt;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&lt;w:r&gt;&lt;w:t&gt;</span>within 30 days<span style="color:#7ee787">&lt;/w:t&gt;&lt;/w:r&gt;</span>
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">&lt;/w:ins&gt;</span>
+</span></span></code></pre></body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

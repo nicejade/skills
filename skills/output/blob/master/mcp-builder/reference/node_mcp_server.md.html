@@ -1,0 +1,2306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/mcp-builder/reference/node_mcp_server.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./../index.html">mcp-builder</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">reference</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>node_mcp_server.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><h1 id="nodetypescript-mcp-server-implementation-guide">Node/TypeScript MCP Server Implementation Guide</h1>
+<h2 id="overview">Overview</h2>
+<p>This document provides Node/TypeScript-specific best practices and examples for implementing MCP servers using the MCP TypeScript SDK. It covers project structure, server setup, tool registration patterns, input validation with Zod, error handling, and complete working examples.</p>
+<hr/>
+<h2 id="quick-reference">Quick Reference</h2>
+<h3 id="key-imports">Key Imports</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { McpServer } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;@modelcontextprotocol/sdk/server/mcp.js&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { StdioServerTransport } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;@modelcontextprotocol/sdk/server/stdio.js&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { z } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;zod&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> axios, { AxiosError } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;axios&#34;</span>;
+</span></span></code></pre><h3 id="server-initialization">Server Initialization</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> server <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> McpServer({
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;service-mcp-server&#34;</span>,
+</span></span><span style="display:flex;"><span>  version<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;1.0.0&#34;</span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h3 id="tool-registration-pattern">Tool Registration Pattern</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>server.registerTool(<span style="color:#a5d6ff">&#34;tool_name&#34;</span>, {...config}, <span style="color:#ff7b72">async</span> (params) <span style="color:#ff7b72;font-weight:bold">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#8b949e;font-style:italic">// Implementation
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>});
+</span></span></code></pre><hr/>
+<h2 id="mcp-typescript-sdk">MCP TypeScript SDK</h2>
+<p>The official MCP TypeScript SDK provides:</p>
+<ul>
+<li><code>McpServer</code> class for server initialization</li>
+<li><code>registerTool</code> method for tool registration</li>
+<li>Zod schema integration for runtime input validation</li>
+<li>Type-safe tool handler implementations</li>
+</ul>
+<p>See the MCP SDK documentation in the references for complete details.</p>
+<h2 id="server-naming-convention">Server Naming Convention</h2>
+<p>Node/TypeScript MCP servers must follow this naming pattern:</p>
+<ul>
+<li><strong>Format</strong>: <code>{service}-mcp-server</code> (lowercase with hyphens)</li>
+<li><strong>Examples</strong>: <code>github-mcp-server</code>, <code>jira-mcp-server</code>, <code>stripe-mcp-server</code></li>
+</ul>
+<p>The name should be:</p>
+<ul>
+<li>General (not tied to specific features)</li>
+<li>Descriptive of the service/API being integrated</li>
+<li>Easy to infer from the task description</li>
+<li>Without version numbers or dates</li>
+</ul>
+<h2 id="project-structure">Project Structure</h2>
+<p>Create the following structure for Node/TypeScript MCP servers:</p>
+<pre><code>{service}-mcp-server/
+├── package.json
+├── tsconfig.json
+├── README.md
+├── src/
+│   ├── index.ts          # Main entry point with McpServer initialization
+│   ├── types.ts          # TypeScript type definitions and interfaces
+│   ├── tools/            # Tool implementations (one file per domain)
+│   ├── services/         # API clients and shared utilities
+│   ├── schemas/          # Zod validation schemas
+│   └── constants.ts      # Shared constants (API_URL, CHARACTER_LIMIT, etc.)
+└── dist/                 # Built JavaScript files (entry point: dist/index.js)
+</code></pre>
+<h2 id="tool-implementation">Tool Implementation</h2>
+<h3 id="tool-naming">Tool Naming</h3>
+<p>Use snake_case for tool names (e.g., “search_users”, “create_project”, “get_channel_info”) with clear, action-oriented names.</p>
+<p><strong>Avoid Naming Conflicts</strong>: Include the service context to prevent overlaps:</p>
+<ul>
+<li>Use “slack_send_message” instead of just “send_message”</li>
+<li>Use “github_create_issue” instead of just “create_issue”</li>
+<li>Use “asana_list_tasks” instead of just “list_tasks”</li>
+</ul>
+<h3 id="tool-structure">Tool Structure</h3>
+<p>Tools are registered using the <code>registerTool</code> method with the following requirements:</p>
+<ul>
+<li>Use Zod schemas for runtime input validation and type safety</li>
+<li>The <code>description</code> field must be explicitly provided - JSDoc comments are NOT automatically extracted</li>
+<li>Explicitly provide <code>title</code>, <code>description</code>, <code>inputSchema</code>, and <code>annotations</code></li>
+<li>The <code>inputSchema</code> must be a Zod schema object (not a JSON schema)</li>
+<li>Type all parameters and return values explicitly</li>
+</ul>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { McpServer } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;@modelcontextprotocol/sdk/server/mcp.js&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { z } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;zod&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> server <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> McpServer({
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;example-mcp&#34;</span>,
+</span></span><span style="display:flex;"><span>  version<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;1.0.0&#34;</span>
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Zod schema for input validation
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> UserSearchInputSchema <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">object</span>({
+</span></span><span style="display:flex;"><span>  query: <span style="color:#ff7b72">z.string</span>()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">2</span>, <span style="color:#a5d6ff">&#34;Query must be at least 2 characters&#34;</span>)
+</span></span><span style="display:flex;"><span>    .max(<span style="color:#a5d6ff">200</span>, <span style="color:#a5d6ff">&#34;Query must not exceed 200 characters&#34;</span>)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Search string to match against names/emails&#34;</span>),
+</span></span><span style="display:flex;"><span>  limit: <span style="color:#ff7b72">z.number</span>()
+</span></span><span style="display:flex;"><span>    .int()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">1</span>)
+</span></span><span style="display:flex;"><span>    .max(<span style="color:#a5d6ff">100</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(<span style="color:#a5d6ff">20</span>)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Maximum results to return&#34;</span>),
+</span></span><span style="display:flex;"><span>  offset: <span style="color:#ff7b72">z.number</span>()
+</span></span><span style="display:flex;"><span>    .int()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">0</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(<span style="color:#a5d6ff">0</span>)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Number of results to skip for pagination&#34;</span>),
+</span></span><span style="display:flex;"><span>  response_format: <span style="color:#ff7b72">z.nativeEnum</span>(ResponseFormat)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(ResponseFormat.MARKDOWN)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Output format: &#39;markdown&#39; for human-readable or &#39;json&#39; for machine-readable&#34;</span>)
+</span></span><span style="display:flex;"><span>}).strict();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Type definition from Zod schema
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">type</span> UserSearchInput <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">infer</span>&lt;<span style="color:#7ee787">typeof</span> UserSearchInputSchema&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>server.registerTool(
+</span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;example_search_users&#34;</span>,
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    title<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Search Example Users&#34;</span>,
+</span></span><span style="display:flex;"><span>    description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">`Search for users in the Example system by name, email, or team.
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">This tool searches across all user profiles in the Example platform, supporting partial matches and various search filters. It does NOT create or modify users, only searches existing ones.
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">Args:
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - query (string): Search string to match against names/emails
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - limit (number): Maximum results to return, between 1-100 (default: 20)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - offset (number): Number of results to skip for pagination (default: 0)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - response_format (&#39;markdown&#39; | &#39;json&#39;): Output format (default: &#39;markdown&#39;)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">Returns:
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  For JSON format: Structured data with schema:
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  {
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &#34;total&#34;: number,           // Total number of matches found
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &#34;count&#34;: number,           // Number of results in this response
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &#34;offset&#34;: number,          // Current pagination offset
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &#34;users&#34;: [
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">      {
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &#34;id&#34;: string,          // User ID (e.g., &#34;U123456789&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &#34;name&#34;: string,        // Full name (e.g., &#34;John Doe&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &#34;email&#34;: string,       // Email address
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &#34;team&#34;: string,        // Team name (optional)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &#34;active&#34;: boolean      // Whether user is active
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">      }
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    ],
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &#34;has_more&#34;: boolean,       // Whether more results are available
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &#34;next_offset&#34;: number      // Offset for next page (if has_more is true)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  }
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">Examples:
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - Use when: &#34;Find all marketing team members&#34; -&gt; params with query=&#34;team:marketing&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - Use when: &#34;Search for John&#39;s account&#34; -&gt; params with query=&#34;john&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - Don&#39;t use when: You need to create a user (use example_create_user instead)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">Error Handling:
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - Returns &#34;Error: Rate limit exceeded&#34; if too many requests (429 status)
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  - Returns &#34;No users found matching &#39;&lt;query&gt;&#39;&#34; if search returns empty`</span>,
+</span></span><span style="display:flex;"><span>    inputSchema: <span style="color:#ff7b72">UserSearchInputSchema</span>,
+</span></span><span style="display:flex;"><span>    annotations<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      readOnlyHint: <span style="color:#ff7b72">true</span>,
+</span></span><span style="display:flex;"><span>      destructiveHint: <span style="color:#ff7b72">false</span>,
+</span></span><span style="display:flex;"><span>      idempotentHint: <span style="color:#ff7b72">true</span>,
+</span></span><span style="display:flex;"><span>      openWorldHint: <span style="color:#ff7b72">true</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">async</span> (params: <span style="color:#ff7b72">UserSearchInput</span>) <span style="color:#ff7b72;font-weight:bold">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">try</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#8b949e;font-style:italic">// Input validation is handled by Zod schema
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#8b949e;font-style:italic">// Make API request using validated parameters
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#ff7b72">const</span> data <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> makeApiRequest&lt;<span style="color:#7ee787">any</span>&gt;(
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;users/search&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#79c0ff">undefined</span>,
+</span></span><span style="display:flex;"><span>        {
+</span></span><span style="display:flex;"><span>          q: <span style="color:#ff7b72">params.query</span>,
+</span></span><span style="display:flex;"><span>          limit: <span style="color:#ff7b72">params.limit</span>,
+</span></span><span style="display:flex;"><span>          offset: <span style="color:#ff7b72">params.offset</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">const</span> users <span style="color:#ff7b72;font-weight:bold">=</span> data.users <span style="color:#ff7b72;font-weight:bold">||</span> [];
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">const</span> total <span style="color:#ff7b72;font-weight:bold">=</span> data.total <span style="color:#ff7b72;font-weight:bold">||</span> <span style="color:#a5d6ff">0</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">if</span> (<span style="color:#ff7b72;font-weight:bold">!</span>users.length) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">return</span> {
+</span></span><span style="display:flex;"><span>          content<span style="color:#ff7b72;font-weight:bold">:</span> [{
+</span></span><span style="display:flex;"><span>            <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;text&#34;</span>,
+</span></span><span style="display:flex;"><span>            text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">`No users found matching &#39;</span><span style="color:#a5d6ff">${</span>params.query<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#39;`</span>
+</span></span><span style="display:flex;"><span>          }]
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#8b949e;font-style:italic">// Format response based on requested format
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#ff7b72">let</span> result: <span style="color:#ff7b72">string</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">if</span> (params.response_format <span style="color:#ff7b72;font-weight:bold">===</span> ResponseFormat.MARKDOWN) {
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic">// Human-readable markdown format
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        <span style="color:#ff7b72">const</span> lines: <span style="color:#ff7b72">string</span>[] <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">`# User Search Results: &#39;</span><span style="color:#a5d6ff">${</span>params.query<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">&#39;`</span>, <span style="color:#a5d6ff">&#34;&#34;</span>];
+</span></span><span style="display:flex;"><span>        lines.push(<span style="color:#a5d6ff">`Found </span><span style="color:#a5d6ff">${</span>total<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> users (showing </span><span style="color:#a5d6ff">${</span>users.length<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">)`</span>);
+</span></span><span style="display:flex;"><span>        lines.push(<span style="color:#a5d6ff">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">for</span> (<span style="color:#ff7b72">const</span> user <span style="color:#ff7b72">of</span> users) {
+</span></span><span style="display:flex;"><span>          lines.push(<span style="color:#a5d6ff">`## </span><span style="color:#a5d6ff">${</span>user.name<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> (</span><span style="color:#a5d6ff">${</span>user.id<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">)`</span>);
+</span></span><span style="display:flex;"><span>          lines.push(<span style="color:#a5d6ff">`- **Email**: </span><span style="color:#a5d6ff">${</span>user.email<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>);
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">if</span> (user.team) {
+</span></span><span style="display:flex;"><span>            lines.push(<span style="color:#a5d6ff">`- **Team**: </span><span style="color:#a5d6ff">${</span>user.team<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>);
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>          lines.push(<span style="color:#a5d6ff">&#34;&#34;</span>);
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        result <span style="color:#ff7b72;font-weight:bold">=</span> lines.join(<span style="color:#a5d6ff">&#34;\n&#34;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      } <span style="color:#ff7b72">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic">// Machine-readable JSON format
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        <span style="color:#ff7b72">const</span> response: <span style="color:#ff7b72">any</span> <span style="color:#ff7b72;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>          total,
+</span></span><span style="display:flex;"><span>          count: <span style="color:#ff7b72">users.length</span>,
+</span></span><span style="display:flex;"><span>          offset: <span style="color:#ff7b72">params.offset</span>,
+</span></span><span style="display:flex;"><span>          users: <span style="color:#ff7b72">users.map</span>((user: <span style="color:#ff7b72">any</span>) <span style="color:#ff7b72;font-weight:bold">=&gt;</span> ({
+</span></span><span style="display:flex;"><span>            id: <span style="color:#ff7b72">user.id</span>,
+</span></span><span style="display:flex;"><span>            name: <span style="color:#ff7b72">user.name</span>,
+</span></span><span style="display:flex;"><span>            email: <span style="color:#ff7b72">user.email</span>,
+</span></span><span style="display:flex;"><span>            ...(user.team <span style="color:#ff7b72;font-weight:bold">?</span> { team: <span style="color:#ff7b72">user.team</span> } <span style="color:#ff7b72;font-weight:bold">:</span> {}),
+</span></span><span style="display:flex;"><span>            active: <span style="color:#ff7b72">user.active</span> <span style="color:#ff7b72;font-weight:bold">??</span> <span style="color:#79c0ff">true</span>
+</span></span><span style="display:flex;"><span>          }))
+</span></span><span style="display:flex;"><span>        };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#8b949e;font-style:italic">// Add pagination info if there are more results
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        <span style="color:#ff7b72">if</span> (total <span style="color:#ff7b72;font-weight:bold">&gt;</span> params.offset <span style="color:#ff7b72;font-weight:bold">+</span> users.length) {
+</span></span><span style="display:flex;"><span>          response.has_more <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">true</span>;
+</span></span><span style="display:flex;"><span>          response.next_offset <span style="color:#ff7b72;font-weight:bold">=</span> params.offset <span style="color:#ff7b72;font-weight:bold">+</span> users.length;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        result <span style="color:#ff7b72;font-weight:bold">=</span> JSON.stringify(response, <span style="color:#79c0ff">null</span>, <span style="color:#a5d6ff">2</span>);
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">return</span> {
+</span></span><span style="display:flex;"><span>        content<span style="color:#ff7b72;font-weight:bold">:</span> [{
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;text&#34;</span>,
+</span></span><span style="display:flex;"><span>          text: <span style="color:#ff7b72">result</span>
+</span></span><span style="display:flex;"><span>        }]
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    } <span style="color:#ff7b72">catch</span> (error) {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">return</span> {
+</span></span><span style="display:flex;"><span>        content<span style="color:#ff7b72;font-weight:bold">:</span> [{
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">type</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;text&#34;</span>,
+</span></span><span style="display:flex;"><span>          text: <span style="color:#ff7b72">handleApiError</span>(error)
+</span></span><span style="display:flex;"><span>        }]
+</span></span><span style="display:flex;"><span>      };
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>);
+</span></span></code></pre><h2 id="zod-schemas-for-input-validation">Zod Schemas for Input Validation</h2>
+<p>Zod provides runtime type validation:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { z } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;zod&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Basic schema with validation
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> CreateUserSchema <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">object</span>({
+</span></span><span style="display:flex;"><span>  name: <span style="color:#ff7b72">z.string</span>()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">1</span>, <span style="color:#a5d6ff">&#34;Name is required&#34;</span>)
+</span></span><span style="display:flex;"><span>    .max(<span style="color:#a5d6ff">100</span>, <span style="color:#a5d6ff">&#34;Name must not exceed 100 characters&#34;</span>),
+</span></span><span style="display:flex;"><span>  email: <span style="color:#ff7b72">z.string</span>()
+</span></span><span style="display:flex;"><span>    .email(<span style="color:#a5d6ff">&#34;Invalid email format&#34;</span>),
+</span></span><span style="display:flex;"><span>  age: <span style="color:#ff7b72">z.number</span>()
+</span></span><span style="display:flex;"><span>    .int(<span style="color:#a5d6ff">&#34;Age must be a whole number&#34;</span>)
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">&#34;Age cannot be negative&#34;</span>)
+</span></span><span style="display:flex;"><span>    .max(<span style="color:#a5d6ff">150</span>, <span style="color:#a5d6ff">&#34;Age cannot be greater than 150&#34;</span>)
+</span></span><span style="display:flex;"><span>}).strict();  <span style="color:#8b949e;font-style:italic">// Use .strict() to forbid extra fields
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Enums
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">enum</span> ResponseFormat {
+</span></span><span style="display:flex;"><span>  MARKDOWN <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;markdown&#34;</span>,
+</span></span><span style="display:flex;"><span>  JSON <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;json&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> SearchSchema <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">object</span>({
+</span></span><span style="display:flex;"><span>  response_format: <span style="color:#ff7b72">z.nativeEnum</span>(ResponseFormat)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(ResponseFormat.MARKDOWN)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Output format&#34;</span>)
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Optional fields with defaults
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> PaginationSchema <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">object</span>({
+</span></span><span style="display:flex;"><span>  limit: <span style="color:#ff7b72">z.number</span>()
+</span></span><span style="display:flex;"><span>    .int()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">1</span>)
+</span></span><span style="display:flex;"><span>    .max(<span style="color:#a5d6ff">100</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(<span style="color:#a5d6ff">20</span>)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Maximum results to return&#34;</span>),
+</span></span><span style="display:flex;"><span>  offset: <span style="color:#ff7b72">z.number</span>()
+</span></span><span style="display:flex;"><span>    .int()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">0</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(<span style="color:#a5d6ff">0</span>)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Number of results to skip&#34;</span>)
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h2 id="response-format-options">Response Format Options</h2>
+<p>Support multiple output formats for flexibility:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">enum</span> ResponseFormat {
+</span></span><span style="display:flex;"><span>  MARKDOWN <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;markdown&#34;</span>,
+</span></span><span style="display:flex;"><span>  JSON <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;json&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> inputSchema <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">object</span>({
+</span></span><span style="display:flex;"><span>  query: <span style="color:#ff7b72">z.string</span>(),
+</span></span><span style="display:flex;"><span>  response_format: <span style="color:#ff7b72">z.nativeEnum</span>(ResponseFormat)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(ResponseFormat.MARKDOWN)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Output format: &#39;markdown&#39; for human-readable or &#39;json&#39; for machine-readable&#34;</span>)
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><p><strong>Markdown format</strong>:</p>
+<ul>
+<li>Use headers, lists, and formatting for clarity</li>
+<li>Convert timestamps to human-readable format</li>
+<li>Show display names with IDs in parentheses</li>
+<li>Omit verbose metadata</li>
+<li>Group related information logically</li>
+</ul>
+<p><strong>JSON format</strong>:</p>
+<ul>
+<li>Return complete, structured data suitable for programmatic processing</li>
+<li>Include all available fields and metadata</li>
+<li>Use consistent field names and types</li>
+</ul>
+<h2 id="pagination-implementation">Pagination Implementation</h2>
+<p>For tools that list resources:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> ListSchema <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">object</span>({
+</span></span><span style="display:flex;"><span>  limit: <span style="color:#ff7b72">z.number</span>().int().min(<span style="color:#a5d6ff">1</span>).max(<span style="color:#a5d6ff">100</span>).<span style="color:#ff7b72">default</span>(<span style="color:#a5d6ff">20</span>),
+</span></span><span style="display:flex;"><span>  offset: <span style="color:#ff7b72">z.number</span>().int().min(<span style="color:#a5d6ff">0</span>).<span style="color:#ff7b72">default</span>(<span style="color:#a5d6ff">0</span>)
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> listItems(params: <span style="color:#ff7b72">z.infer</span>&lt;<span style="color:#7ee787">typeof</span> ListSchema&gt;) {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">const</span> data <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> apiRequest(params.limit, params.offset);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">const</span> response <span style="color:#ff7b72;font-weight:bold">=</span> {
+</span></span><span style="display:flex;"><span>    total: <span style="color:#ff7b72">data.total</span>,
+</span></span><span style="display:flex;"><span>    count: <span style="color:#ff7b72">data.items.length</span>,
+</span></span><span style="display:flex;"><span>    offset: <span style="color:#ff7b72">params.offset</span>,
+</span></span><span style="display:flex;"><span>    items: <span style="color:#ff7b72">data.items</span>,
+</span></span><span style="display:flex;"><span>    has_more: <span style="color:#ff7b72">data.total</span> <span style="color:#ff7b72;font-weight:bold">&gt;</span> params.offset <span style="color:#ff7b72;font-weight:bold">+</span> data.items.length,
+</span></span><span style="display:flex;"><span>    next_offset: <span style="color:#ff7b72">data.total</span> <span style="color:#ff7b72;font-weight:bold">&gt;</span> params.offset <span style="color:#ff7b72;font-weight:bold">+</span> data.items.length
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72;font-weight:bold">?</span> params.offset <span style="color:#ff7b72;font-weight:bold">+</span> data.items.length
+</span></span><span style="display:flex;"><span>      : <span style="color:#ff7b72">undefined</span>
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> JSON.stringify(response, <span style="color:#79c0ff">null</span>, <span style="color:#a5d6ff">2</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h2 id="character-limits-and-truncation">Character Limits and Truncation</h2>
+<p>Add a CHARACTER_LIMIT constant to prevent overwhelming responses:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// At module level in constants.ts
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">export</span> <span style="color:#ff7b72">const</span> CHARACTER_LIMIT <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">25000</span>;  <span style="color:#8b949e;font-style:italic">// Maximum response size in characters
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> searchTool(params: <span style="color:#ff7b72">SearchInput</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">let</span> result <span style="color:#ff7b72;font-weight:bold">=</span> generateResponse(data);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8b949e;font-style:italic">// Check character limit and truncate if needed
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  <span style="color:#ff7b72">if</span> (result.length <span style="color:#ff7b72;font-weight:bold">&gt;</span> CHARACTER_LIMIT) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> truncatedData <span style="color:#ff7b72;font-weight:bold">=</span> data.slice(<span style="color:#a5d6ff">0</span>, Math.max(<span style="color:#a5d6ff">1</span>, data.length <span style="color:#ff7b72;font-weight:bold">/</span> <span style="color:#a5d6ff">2</span>));
+</span></span><span style="display:flex;"><span>    response.data <span style="color:#ff7b72;font-weight:bold">=</span> truncatedData;
+</span></span><span style="display:flex;"><span>    response.truncated <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#79c0ff">true</span>;
+</span></span><span style="display:flex;"><span>    response.truncation_message <span style="color:#ff7b72;font-weight:bold">=</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a5d6ff">`Response truncated from </span><span style="color:#a5d6ff">${</span>data.length<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> to </span><span style="color:#a5d6ff">${</span>truncatedData.length<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff"> items. `</span> <span style="color:#ff7b72;font-weight:bold">+</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#a5d6ff">`Use &#39;offset&#39; parameter or add filters to see more results.`</span>;
+</span></span><span style="display:flex;"><span>    result <span style="color:#ff7b72;font-weight:bold">=</span> JSON.stringify(response, <span style="color:#79c0ff">null</span>, <span style="color:#a5d6ff">2</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> result;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h2 id="error-handling">Error Handling</h2>
+<p>Provide clear, actionable error messages:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> axios, { AxiosError } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;axios&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">function</span> handleApiError(error: <span style="color:#ff7b72">unknown</span>)<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#ff7b72">string</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">if</span> (error <span style="color:#ff7b72">instanceof</span> AxiosError) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> (error.response) {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">switch</span> (error.response.status) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">case</span> 404:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">&#34;Error: Resource not found. Please check the ID is correct.&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">case</span> 403:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">&#34;Error: Permission denied. You don&#39;t have access to this resource.&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">case</span> 429:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">&#34;Error: Rate limit exceeded. Please wait before making more requests.&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">default</span><span style="color:#ff7b72;font-weight:bold">:</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">`Error: API request failed with status </span><span style="color:#a5d6ff">${</span>error.response.status<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    } <span style="color:#ff7b72">else</span> <span style="color:#ff7b72">if</span> (error.code <span style="color:#ff7b72;font-weight:bold">===</span> <span style="color:#a5d6ff">&#34;ECONNABORTED&#34;</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">&#34;Error: Request timed out. Please try again.&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">`Error: Unexpected error occurred: </span><span style="color:#a5d6ff">${</span>error <span style="color:#ff7b72">instanceof</span> Error <span style="color:#ff7b72;font-weight:bold">?</span> error.message : <span style="color:#ff7b72">String</span>(error)<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h2 id="shared-utilities">Shared Utilities</h2>
+<p>Extract common functionality into reusable functions:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Shared API request function
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> makeApiRequest&lt;<span style="color:#7ee787">T</span>&gt;(
+</span></span><span style="display:flex;"><span>  endpoint: <span style="color:#ff7b72">string</span>,
+</span></span><span style="display:flex;"><span>  method<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;GET&#34;</span> <span style="color:#ff7b72;font-weight:bold">|</span> <span style="color:#a5d6ff">&#34;POST&#34;</span> <span style="color:#ff7b72;font-weight:bold">|</span> <span style="color:#a5d6ff">&#34;PUT&#34;</span> <span style="color:#ff7b72;font-weight:bold">|</span> <span style="color:#a5d6ff">&#34;DELETE&#34;</span> <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>  data?: <span style="color:#ff7b72">any</span>,
+</span></span><span style="display:flex;"><span>  params?: <span style="color:#ff7b72">any</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#ff7b72;font-weight:bold">:</span> Promise&lt;<span style="color:#7ee787">T</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> response <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> axios({
+</span></span><span style="display:flex;"><span>      method,
+</span></span><span style="display:flex;"><span>      url<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">`</span><span style="color:#a5d6ff">${</span>API_BASE_URL<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/</span><span style="color:#a5d6ff">${</span>endpoint<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>,
+</span></span><span style="display:flex;"><span>      data,
+</span></span><span style="display:flex;"><span>      params,
+</span></span><span style="display:flex;"><span>      timeout: <span style="color:#ff7b72">30000</span>,
+</span></span><span style="display:flex;"><span>      headers<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;Content-Type&#34;</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;Accept&#34;</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;application/json&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> response.data;
+</span></span><span style="display:flex;"><span>  } <span style="color:#ff7b72">catch</span> (error) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">throw</span> error;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h2 id="asyncawait-best-practices">Async/Await Best Practices</h2>
+<p>Always use async/await for network requests and I/O operations:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Good: Async network request
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> fetchData(resourceId: <span style="color:#ff7b72">string</span>)<span style="color:#ff7b72;font-weight:bold">:</span> Promise&lt;<span style="color:#7ee787">ResourceData</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">const</span> response <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> axios.<span style="color:#ff7b72">get</span>(<span style="color:#a5d6ff">`</span><span style="color:#a5d6ff">${</span>API_URL<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/resource/</span><span style="color:#a5d6ff">${</span>resourceId<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> response.data;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Bad: Promise chains
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">function</span> fetchData(resourceId: <span style="color:#ff7b72">string</span>)<span style="color:#ff7b72;font-weight:bold">:</span> Promise&lt;<span style="color:#7ee787">ResourceData</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> axios.<span style="color:#ff7b72">get</span>(<span style="color:#a5d6ff">`</span><span style="color:#a5d6ff">${</span>API_URL<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/resource/</span><span style="color:#a5d6ff">${</span>resourceId<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>)
+</span></span><span style="display:flex;"><span>    .then(response <span style="color:#ff7b72;font-weight:bold">=&gt;</span> response.data);  <span style="color:#8b949e;font-style:italic">// Harder to read and maintain
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>}
+</span></span></code></pre><h2 id="typescript-best-practices">TypeScript Best Practices</h2>
+<ol>
+<li><strong>Use Strict TypeScript</strong>: Enable strict mode in tsconfig.json</li>
+<li><strong>Define Interfaces</strong>: Create clear interface definitions for all data structures</li>
+<li><strong>Avoid <code>any</code></strong>: Use proper types or <code>unknown</code> instead of <code>any</code></li>
+<li><strong>Zod for Runtime Validation</strong>: Use Zod schemas to validate external data</li>
+<li><strong>Type Guards</strong>: Create type guard functions for complex type checking</li>
+<li><strong>Error Handling</strong>: Always use try-catch with proper error type checking</li>
+<li><strong>Null Safety</strong>: Use optional chaining (<code>?.</code>) and nullish coalescing (<code>??</code>)</li>
+</ol>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Good: Type-safe with Zod and interfaces
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">interface</span> UserResponse {
+</span></span><span style="display:flex;"><span>  id: <span style="color:#ff7b72">string</span>;
+</span></span><span style="display:flex;"><span>  name: <span style="color:#ff7b72">string</span>;
+</span></span><span style="display:flex;"><span>  email: <span style="color:#ff7b72">string</span>;
+</span></span><span style="display:flex;"><span>  team?: <span style="color:#ff7b72">string</span>;
+</span></span><span style="display:flex;"><span>  active: <span style="color:#ff7b72">boolean</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> UserSchema <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">object</span>({
+</span></span><span style="display:flex;"><span>  id: <span style="color:#ff7b72">z.string</span>(),
+</span></span><span style="display:flex;"><span>  name: <span style="color:#ff7b72">z.string</span>(),
+</span></span><span style="display:flex;"><span>  email: <span style="color:#ff7b72">z.string</span>().email(),
+</span></span><span style="display:flex;"><span>  team: <span style="color:#ff7b72">z.string</span>().optional(),
+</span></span><span style="display:flex;"><span>  active: <span style="color:#ff7b72">z.boolean</span>()
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">type</span> User <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">infer</span>&lt;<span style="color:#7ee787">typeof</span> UserSchema&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> getUser(id: <span style="color:#ff7b72">string</span>)<span style="color:#ff7b72;font-weight:bold">:</span> Promise&lt;<span style="color:#7ee787">User</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">const</span> data <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> apiCall(<span style="color:#a5d6ff">`/users/</span><span style="color:#a5d6ff">${</span>id<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> UserSchema.parse(data);  <span style="color:#8b949e;font-style:italic">// Runtime validation
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Bad: Using any
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> getUser(id: <span style="color:#ff7b72">string</span>)<span style="color:#ff7b72;font-weight:bold">:</span> Promise&lt;<span style="color:#7ee787">any</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> <span style="color:#ff7b72">await</span> apiCall(<span style="color:#a5d6ff">`/users/</span><span style="color:#a5d6ff">${</span>id<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>);  <span style="color:#8b949e;font-style:italic">// No type safety
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>}
+</span></span></code></pre><h2 id="package-configuration">Package Configuration</h2>
+<h3 id="packagejson">package.json</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;name&#34;</span>: <span style="color:#a5d6ff">&#34;{service}-mcp-server&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;version&#34;</span>: <span style="color:#a5d6ff">&#34;1.0.0&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;description&#34;</span>: <span style="color:#a5d6ff">&#34;MCP server for {Service} API integration&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;type&#34;</span>: <span style="color:#a5d6ff">&#34;module&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;main&#34;</span>: <span style="color:#a5d6ff">&#34;dist/index.js&#34;</span>,
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;scripts&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;start&#34;</span>: <span style="color:#a5d6ff">&#34;node dist/index.js&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;dev&#34;</span>: <span style="color:#a5d6ff">&#34;tsx watch src/index.ts&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;build&#34;</span>: <span style="color:#a5d6ff">&#34;tsc&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;clean&#34;</span>: <span style="color:#a5d6ff">&#34;rm -rf dist&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;engines&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;node&#34;</span>: <span style="color:#a5d6ff">&#34;&gt;=18&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;dependencies&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;@modelcontextprotocol/sdk&#34;</span>: <span style="color:#a5d6ff">&#34;^1.6.1&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;axios&#34;</span>: <span style="color:#a5d6ff">&#34;^1.7.9&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;zod&#34;</span>: <span style="color:#a5d6ff">&#34;^3.23.8&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;devDependencies&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;@types/node&#34;</span>: <span style="color:#a5d6ff">&#34;^22.10.0&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;tsx&#34;</span>: <span style="color:#a5d6ff">&#34;^4.19.2&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;typescript&#34;</span>: <span style="color:#a5d6ff">&#34;^5.7.2&#34;</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h3 id="tsconfigjson">tsconfig.json</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;compilerOptions&#34;</span>: {
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;target&#34;</span>: <span style="color:#a5d6ff">&#34;ES2022&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;module&#34;</span>: <span style="color:#a5d6ff">&#34;Node16&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;moduleResolution&#34;</span>: <span style="color:#a5d6ff">&#34;Node16&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;lib&#34;</span>: [<span style="color:#a5d6ff">&#34;ES2022&#34;</span>],
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;outDir&#34;</span>: <span style="color:#a5d6ff">&#34;./dist&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;rootDir&#34;</span>: <span style="color:#a5d6ff">&#34;./src&#34;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;strict&#34;</span>: <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;esModuleInterop&#34;</span>: <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;skipLibCheck&#34;</span>: <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;forceConsistentCasingInFileNames&#34;</span>: <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;declaration&#34;</span>: <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;declarationMap&#34;</span>: <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;sourceMap&#34;</span>: <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#7ee787">&#34;allowSyntheticDefaultImports&#34;</span>: <span style="color:#79c0ff">true</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;include&#34;</span>: [<span style="color:#a5d6ff">&#34;src/**/*&#34;</span>],
+</span></span><span style="display:flex;"><span>  <span style="color:#7ee787">&#34;exclude&#34;</span>: [<span style="color:#a5d6ff">&#34;node_modules&#34;</span>, <span style="color:#a5d6ff">&#34;dist&#34;</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h2 id="complete-example">Complete Example</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#f85149">#</span><span style="color:#ff7b72;font-weight:bold">!</span><span style="color:#f85149">/usr/bin/env node</span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">/**
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"> * MCP Server for Example Service.
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"> *
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"> * This server provides tools to interact with Example API, including user search,
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"> * project management, and data export capabilities.
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"> */</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { McpServer } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;@modelcontextprotocol/sdk/server/mcp.js&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { StdioServerTransport } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;@modelcontextprotocol/sdk/server/stdio.js&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { z } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;zod&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> axios, { AxiosError } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;axios&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Constants
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> API_BASE_URL <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;https://api.example.com/v1&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> CHARACTER_LIMIT <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">25000</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Enums
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">enum</span> ResponseFormat {
+</span></span><span style="display:flex;"><span>  MARKDOWN <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;markdown&#34;</span>,
+</span></span><span style="display:flex;"><span>  JSON <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;json&#34;</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Zod schemas
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> UserSearchInputSchema <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">object</span>({
+</span></span><span style="display:flex;"><span>  query: <span style="color:#ff7b72">z.string</span>()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">2</span>, <span style="color:#a5d6ff">&#34;Query must be at least 2 characters&#34;</span>)
+</span></span><span style="display:flex;"><span>    .max(<span style="color:#a5d6ff">200</span>, <span style="color:#a5d6ff">&#34;Query must not exceed 200 characters&#34;</span>)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Search string to match against names/emails&#34;</span>),
+</span></span><span style="display:flex;"><span>  limit: <span style="color:#ff7b72">z.number</span>()
+</span></span><span style="display:flex;"><span>    .int()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">1</span>)
+</span></span><span style="display:flex;"><span>    .max(<span style="color:#a5d6ff">100</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(<span style="color:#a5d6ff">20</span>)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Maximum results to return&#34;</span>),
+</span></span><span style="display:flex;"><span>  offset: <span style="color:#ff7b72">z.number</span>()
+</span></span><span style="display:flex;"><span>    .int()
+</span></span><span style="display:flex;"><span>    .min(<span style="color:#a5d6ff">0</span>)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(<span style="color:#a5d6ff">0</span>)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Number of results to skip for pagination&#34;</span>),
+</span></span><span style="display:flex;"><span>  response_format: <span style="color:#ff7b72">z.nativeEnum</span>(ResponseFormat)
+</span></span><span style="display:flex;"><span>    .<span style="color:#ff7b72">default</span>(ResponseFormat.MARKDOWN)
+</span></span><span style="display:flex;"><span>    .describe(<span style="color:#a5d6ff">&#34;Output format: &#39;markdown&#39; for human-readable or &#39;json&#39; for machine-readable&#34;</span>)
+</span></span><span style="display:flex;"><span>}).strict();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">type</span> UserSearchInput <span style="color:#ff7b72;font-weight:bold">=</span> z.<span style="color:#ff7b72">infer</span>&lt;<span style="color:#7ee787">typeof</span> UserSearchInputSchema&gt;;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Shared utility functions
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> makeApiRequest&lt;<span style="color:#7ee787">T</span>&gt;(
+</span></span><span style="display:flex;"><span>  endpoint: <span style="color:#ff7b72">string</span>,
+</span></span><span style="display:flex;"><span>  method<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;GET&#34;</span> <span style="color:#ff7b72;font-weight:bold">|</span> <span style="color:#a5d6ff">&#34;POST&#34;</span> <span style="color:#ff7b72;font-weight:bold">|</span> <span style="color:#a5d6ff">&#34;PUT&#34;</span> <span style="color:#ff7b72;font-weight:bold">|</span> <span style="color:#a5d6ff">&#34;DELETE&#34;</span> <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;GET&#34;</span>,
+</span></span><span style="display:flex;"><span>  data?: <span style="color:#ff7b72">any</span>,
+</span></span><span style="display:flex;"><span>  params?: <span style="color:#ff7b72">any</span>
+</span></span><span style="display:flex;"><span>)<span style="color:#ff7b72;font-weight:bold">:</span> Promise&lt;<span style="color:#7ee787">T</span>&gt; {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">try</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> response <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> axios({
+</span></span><span style="display:flex;"><span>      method,
+</span></span><span style="display:flex;"><span>      url<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">`</span><span style="color:#a5d6ff">${</span>API_BASE_URL<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">/</span><span style="color:#a5d6ff">${</span>endpoint<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>,
+</span></span><span style="display:flex;"><span>      data,
+</span></span><span style="display:flex;"><span>      params,
+</span></span><span style="display:flex;"><span>      timeout: <span style="color:#ff7b72">30000</span>,
+</span></span><span style="display:flex;"><span>      headers<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;Content-Type&#34;</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;application/json&#34;</span>,
+</span></span><span style="display:flex;"><span>        <span style="color:#a5d6ff">&#34;Accept&#34;</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;application/json&#34;</span>
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> response.data;
+</span></span><span style="display:flex;"><span>  } <span style="color:#ff7b72">catch</span> (error) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">throw</span> error;
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">function</span> handleApiError(error: <span style="color:#ff7b72">unknown</span>)<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#ff7b72">string</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">if</span> (error <span style="color:#ff7b72">instanceof</span> AxiosError) {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> (error.response) {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">switch</span> (error.response.status) {
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">case</span> 404:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">&#34;Error: Resource not found. Please check the ID is correct.&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">case</span> 403:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">&#34;Error: Permission denied. You don&#39;t have access to this resource.&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">case</span> 429:
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">&#34;Error: Rate limit exceeded. Please wait before making more requests.&#34;</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">default</span><span style="color:#ff7b72;font-weight:bold">:</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">`Error: API request failed with status </span><span style="color:#a5d6ff">${</span>error.response.status<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    } <span style="color:#ff7b72">else</span> <span style="color:#ff7b72">if</span> (error.code <span style="color:#ff7b72;font-weight:bold">===</span> <span style="color:#a5d6ff">&#34;ECONNABORTED&#34;</span>) {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">&#34;Error: Request timed out. Please try again.&#34;</span>;
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> <span style="color:#a5d6ff">`Error: Unexpected error occurred: </span><span style="color:#a5d6ff">${</span>error <span style="color:#ff7b72">instanceof</span> Error <span style="color:#ff7b72;font-weight:bold">?</span> error.message : <span style="color:#ff7b72">String</span>(error)<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Create MCP server instance
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> server <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> McpServer({
+</span></span><span style="display:flex;"><span>  name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;example-mcp&#34;</span>,
+</span></span><span style="display:flex;"><span>  version<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;1.0.0&#34;</span>
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Register tools
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>server.registerTool(
+</span></span><span style="display:flex;"><span>  <span style="color:#a5d6ff">&#34;example_search_users&#34;</span>,
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    title<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Search Example Users&#34;</span>,
+</span></span><span style="display:flex;"><span>    description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">`[Full description as shown above]`</span>,
+</span></span><span style="display:flex;"><span>    inputSchema: <span style="color:#ff7b72">UserSearchInputSchema</span>,
+</span></span><span style="display:flex;"><span>    annotations<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      readOnlyHint: <span style="color:#ff7b72">true</span>,
+</span></span><span style="display:flex;"><span>      destructiveHint: <span style="color:#ff7b72">false</span>,
+</span></span><span style="display:flex;"><span>      idempotentHint: <span style="color:#ff7b72">true</span>,
+</span></span><span style="display:flex;"><span>      openWorldHint: <span style="color:#ff7b72">true</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">async</span> (params: <span style="color:#ff7b72">UserSearchInput</span>) <span style="color:#ff7b72;font-weight:bold">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Implementation as shown above
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  }
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Main function
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> main() {
+</span></span><span style="display:flex;"><span>  <span style="color:#8b949e;font-style:italic">// Verify environment variables if needed
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  <span style="color:#ff7b72">if</span> (<span style="color:#ff7b72;font-weight:bold">!</span>process.env.EXAMPLE_API_KEY) {
+</span></span><span style="display:flex;"><span>    console.error(<span style="color:#a5d6ff">&#34;ERROR: EXAMPLE_API_KEY environment variable is required&#34;</span>);
+</span></span><span style="display:flex;"><span>    process.exit(<span style="color:#a5d6ff">1</span>);
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8b949e;font-style:italic">// Create transport
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  <span style="color:#ff7b72">const</span> transport <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> StdioServerTransport();
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8b949e;font-style:italic">// Connect server to transport
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  <span style="color:#ff7b72">await</span> server.connect(transport);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  console.error(<span style="color:#a5d6ff">&#34;Example MCP server running via stdio&#34;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Run the server
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>main().<span style="color:#ff7b72">catch</span>((error) <span style="color:#ff7b72;font-weight:bold">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  console.error(<span style="color:#a5d6ff">&#34;Server error:&#34;</span>, error);
+</span></span><span style="display:flex;"><span>  process.exit(<span style="color:#a5d6ff">1</span>);
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><hr/>
+<h2 id="advanced-mcp-features">Advanced MCP Features</h2>
+<h3 id="resource-registration">Resource Registration</h3>
+<p>Expose data as resources for efficient, URI-based access:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { ResourceTemplate } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;@modelcontextprotocol/sdk/types.js&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Register a resource with URI template
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>server.registerResource(
+</span></span><span style="display:flex;"><span>  {
+</span></span><span style="display:flex;"><span>    uri<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;file://documents/{name}&#34;</span>,
+</span></span><span style="display:flex;"><span>    name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Document Resource&#34;</span>,
+</span></span><span style="display:flex;"><span>    description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Access documents by name&#34;</span>,
+</span></span><span style="display:flex;"><span>    mimeType<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;text/plain&#34;</span>
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">async</span> (uri: <span style="color:#ff7b72">string</span>) <span style="color:#ff7b72;font-weight:bold">=&gt;</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Extract parameter from URI
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> match <span style="color:#ff7b72;font-weight:bold">=</span> uri.match(<span style="color:#79c0ff">/^file:\/\/documents\/(.+)$/</span>);
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">if</span> (<span style="color:#ff7b72;font-weight:bold">!</span>match) {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">throw</span> <span style="color:#ff7b72">new</span> Error(<span style="color:#a5d6ff">&#34;Invalid URI format&#34;</span>);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> documentName <span style="color:#ff7b72;font-weight:bold">=</span> match[<span style="color:#a5d6ff">1</span>];
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> content <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> loadDocument(documentName);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">return</span> {
+</span></span><span style="display:flex;"><span>      contents<span style="color:#ff7b72;font-weight:bold">:</span> [{
+</span></span><span style="display:flex;"><span>        uri,
+</span></span><span style="display:flex;"><span>        mimeType<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;text/plain&#34;</span>,
+</span></span><span style="display:flex;"><span>        text: <span style="color:#ff7b72">content</span>
+</span></span><span style="display:flex;"><span>      }]
+</span></span><span style="display:flex;"><span>    };
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// List available resources dynamically
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>server.registerResourceList(<span style="color:#ff7b72">async</span> () <span style="color:#ff7b72;font-weight:bold">=&gt;</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">const</span> documents <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> getAvailableDocuments();
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> {
+</span></span><span style="display:flex;"><span>    resources: <span style="color:#ff7b72">documents.map</span>(doc <span style="color:#ff7b72;font-weight:bold">=&gt;</span> ({
+</span></span><span style="display:flex;"><span>      uri<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">`file://documents/</span><span style="color:#a5d6ff">${</span>doc.name<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>,
+</span></span><span style="display:flex;"><span>      name: <span style="color:#ff7b72">doc.name</span>,
+</span></span><span style="display:flex;"><span>      mimeType<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;text/plain&#34;</span>,
+</span></span><span style="display:flex;"><span>      description: <span style="color:#ff7b72">doc.description</span>
+</span></span><span style="display:flex;"><span>    }))
+</span></span><span style="display:flex;"><span>  };
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><p><strong>When to use Resources vs Tools:</strong></p>
+<ul>
+<li><strong>Resources</strong>: For data access with simple URI-based parameters</li>
+<li><strong>Tools</strong>: For complex operations requiring validation and business logic</li>
+<li><strong>Resources</strong>: When data is relatively static or template-based</li>
+<li><strong>Tools</strong>: When operations have side effects or complex workflows</li>
+</ul>
+<h3 id="multiple-transport-options">Multiple Transport Options</h3>
+<p>The TypeScript SDK supports different transport mechanisms:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { StdioServerTransport } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;@modelcontextprotocol/sdk/server/stdio.js&#34;</span>;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">import</span> { SSEServerTransport } <span style="color:#ff7b72">from</span> <span style="color:#a5d6ff">&#34;@modelcontextprotocol/sdk/server/sse.js&#34;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Stdio transport (default - for CLI tools)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> stdioTransport <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> StdioServerTransport();
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">await</span> server.connect(stdioTransport);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// SSE transport (for real-time web updates)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> sseTransport <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> SSEServerTransport(<span style="color:#a5d6ff">&#34;/message&#34;</span>, response);
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">await</span> server.connect(sseTransport);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// HTTP transport (for web services)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Configure based on your HTTP framework integration
+</span></span></span></code></pre><p><strong>Transport selection guide:</strong></p>
+<ul>
+<li><strong>Stdio</strong>: Command-line tools, subprocess integration, local development</li>
+<li><strong>HTTP</strong>: Web services, remote access, multiple simultaneous clients</li>
+<li><strong>SSE</strong>: Real-time updates, server-push notifications, web dashboards</li>
+</ul>
+<h3 id="notification-support">Notification Support</h3>
+<p>Notify clients when server state changes:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Notify when tools list changes
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>server.notification({
+</span></span><span style="display:flex;"><span>  method<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;notifications/tools/list_changed&#34;</span>
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Notify when resources change
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>server.notification({
+</span></span><span style="display:flex;"><span>  method<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;notifications/resources/list_changed&#34;</span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><p>Use notifications sparingly - only when server capabilities genuinely change.</p>
+<hr/>
+<h2 id="code-best-practices">Code Best Practices</h2>
+<h3 id="code-composability-and-reusability">Code Composability and Reusability</h3>
+<p>Your implementation MUST prioritize composability and code reuse:</p>
+<ol>
+<li>
+<p><strong>Extract Common Functionality</strong>:</p>
+<ul>
+<li>Create reusable helper functions for operations used across multiple tools</li>
+<li>Build shared API clients for HTTP requests instead of duplicating code</li>
+<li>Centralize error handling logic in utility functions</li>
+<li>Extract business logic into dedicated functions that can be composed</li>
+<li>Extract shared markdown or JSON field selection &amp; formatting functionality</li>
+</ul>
+</li>
+<li>
+<p><strong>Avoid Duplication</strong>:</p>
+<ul>
+<li>NEVER copy-paste similar code between tools</li>
+<li>If you find yourself writing similar logic twice, extract it into a function</li>
+<li>Common operations like pagination, filtering, field selection, and formatting should be shared</li>
+<li>Authentication/authorization logic should be centralized</li>
+</ul>
+</li>
+</ol>
+<h2 id="building-and-running">Building and Running</h2>
+<p>Always build your TypeScript code before running:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Build the project</span>
+</span></span><span style="display:flex;"><span>npm run build
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Run the server</span>
+</span></span><span style="display:flex;"><span>npm start
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"># Development with auto-reload</span>
+</span></span><span style="display:flex;"><span>npm run dev
+</span></span></code></pre><p>Always ensure <code>npm run build</code> completes successfully before considering the implementation complete.</p>
+<h2 id="quality-checklist">Quality Checklist</h2>
+<p>Before finalizing your Node/TypeScript MCP server implementation, ensure:</p>
+<h3 id="strategic-design">Strategic Design</h3>
+<ul>
+<li><input disabled="" type="checkbox"/> Tools enable complete workflows, not just API endpoint wrappers</li>
+<li><input disabled="" type="checkbox"/> Tool names reflect natural task subdivisions</li>
+<li><input disabled="" type="checkbox"/> Response formats optimize for agent context efficiency</li>
+<li><input disabled="" type="checkbox"/> Human-readable identifiers used where appropriate</li>
+<li><input disabled="" type="checkbox"/> Error messages guide agents toward correct usage</li>
+</ul>
+<h3 id="implementation-quality">Implementation Quality</h3>
+<ul>
+<li><input disabled="" type="checkbox"/> FOCUSED IMPLEMENTATION: Most important and valuable tools implemented</li>
+<li><input disabled="" type="checkbox"/> All tools registered using <code>registerTool</code> with complete configuration</li>
+<li><input disabled="" type="checkbox"/> All tools include <code>title</code>, <code>description</code>, <code>inputSchema</code>, and <code>annotations</code></li>
+<li><input disabled="" type="checkbox"/> Annotations correctly set (readOnlyHint, destructiveHint, idempotentHint, openWorldHint)</li>
+<li><input disabled="" type="checkbox"/> All tools use Zod schemas for runtime input validation with <code>.strict()</code> enforcement</li>
+<li><input disabled="" type="checkbox"/> All Zod schemas have proper constraints and descriptive error messages</li>
+<li><input disabled="" type="checkbox"/> All tools have comprehensive descriptions with explicit input/output types</li>
+<li><input disabled="" type="checkbox"/> Descriptions include return value examples and complete schema documentation</li>
+<li><input disabled="" type="checkbox"/> Error messages are clear, actionable, and educational</li>
+</ul>
+<h3 id="typescript-quality">TypeScript Quality</h3>
+<ul>
+<li><input disabled="" type="checkbox"/> TypeScript interfaces are defined for all data structures</li>
+<li><input disabled="" type="checkbox"/> Strict TypeScript is enabled in tsconfig.json</li>
+<li><input disabled="" type="checkbox"/> No use of <code>any</code> type - use <code>unknown</code> or proper types instead</li>
+<li><input disabled="" type="checkbox"/> All async functions have explicit Promise<t> return types</t></li>
+<li><input disabled="" type="checkbox"/> Error handling uses proper type guards (e.g., <code>axios.isAxiosError</code>, <code>z.ZodError</code>)</li>
+</ul>
+<h3 id="advanced-features-where-applicable">Advanced Features (where applicable)</h3>
+<ul>
+<li><input disabled="" type="checkbox"/> Resources registered for appropriate data endpoints</li>
+<li><input disabled="" type="checkbox"/> Appropriate transport configured (stdio, HTTP, SSE)</li>
+<li><input disabled="" type="checkbox"/> Notifications implemented for dynamic server capabilities</li>
+<li><input disabled="" type="checkbox"/> Type-safe with SDK interfaces</li>
+</ul>
+<h3 id="project-configuration">Project Configuration</h3>
+<ul>
+<li><input disabled="" type="checkbox"/> Package.json includes all necessary dependencies</li>
+<li><input disabled="" type="checkbox"/> Build script produces working JavaScript in dist/ directory</li>
+<li><input disabled="" type="checkbox"/> Main entry point is properly configured as dist/index.js</li>
+<li><input disabled="" type="checkbox"/> Server name follows format: <code>{service}-mcp-server</code></li>
+<li><input disabled="" type="checkbox"/> tsconfig.json properly configured with strict mode</li>
+</ul>
+<h3 id="code-quality">Code Quality</h3>
+<ul>
+<li><input disabled="" type="checkbox"/> Pagination is properly implemented where applicable</li>
+<li><input disabled="" type="checkbox"/> Large responses check CHARACTER_LIMIT constant and truncate with clear messages</li>
+<li><input disabled="" type="checkbox"/> Filtering options are provided for potentially large result sets</li>
+<li><input disabled="" type="checkbox"/> All network operations handle timeouts and connection errors gracefully</li>
+<li><input disabled="" type="checkbox"/> Common functionality is extracted into reusable functions</li>
+<li><input disabled="" type="checkbox"/> Return types are consistent across similar operations</li>
+</ul>
+<h3 id="testing-and-build">Testing and Build</h3>
+<ul>
+<li><input disabled="" type="checkbox"/> <code>npm run build</code> completes successfully without errors</li>
+<li><input disabled="" type="checkbox"/> dist/index.js created and executable</li>
+<li><input disabled="" type="checkbox"/> Server runs: <code>node dist/index.js --help</code></li>
+<li><input disabled="" type="checkbox"/> All imports resolve correctly</li>
+<li><input disabled="" type="checkbox"/> Sample tool calls work as expected</li>
+</ul>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

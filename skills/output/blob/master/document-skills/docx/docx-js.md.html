@@ -1,0 +1,1796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/document-skills/docx/docx-js.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./../index.html">document-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">docx</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>docx-js.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><h1 id="docx-library-tutorial">DOCX Library Tutorial</h1>
+<p>Generate .docx files with JavaScript/TypeScript.</p>
+<p><strong>Important: Read this entire document before starting.</strong> Critical formatting rules and common pitfalls are covered throughout - skipping sections may result in corrupted files or rendering issues.</p>
+<h2 id="setup">Setup</h2>
+<p>Assumes docx is already installed globally
+If not installed: <code>npm install -g docx</code></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, ImageRun, Media, 
+</span></span><span style="display:flex;"><span>        Header, Footer, AlignmentType, PageOrientation, LevelFormat, ExternalHyperlink, 
+</span></span><span style="display:flex;"><span>        InternalHyperlink, TableOfContents, HeadingLevel, BorderStyle, WidthType, TabStopType, 
+</span></span><span style="display:flex;"><span>        TabStopPosition, UnderlineType, ShadingType, VerticalAlign, SymbolRun, PageNumber,
+</span></span><span style="display:flex;"><span>        FootnoteReferenceRun, Footnote, PageBreak } <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;docx&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Create &amp; Save
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> doc <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> Document({ sections<span style="color:#ff7b72;font-weight:bold">:</span> [{ children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#8b949e;font-style:italic">/* content */</span>] }] });
+</span></span><span style="display:flex;"><span>Packer.toBuffer(doc).then(buffer =&gt; fs.writeFileSync(<span style="color:#a5d6ff">&#34;doc.docx&#34;</span>, buffer)); <span style="color:#8b949e;font-style:italic">// Node.js
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>Packer.toBlob(doc).then(blob =&gt; { <span style="color:#8b949e;font-style:italic">/* download logic */</span> }); <span style="color:#8b949e;font-style:italic">// Browser
+</span></span></span></code></pre><h2 id="text--formatting">Text &amp; Formatting</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// IMPORTANT: Never use \n for line breaks - always use separate Paragraph elements
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ❌ WRONG: new TextRun(&#34;Line 1\nLine 2&#34;)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ✅ CORRECT: new Paragraph({ children: [new TextRun(&#34;Line 1&#34;)] }), new Paragraph({ children: [new TextRun(&#34;Line 2&#34;)] })
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Basic text with all formatting options
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">new</span> Paragraph({
+</span></span><span style="display:flex;"><span>  alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.CENTER,
+</span></span><span style="display:flex;"><span>  spacing<span style="color:#ff7b72;font-weight:bold">:</span> { before<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">200</span>, after<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">200</span> },
+</span></span><span style="display:flex;"><span>  indent<span style="color:#ff7b72;font-weight:bold">:</span> { left<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">720</span>, right<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">720</span> },
+</span></span><span style="display:flex;"><span>  children<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Bold&#34;</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Italic&#34;</span>, italics<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Underlined&#34;</span>, underline<span style="color:#ff7b72;font-weight:bold">:</span> { type<span style="color:#ff7b72;font-weight:bold">:</span> UnderlineType.DOUBLE, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;FF0000&#34;</span> } }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Colored&#34;</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;FF0000&#34;</span>, size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">28</span>, font<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Arial&#34;</span> }), <span style="color:#8b949e;font-style:italic">// Arial default
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Highlighted&#34;</span>, highlight<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;yellow&#34;</span> }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Strikethrough&#34;</span>, strike<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;x2&#34;</span>, superScript<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;H2O&#34;</span>, subScript<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;SMALL CAPS&#34;</span>, smallCaps<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> SymbolRun({ <span style="color:#ff7b72">char</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;2022&#34;</span>, font<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Symbol&#34;</span> }), <span style="color:#8b949e;font-style:italic">// Bullet •
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">new</span> SymbolRun({ <span style="color:#ff7b72">char</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;00A9&#34;</span>, font<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Arial&#34;</span> })   <span style="color:#8b949e;font-style:italic">// Copyright © - Arial for symbols
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  ]
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre><h2 id="styles--professional-formatting">Styles &amp; Professional Formatting</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> doc <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> Document({
+</span></span><span style="display:flex;"><span>  styles<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">default</span><span style="color:#ff7b72;font-weight:bold">:</span> { document<span style="color:#ff7b72;font-weight:bold">:</span> { run<span style="color:#ff7b72;font-weight:bold">:</span> { font<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Arial&#34;</span>, size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">24</span> } } }, <span style="color:#8b949e;font-style:italic">// 12pt default
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    paragraphStyles<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>      <span style="color:#8b949e;font-style:italic">// Document title style - override built-in Title style
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      { id<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Title&#34;</span>, name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Title&#34;</span>, basedOn<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Normal&#34;</span>,
+</span></span><span style="display:flex;"><span>        run<span style="color:#ff7b72;font-weight:bold">:</span> { size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">56</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;000000&#34;</span>, font<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Arial&#34;</span> },
+</span></span><span style="display:flex;"><span>        paragraph<span style="color:#ff7b72;font-weight:bold">:</span> { spacing<span style="color:#ff7b72;font-weight:bold">:</span> { before<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">240</span>, after<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">120</span> }, alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.CENTER } },
+</span></span><span style="display:flex;"><span>      <span style="color:#8b949e;font-style:italic">// IMPORTANT: Override built-in heading styles by using their exact IDs
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      { id<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Heading1&#34;</span>, name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Heading 1&#34;</span>, basedOn<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Normal&#34;</span>, next<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Normal&#34;</span>, quickFormat<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>        run<span style="color:#ff7b72;font-weight:bold">:</span> { size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">32</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;000000&#34;</span>, font<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Arial&#34;</span> }, <span style="color:#8b949e;font-style:italic">// 16pt
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        paragraph<span style="color:#ff7b72;font-weight:bold">:</span> { spacing<span style="color:#ff7b72;font-weight:bold">:</span> { before<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">240</span>, after<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">240</span> }, outlineLevel<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> } }, <span style="color:#8b949e;font-style:italic">// Required for TOC
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      { id<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Heading2&#34;</span>, name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Heading 2&#34;</span>, basedOn<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Normal&#34;</span>, next<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Normal&#34;</span>, quickFormat<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>        run<span style="color:#ff7b72;font-weight:bold">:</span> { size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">28</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;000000&#34;</span>, font<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Arial&#34;</span> }, <span style="color:#8b949e;font-style:italic">// 14pt
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        paragraph<span style="color:#ff7b72;font-weight:bold">:</span> { spacing<span style="color:#ff7b72;font-weight:bold">:</span> { before<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">180</span>, after<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">180</span> }, outlineLevel<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span> } },
+</span></span><span style="display:flex;"><span>      <span style="color:#8b949e;font-style:italic">// Custom styles use your own IDs
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      { id<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;myStyle&#34;</span>, name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;My Style&#34;</span>, basedOn<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Normal&#34;</span>,
+</span></span><span style="display:flex;"><span>        run<span style="color:#ff7b72;font-weight:bold">:</span> { size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">28</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;000000&#34;</span> },
+</span></span><span style="display:flex;"><span>        paragraph<span style="color:#ff7b72;font-weight:bold">:</span> { spacing<span style="color:#ff7b72;font-weight:bold">:</span> { after<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">120</span> }, alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.CENTER } }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    characterStyles<span style="color:#ff7b72;font-weight:bold">:</span> [{ id<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;myCharStyle&#34;</span>, name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;My Char Style&#34;</span>,
+</span></span><span style="display:flex;"><span>      run<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;FF0000&#34;</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>, underline<span style="color:#ff7b72;font-weight:bold">:</span> { type<span style="color:#ff7b72;font-weight:bold">:</span> UnderlineType.SINGLE } } }]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  sections<span style="color:#ff7b72;font-weight:bold">:</span> [{
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> { page<span style="color:#ff7b72;font-weight:bold">:</span> { margin<span style="color:#ff7b72;font-weight:bold">:</span> { top<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1440</span>, right<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1440</span>, bottom<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1440</span>, left<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1440</span> } } },
+</span></span><span style="display:flex;"><span>    children<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">new</span> Paragraph({ heading<span style="color:#ff7b72;font-weight:bold">:</span> HeadingLevel.TITLE, children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Document Title&#34;</span>)] }), <span style="color:#8b949e;font-style:italic">// Uses overridden Title style
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#ff7b72">new</span> Paragraph({ heading<span style="color:#ff7b72;font-weight:bold">:</span> HeadingLevel.HEADING_1, children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Heading 1&#34;</span>)] }), <span style="color:#8b949e;font-style:italic">// Uses overridden Heading1 style
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#ff7b72">new</span> Paragraph({ style<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;myStyle&#34;</span>, children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Custom paragraph style&#34;</span>)] }),
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">new</span> Paragraph({ children<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Normal with &#34;</span>),
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;custom char style&#34;</span>, style<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;myCharStyle&#34;</span> })
+</span></span><span style="display:flex;"><span>      ]})
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }]
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><p><strong>Professional Font Combinations:</strong></p>
+<ul>
+<li><strong>Arial (Headers) + Arial (Body)</strong> - Most universally supported, clean and professional</li>
+<li><strong>Times New Roman (Headers) + Arial (Body)</strong> - Classic serif headers with modern sans-serif body</li>
+<li><strong>Georgia (Headers) + Verdana (Body)</strong> - Optimized for screen reading, elegant contrast</li>
+</ul>
+<p><strong>Key Styling Principles:</strong></p>
+<ul>
+<li><strong>Override built-in styles</strong>: Use exact IDs like “Heading1”, “Heading2”, “Heading3” to override Word’s built-in heading styles</li>
+<li><strong>HeadingLevel constants</strong>: <code>HeadingLevel.HEADING_1</code> uses “Heading1” style, <code>HeadingLevel.HEADING_2</code> uses “Heading2” style, etc.</li>
+<li><strong>Include outlineLevel</strong>: Set <code>outlineLevel: 0</code> for H1, <code>outlineLevel: 1</code> for H2, etc. to ensure TOC works correctly</li>
+<li><strong>Use custom styles</strong> instead of inline formatting for consistency</li>
+<li><strong>Set a default font</strong> using <code>styles.default.document.run.font</code> - Arial is universally supported</li>
+<li><strong>Establish visual hierarchy</strong> with different font sizes (titles &gt; headers &gt; body)</li>
+<li><strong>Add proper spacing</strong> with <code>before</code> and <code>after</code> paragraph spacing</li>
+<li><strong>Use colors sparingly</strong>: Default to black (000000) and shades of gray for titles and headings (heading 1, heading 2, etc.)</li>
+<li><strong>Set consistent margins</strong> (1440 = 1 inch is standard)</li>
+</ul>
+<h2 id="lists-always-use-proper-lists---never-use-unicode-bullets">Lists (ALWAYS USE PROPER LISTS - NEVER USE UNICODE BULLETS)</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Bullets - ALWAYS use the numbering config, NOT unicode symbols
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// CRITICAL: Use LevelFormat.BULLET constant, NOT the string &#34;bullet&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> doc <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> Document({
+</span></span><span style="display:flex;"><span>  numbering<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>    config<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>      { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;bullet-list&#34;</span>,
+</span></span><span style="display:flex;"><span>        levels<span style="color:#ff7b72;font-weight:bold">:</span> [{ level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>, format<span style="color:#ff7b72;font-weight:bold">:</span> LevelFormat.BULLET, text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;•&#34;</span>, alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.LEFT,
+</span></span><span style="display:flex;"><span>          style<span style="color:#ff7b72;font-weight:bold">:</span> { paragraph<span style="color:#ff7b72;font-weight:bold">:</span> { indent<span style="color:#ff7b72;font-weight:bold">:</span> { left<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">720</span>, hanging<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">360</span> } } } }] },
+</span></span><span style="display:flex;"><span>      { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;first-numbered-list&#34;</span>,
+</span></span><span style="display:flex;"><span>        levels<span style="color:#ff7b72;font-weight:bold">:</span> [{ level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>, format<span style="color:#ff7b72;font-weight:bold">:</span> LevelFormat.DECIMAL, text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;%1.&#34;</span>, alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.LEFT,
+</span></span><span style="display:flex;"><span>          style<span style="color:#ff7b72;font-weight:bold">:</span> { paragraph<span style="color:#ff7b72;font-weight:bold">:</span> { indent<span style="color:#ff7b72;font-weight:bold">:</span> { left<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">720</span>, hanging<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">360</span> } } } }] },
+</span></span><span style="display:flex;"><span>      { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;second-numbered-list&#34;</span>, <span style="color:#8b949e;font-style:italic">// Different reference = restarts at 1
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        levels<span style="color:#ff7b72;font-weight:bold">:</span> [{ level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>, format<span style="color:#ff7b72;font-weight:bold">:</span> LevelFormat.DECIMAL, text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;%1.&#34;</span>, alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.LEFT,
+</span></span><span style="display:flex;"><span>          style<span style="color:#ff7b72;font-weight:bold">:</span> { paragraph<span style="color:#ff7b72;font-weight:bold">:</span> { indent<span style="color:#ff7b72;font-weight:bold">:</span> { left<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">720</span>, hanging<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">360</span> } } } }] }
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  },
+</span></span><span style="display:flex;"><span>  sections<span style="color:#ff7b72;font-weight:bold">:</span> [{
+</span></span><span style="display:flex;"><span>    children<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>      <span style="color:#8b949e;font-style:italic">// Bullet list items
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#ff7b72">new</span> Paragraph({ numbering<span style="color:#ff7b72;font-weight:bold">:</span> { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;bullet-list&#34;</span>, level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> },
+</span></span><span style="display:flex;"><span>        children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;First bullet point&#34;</span>)] }),
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">new</span> Paragraph({ numbering<span style="color:#ff7b72;font-weight:bold">:</span> { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;bullet-list&#34;</span>, level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> },
+</span></span><span style="display:flex;"><span>        children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Second bullet point&#34;</span>)] }),
+</span></span><span style="display:flex;"><span>      <span style="color:#8b949e;font-style:italic">// Numbered list items
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#ff7b72">new</span> Paragraph({ numbering<span style="color:#ff7b72;font-weight:bold">:</span> { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;first-numbered-list&#34;</span>, level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> },
+</span></span><span style="display:flex;"><span>        children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;First numbered item&#34;</span>)] }),
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">new</span> Paragraph({ numbering<span style="color:#ff7b72;font-weight:bold">:</span> { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;first-numbered-list&#34;</span>, level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> },
+</span></span><span style="display:flex;"><span>        children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Second numbered item&#34;</span>)] }),
+</span></span><span style="display:flex;"><span>      <span style="color:#8b949e;font-style:italic">// ⚠️ CRITICAL: Different reference = INDEPENDENT list that restarts at 1
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#8b949e;font-style:italic">// Same reference = CONTINUES previous numbering
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      <span style="color:#ff7b72">new</span> Paragraph({ numbering<span style="color:#ff7b72;font-weight:bold">:</span> { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;second-numbered-list&#34;</span>, level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> },
+</span></span><span style="display:flex;"><span>        children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Starts at 1 again (because different reference)&#34;</span>)] })
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>  }]
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ⚠️ CRITICAL NUMBERING RULE: Each reference creates an INDEPENDENT numbered list
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// - Same reference = continues numbering (1, 2, 3... then 4, 5, 6...)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// - Different reference = restarts at 1 (1, 2, 3... then 1, 2, 3...)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Use unique reference names for each separate numbered section!
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ⚠️ CRITICAL: NEVER use unicode bullets - they create fake lists that don&#39;t work properly
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// new TextRun(&#34;• Item&#34;)           // WRONG
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// new SymbolRun({ char: &#34;2022&#34; }) // WRONG
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ✅ ALWAYS use numbering config with LevelFormat.BULLET for real Word lists
+</span></span></span></code></pre><h2 id="tables">Tables</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Complete table with margins, borders, headers, and bullet points
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> tableBorder <span style="color:#ff7b72;font-weight:bold">=</span> { style<span style="color:#ff7b72;font-weight:bold">:</span> BorderStyle.SINGLE, size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;CCCCCC&#34;</span> };
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> cellBorders <span style="color:#ff7b72;font-weight:bold">=</span> { top<span style="color:#ff7b72;font-weight:bold">:</span> tableBorder, bottom<span style="color:#ff7b72;font-weight:bold">:</span> tableBorder, left<span style="color:#ff7b72;font-weight:bold">:</span> tableBorder, right<span style="color:#ff7b72;font-weight:bold">:</span> tableBorder };
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">new</span> Table({
+</span></span><span style="display:flex;"><span>  columnWidths<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">4680</span>, <span style="color:#a5d6ff">4680</span>], <span style="color:#8b949e;font-style:italic">// ⚠️ CRITICAL: Set column widths at table level - values in DXA (twentieths of a point)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  margins<span style="color:#ff7b72;font-weight:bold">:</span> { top<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">100</span>, bottom<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">100</span>, left<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">180</span>, right<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">180</span> }, <span style="color:#8b949e;font-style:italic">// Set once for all cells
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  rows<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TableRow({
+</span></span><span style="display:flex;"><span>      tableHeader<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>      children<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">new</span> TableCell({
+</span></span><span style="display:flex;"><span>          borders<span style="color:#ff7b72;font-weight:bold">:</span> cellBorders,
+</span></span><span style="display:flex;"><span>          width<span style="color:#ff7b72;font-weight:bold">:</span> { size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4680</span>, type<span style="color:#ff7b72;font-weight:bold">:</span> WidthType.DXA }, <span style="color:#8b949e;font-style:italic">// ALSO set width on each cell
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>          <span style="color:#8b949e;font-style:italic">// ⚠️ CRITICAL: Always use ShadingType.CLEAR to prevent black backgrounds in Word.
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>          shading<span style="color:#ff7b72;font-weight:bold">:</span> { fill<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;D5E8F0&#34;</span>, type<span style="color:#ff7b72;font-weight:bold">:</span> ShadingType.CLEAR }, 
+</span></span><span style="display:flex;"><span>          verticalAlign<span style="color:#ff7b72;font-weight:bold">:</span> VerticalAlign.CENTER,
+</span></span><span style="display:flex;"><span>          children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> Paragraph({ 
+</span></span><span style="display:flex;"><span>            alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.CENTER,
+</span></span><span style="display:flex;"><span>            children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Header&#34;</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>, size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">22</span> })]
+</span></span><span style="display:flex;"><span>          })]
+</span></span><span style="display:flex;"><span>        }),
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">new</span> TableCell({
+</span></span><span style="display:flex;"><span>          borders<span style="color:#ff7b72;font-weight:bold">:</span> cellBorders,
+</span></span><span style="display:flex;"><span>          width<span style="color:#ff7b72;font-weight:bold">:</span> { size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4680</span>, type<span style="color:#ff7b72;font-weight:bold">:</span> WidthType.DXA }, <span style="color:#8b949e;font-style:italic">// ALSO set width on each cell
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>          shading<span style="color:#ff7b72;font-weight:bold">:</span> { fill<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;D5E8F0&#34;</span>, type<span style="color:#ff7b72;font-weight:bold">:</span> ShadingType.CLEAR },
+</span></span><span style="display:flex;"><span>          children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> Paragraph({ 
+</span></span><span style="display:flex;"><span>            alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.CENTER,
+</span></span><span style="display:flex;"><span>            children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Bullet Points&#34;</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>, size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">22</span> })]
+</span></span><span style="display:flex;"><span>          })]
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    }),
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">new</span> TableRow({
+</span></span><span style="display:flex;"><span>      children<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">new</span> TableCell({
+</span></span><span style="display:flex;"><span>          borders<span style="color:#ff7b72;font-weight:bold">:</span> cellBorders,
+</span></span><span style="display:flex;"><span>          width<span style="color:#ff7b72;font-weight:bold">:</span> { size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4680</span>, type<span style="color:#ff7b72;font-weight:bold">:</span> WidthType.DXA }, <span style="color:#8b949e;font-style:italic">// ALSO set width on each cell
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>          children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> Paragraph({ children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Regular data&#34;</span>)] })]
+</span></span><span style="display:flex;"><span>        }),
+</span></span><span style="display:flex;"><span>        <span style="color:#ff7b72">new</span> TableCell({
+</span></span><span style="display:flex;"><span>          borders<span style="color:#ff7b72;font-weight:bold">:</span> cellBorders,
+</span></span><span style="display:flex;"><span>          width<span style="color:#ff7b72;font-weight:bold">:</span> { size<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4680</span>, type<span style="color:#ff7b72;font-weight:bold">:</span> WidthType.DXA }, <span style="color:#8b949e;font-style:italic">// ALSO set width on each cell
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>          children<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>            <span style="color:#ff7b72">new</span> Paragraph({ 
+</span></span><span style="display:flex;"><span>              numbering<span style="color:#ff7b72;font-weight:bold">:</span> { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;bullet-list&#34;</span>, level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> },
+</span></span><span style="display:flex;"><span>              children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;First bullet point&#34;</span>)] 
+</span></span><span style="display:flex;"><span>            }),
+</span></span><span style="display:flex;"><span>            <span style="color:#ff7b72">new</span> Paragraph({ 
+</span></span><span style="display:flex;"><span>              numbering<span style="color:#ff7b72;font-weight:bold">:</span> { reference<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;bullet-list&#34;</span>, level<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> },
+</span></span><span style="display:flex;"><span>              children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Second bullet point&#34;</span>)] 
+</span></span><span style="display:flex;"><span>            })
+</span></span><span style="display:flex;"><span>          ]
+</span></span><span style="display:flex;"><span>        })
+</span></span><span style="display:flex;"><span>      ]
+</span></span><span style="display:flex;"><span>    })
+</span></span><span style="display:flex;"><span>  ]
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre><p><strong>IMPORTANT: Table Width &amp; Borders</strong></p>
+<ul>
+<li>Use BOTH <code>columnWidths: [width1, width2, ...]</code> array AND <code>width: { size: X, type: WidthType.DXA }</code> on each cell</li>
+<li>Values in DXA (twentieths of a point): 1440 = 1 inch, Letter usable width = 9360 DXA (with 1&#34; margins)</li>
+<li>Apply borders to individual <code>TableCell</code> elements, NOT the <code>Table</code> itself</li>
+</ul>
+<p><strong>Precomputed Column Widths (Letter size with 1&#34; margins = 9360 DXA total):</strong></p>
+<ul>
+<li><strong>2 columns:</strong> <code>columnWidths: [4680, 4680]</code> (equal width)</li>
+<li><strong>3 columns:</strong> <code>columnWidths: [3120, 3120, 3120]</code> (equal width)</li>
+</ul>
+<h2 id="links--navigation">Links &amp; Navigation</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// TOC (requires headings) - CRITICAL: Use HeadingLevel only, NOT custom styles
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ❌ WRONG: new Paragraph({ heading: HeadingLevel.HEADING_1, style: &#34;customHeader&#34;, children: [new TextRun(&#34;Title&#34;)] })
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ✅ CORRECT: new Paragraph({ heading: HeadingLevel.HEADING_1, children: [new TextRun(&#34;Title&#34;)] })
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">new</span> TableOfContents(<span style="color:#a5d6ff">&#34;Table of Contents&#34;</span>, { hyperlink<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>, headingStyleRange<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;1-3&#34;</span> }),
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// External link
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">new</span> Paragraph({
+</span></span><span style="display:flex;"><span>  children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> ExternalHyperlink({
+</span></span><span style="display:flex;"><span>    children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Google&#34;</span>, style<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Hyperlink&#34;</span> })],
+</span></span><span style="display:flex;"><span>    link<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;https://www.google.com&#34;</span>
+</span></span><span style="display:flex;"><span>  })]
+</span></span><span style="display:flex;"><span>}),
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Internal link &amp; bookmark
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">new</span> Paragraph({
+</span></span><span style="display:flex;"><span>  children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> InternalHyperlink({
+</span></span><span style="display:flex;"><span>    children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun({ text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Go to Section&#34;</span>, style<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Hyperlink&#34;</span> })],
+</span></span><span style="display:flex;"><span>    anchor<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;section1&#34;</span>
+</span></span><span style="display:flex;"><span>  })]
+</span></span><span style="display:flex;"><span>}),
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">new</span> Paragraph({
+</span></span><span style="display:flex;"><span>  children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Section Content&#34;</span>)],
+</span></span><span style="display:flex;"><span>  bookmark<span style="color:#ff7b72;font-weight:bold">:</span> { id<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;section1&#34;</span>, name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;section1&#34;</span> }
+</span></span><span style="display:flex;"><span>}),
+</span></span></code></pre><h2 id="images--media">Images &amp; Media</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Basic image with sizing &amp; positioning
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// CRITICAL: Always specify &#39;type&#39; parameter - it&#39;s REQUIRED for ImageRun
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">new</span> Paragraph({
+</span></span><span style="display:flex;"><span>  alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.CENTER,
+</span></span><span style="display:flex;"><span>  children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> ImageRun({
+</span></span><span style="display:flex;"><span>    type<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;png&#34;</span>, <span style="color:#8b949e;font-style:italic">// NEW REQUIREMENT: Must specify image type (png, jpg, jpeg, gif, bmp, svg)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    data<span style="color:#ff7b72;font-weight:bold">:</span> fs.readFileSync(<span style="color:#a5d6ff">&#34;image.png&#34;</span>),
+</span></span><span style="display:flex;"><span>    transformation<span style="color:#ff7b72;font-weight:bold">:</span> { width<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">200</span>, height<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">150</span>, rotation<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span> }, <span style="color:#8b949e;font-style:italic">// rotation in degrees
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    altText<span style="color:#ff7b72;font-weight:bold">:</span> { title<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Logo&#34;</span>, description<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Company logo&#34;</span>, name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Name&#34;</span> } <span style="color:#8b949e;font-style:italic">// IMPORTANT: All three fields are required
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  })]
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre><h2 id="page-breaks">Page Breaks</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Manual page break
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">new</span> Paragraph({ children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> PageBreak()] }),
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Page break before paragraph
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">new</span> Paragraph({
+</span></span><span style="display:flex;"><span>  pageBreakBefore<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>  children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;This starts on a new page&#34;</span>)]
+</span></span><span style="display:flex;"><span>})
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ⚠️ CRITICAL: NEVER use PageBreak standalone - it will create invalid XML that Word cannot open
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ❌ WRONG: new PageBreak() 
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// ✅ CORRECT: new Paragraph({ children: [new PageBreak()] })
+</span></span></span></code></pre><h2 id="headersfooters--page-setup">Headers/Footers &amp; Page Setup</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> doc <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> Document({
+</span></span><span style="display:flex;"><span>  sections<span style="color:#ff7b72;font-weight:bold">:</span> [{
+</span></span><span style="display:flex;"><span>    properties<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      page<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>        margin<span style="color:#ff7b72;font-weight:bold">:</span> { top<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1440</span>, right<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1440</span>, bottom<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1440</span>, left<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1440</span> }, <span style="color:#8b949e;font-style:italic">// 1440 = 1 inch
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        size<span style="color:#ff7b72;font-weight:bold">:</span> { orientation<span style="color:#ff7b72;font-weight:bold">:</span> PageOrientation.LANDSCAPE },
+</span></span><span style="display:flex;"><span>        pageNumbers<span style="color:#ff7b72;font-weight:bold">:</span> { start<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, formatType<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;decimal&#34;</span> } <span style="color:#8b949e;font-style:italic">// &#34;upperRoman&#34;, &#34;lowerRoman&#34;, &#34;upperLetter&#34;, &#34;lowerLetter&#34;
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>      }
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    headers<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">default</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#ff7b72">new</span> Header({ children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> Paragraph({ 
+</span></span><span style="display:flex;"><span>        alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.RIGHT,
+</span></span><span style="display:flex;"><span>        children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Header Text&#34;</span>)]
+</span></span><span style="display:flex;"><span>      })] })
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    footers<span style="color:#ff7b72;font-weight:bold">:</span> {
+</span></span><span style="display:flex;"><span>      <span style="color:#ff7b72">default</span><span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#ff7b72">new</span> Footer({ children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> Paragraph({ 
+</span></span><span style="display:flex;"><span>        alignment<span style="color:#ff7b72;font-weight:bold">:</span> AlignmentType.CENTER,
+</span></span><span style="display:flex;"><span>        children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Page &#34;</span>), <span style="color:#ff7b72">new</span> TextRun({ children<span style="color:#ff7b72;font-weight:bold">:</span> [PageNumber.CURRENT] }), <span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34; of &#34;</span>), <span style="color:#ff7b72">new</span> TextRun({ children<span style="color:#ff7b72;font-weight:bold">:</span> [PageNumber.TOTAL_PAGES] })]
+</span></span><span style="display:flex;"><span>      })] })
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#8b949e;font-style:italic">/* content */</span>]
+</span></span><span style="display:flex;"><span>  }]
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h2 id="tabs">Tabs</h2>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">new</span> Paragraph({
+</span></span><span style="display:flex;"><span>  tabStops<span style="color:#ff7b72;font-weight:bold">:</span> [
+</span></span><span style="display:flex;"><span>    { type<span style="color:#ff7b72;font-weight:bold">:</span> TabStopType.LEFT, position<span style="color:#ff7b72;font-weight:bold">:</span> TabStopPosition.MAX <span style="color:#ff7b72;font-weight:bold">/</span> <span style="color:#a5d6ff">4</span> },
+</span></span><span style="display:flex;"><span>    { type<span style="color:#ff7b72;font-weight:bold">:</span> TabStopType.CENTER, position<span style="color:#ff7b72;font-weight:bold">:</span> TabStopPosition.MAX <span style="color:#ff7b72;font-weight:bold">/</span> <span style="color:#a5d6ff">2</span> },
+</span></span><span style="display:flex;"><span>    { type<span style="color:#ff7b72;font-weight:bold">:</span> TabStopType.RIGHT, position<span style="color:#ff7b72;font-weight:bold">:</span> TabStopPosition.MAX <span style="color:#ff7b72;font-weight:bold">*</span> <span style="color:#a5d6ff">3</span> <span style="color:#ff7b72;font-weight:bold">/</span> <span style="color:#a5d6ff">4</span> }
+</span></span><span style="display:flex;"><span>  ],
+</span></span><span style="display:flex;"><span>  children<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#ff7b72">new</span> TextRun(<span style="color:#a5d6ff">&#34;Left\tCenter\tRight&#34;</span>)]
+</span></span><span style="display:flex;"><span>})
+</span></span></code></pre><h2 id="constants--quick-reference">Constants &amp; Quick Reference</h2>
+<ul>
+<li><strong>Underlines:</strong> <code>SINGLE</code>, <code>DOUBLE</code>, <code>WAVY</code>, <code>DASH</code></li>
+<li><strong>Borders:</strong> <code>SINGLE</code>, <code>DOUBLE</code>, <code>DASHED</code>, <code>DOTTED</code></li>
+<li><strong>Numbering:</strong> <code>DECIMAL</code> (1,2,3), <code>UPPER_ROMAN</code> (I,II,III), <code>LOWER_LETTER</code> (a,b,c)</li>
+<li><strong>Tabs:</strong> <code>LEFT</code>, <code>CENTER</code>, <code>RIGHT</code>, <code>DECIMAL</code></li>
+<li><strong>Symbols:</strong> <code>&#34;2022&#34;</code> (•), <code>&#34;00A9&#34;</code> (©), <code>&#34;00AE&#34;</code> (®), <code>&#34;2122&#34;</code> (™), <code>&#34;00B0&#34;</code> (°), <code>&#34;F070&#34;</code> (✓), <code>&#34;F0FC&#34;</code> (✗)</li>
+</ul>
+<h2 id="critical-issues--common-mistakes">Critical Issues &amp; Common Mistakes</h2>
+<ul>
+<li><strong>CRITICAL: PageBreak must ALWAYS be inside a Paragraph</strong> - standalone PageBreak creates invalid XML that Word cannot open</li>
+<li><strong>ALWAYS use ShadingType.CLEAR for table cell shading</strong> - Never use ShadingType.SOLID (causes black background).</li>
+<li>Measurements in DXA (1440 = 1 inch) | Each table cell needs ≥1 Paragraph | TOC requires HeadingLevel styles only</li>
+<li><strong>ALWAYS use custom styles</strong> with Arial font for professional appearance and proper visual hierarchy</li>
+<li><strong>ALWAYS set a default font</strong> using <code>styles.default.document.run.font</code> - Arial recommended</li>
+<li><strong>ALWAYS use columnWidths array for tables</strong> + individual cell widths for compatibility</li>
+<li><strong>NEVER use unicode symbols for bullets</strong> - always use proper numbering configuration with <code>LevelFormat.BULLET</code> constant (NOT the string “bullet”)</li>
+<li><strong>NEVER use \n for line breaks anywhere</strong> - always use separate Paragraph elements for each line</li>
+<li><strong>ALWAYS use TextRun objects within Paragraph children</strong> - never use text property directly on Paragraph</li>
+<li><strong>CRITICAL for images</strong>: ImageRun REQUIRES <code>type</code> parameter - always specify “png”, “jpg”, “jpeg”, “gif”, “bmp”, or “svg”</li>
+<li><strong>CRITICAL for bullets</strong>: Must use <code>LevelFormat.BULLET</code> constant, not string “bullet”, and include <code>text: &#34;•&#34;</code> for the bullet character</li>
+<li><strong>CRITICAL for numbering</strong>: Each numbering reference creates an INDEPENDENT list. Same reference = continues numbering (1,2,3 then 4,5,6). Different reference = restarts at 1 (1,2,3 then 1,2,3). Use unique reference names for each separate numbered section!</li>
+<li><strong>CRITICAL for TOC</strong>: When using TableOfContents, headings must use HeadingLevel ONLY - do NOT add custom styles to heading paragraphs or TOC will break</li>
+<li><strong>Tables</strong>: Set <code>columnWidths</code> array + individual cell widths, apply borders to cells not table</li>
+<li><strong>Set table margins at TABLE level</strong> for consistent cell padding (avoids repetition per cell)</li>
+</ul>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

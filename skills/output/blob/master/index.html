@@ -1,0 +1,2118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      .files {
+        border: 1px solid var(--c-border);
+        border-top: none;
+        width: 100%;
+        border-bottom-left-radius: var(--border-radius);
+        border-bottom-right-radius: var(--border-radius);
+        overflow-x: auto;
+      }
+
+      .files .dir {
+        color: var(--c-dir);
+      }
+
+      .files a {
+        color: var(--c-text-1);
+      }
+
+      .files a:hover {
+        color: var(--c-brand-2);
+      }
+
+      .row {
+        display: flex;
+        height: 40px;
+        border-bottom: 1px solid var(--c-border);
+        padding-inline: 16px;
+        gap: 16px;
+      }
+
+      .row:last-child {
+        border-bottom: none;
+      }
+
+      .row:hover {
+        background-color: var(--c-bg-alt);
+      }
+
+      .cell {
+        flex: 1;
+        display: flex;
+        gap: 8px;
+        align-items: center;
+        white-space: nowrap;
+      }
+
+      .cell:not(:first-child) {
+        justify-content: flex-end;
+        max-width: 100px;
+      }
+
+      @media (max-width: 767px) {
+        .file-mode {
+          display: none;
+        }
+      }
+
+      
+      .markdown-container {
+        padding-inline: 16px;
+        border: 1px solid var(--c-divider);
+        border-radius: 8px;
+        overflow-x: auto;
+        margin-top: 16px;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+      
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./index.html">awesome-claude-skills</a>
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+
+    <div class="files">
+        
+
+        
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href=".claude-plugin/index.html">.claude-plugin/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="artifacts-builder/index.html">artifacts-builder/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="brand-guidelines/index.html">brand-guidelines/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="canvas-design/index.html">canvas-design/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="changelog-generator/index.html">changelog-generator/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="competitive-ads-extractor/index.html">competitive-ads-extractor/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="connect/index.html">connect/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="connect-apps/index.html">connect-apps/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="connect-apps-plugin/index.html">connect-apps-plugin/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="content-research-writer/index.html">content-research-writer/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="developer-growth-analysis/index.html">developer-growth-analysis/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="document-skills/index.html">document-skills/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="domain-name-brainstormer/index.html">domain-name-brainstormer/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="file-organizer/index.html">file-organizer/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="image-enhancer/index.html">image-enhancer/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="internal-comms/index.html">internal-comms/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="invoice-organizer/index.html">invoice-organizer/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="langsmith-fetch/index.html">langsmith-fetch/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="lead-research-assistant/index.html">lead-research-assistant/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="mcp-builder/index.html">mcp-builder/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="meeting-insights-analyzer/index.html">meeting-insights-analyzer/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="raffle-winner-picker/index.html">raffle-winner-picker/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="skill-creator/index.html">skill-creator/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="skill-share/index.html">skill-share/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="slack-gif-creator/index.html">slack-gif-creator/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="tailored-resume-generator/index.html">tailored-resume-generator/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="template-skill/index.html">template-skill/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="theme-factory/index.html">theme-factory/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="video-downloader/index.html">video-downloader/</a>
+                    </div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16" class="dir">
+                            <use xlink:href="#dir"></use>
+                        </svg>
+                        <a href="webapp-testing/index.html">webapp-testing/</a>
+                    </div>
+                </div>
+            
+
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16">
+                            <use xlink:href="#file"></use>
+                        </svg>
+                        <a href="CONTRIBUTING.md.html">CONTRIBUTING.md</a>
+                    </div>
+                    <div class="cell file-mode">rw-r--r--</div>
+                    <div class="cell file-size">4.3 KB</div>
+                </div>
+            
+                <div class="row">
+                    <div class="cell">
+                        <svg aria-hidden="true" focusable="false" width="16" height="16">
+                            <use xlink:href="#file"></use>
+                        </svg>
+                        <a href="README.md.html">README.md</a>
+                    </div>
+                    <div class="cell file-mode">rw-r--r--</div>
+                    <div class="cell file-size">21.1 KB</div>
+                </div>
+            
+        
+    </div>
+
+    
+        <div class="markdown-container">
+            <div class="markdown-body">
+                <html><head></head><body><h1 align="center">Awesome Claude Skills</h1>
+<p align="center">
+<a href="https://platform.composio.dev/?utm_source=Github&amp;utm_medium=Youtube&amp;utm_campaign=2025-11&amp;utm_content=AwesomeSkills">
+  <img width="1280" height="640" alt="Composio banner" src="https://github.com/user-attachments/assets/e91255af-e4ba-4d71-b1a8-bd081e8a234a"/>
+</a>
+</p>
+<p align="center">
+  <a href="https://awesome.re">
+    <img src="https://awesome.re/badge.svg" alt="Awesome"/>
+  </a>
+  <a href="https://makeapullrequest.com">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="PRs Welcome"/>
+  </a>
+  <a href="https://www.apache.org/licenses/LICENSE-2.0">
+    <img src="https://img.shields.io/badge/License-Apache_2.0-blue.svg?style=flat-square" alt="License: Apache-2.0"/>
+  </a>
+</p>
+<div>
+<p align="center">
+  <a href="https://twitter.com/composio">
+    <img src="https://img.shields.io/badge/Follow on X-000000?style=for-the-badge&amp;logo=x&amp;logoColor=white" alt="Follow on X"/>
+  </a>
+  <a href="https://www.linkedin.com/company/composiohq/">
+    <img src="https://img.shields.io/badge/Follow on LinkedIn-0077B5?style=for-the-badge&amp;logo=linkedin&amp;logoColor=white" alt="Follow on LinkedIn"/>
+  </a>
+  <a href="https://discord.com/invite/composio">
+    <img src="https://img.shields.io/badge/Join our Discord-5865F2?style=for-the-badge&amp;logo=discord&amp;logoColor=white" alt="Join our Discord"/>
+  </a>
+  </p>
+</div>
+<p>A curated list of practical Claude Skills for enhancing productivity across Claude.ai, Claude Code, and the Claude API.</p>
+<blockquote>
+<p><strong>Want skills that do more than generate text?</strong> Claude can send emails, create issues, post to Slack, and take actions across 1000+ apps. <a href="../../blob/master/connect/index.html">See how →</a></p>
+</blockquote>
+<hr/>
+<h2 id="quickstart-connect-claude-to-500-apps">Quickstart: Connect Claude to 500+ Apps</h2>
+<p>The <strong>connect-apps</strong> plugin lets Claude perform real actions - send emails, create issues, post to Slack. It handles auth and connects to 500+ apps using Composio under the hood.</p>
+<h3 id="1-install-the-plugin">1. Install the Plugin</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>claude --plugin-dir ./connect-apps-plugin
+</span></span></code></pre><h3 id="2-run-setup">2. Run Setup</h3>
+<pre><code>/connect-apps:setup
+</code></pre>
+<p>Paste your API key when asked. (Get a free key at <a href="https://platform.composio.dev/?utm_source=Github&amp;utm_content=AwesomeSkills">platform.composio.dev</a>)</p>
+<h3 id="3-restart--try-it">3. Restart &amp; Try It</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>exit
+</span></span><span style="display:flex;"><span>claude
+</span></span></code></pre><blockquote>
+<p><strong>Want skills that do more than generate text?</strong> Claude can send emails, create issues, post to Slack, and take actions across 1000+ apps. <a href="../../blob/master/connect/index.html">See how →</a></p>
+</blockquote>
+<p>If you receive the email, Claude is now connected to 500+ apps.</p>
+<p><strong><a href="../../blob/master/connect-apps/index.html">See all supported apps →</a></strong></p>
+<hr/>
+<h2 id="contents">Contents</h2>
+<ul>
+<li><a href="#what-are-claude-skills">What Are Claude Skills?</a></li>
+<li><a href="#skills">Skills</a>
+<ul>
+<li><a href="#document-processing">Document Processing</a></li>
+<li><a href="#development--code-tools">Development &amp; Code Tools</a></li>
+<li><a href="#data--analysis">Data &amp; Analysis</a></li>
+<li><a href="#business--marketing">Business &amp; Marketing</a></li>
+<li><a href="#communication--writing">Communication &amp; Writing</a></li>
+<li><a href="#creative--media">Creative &amp; Media</a></li>
+<li><a href="#productivity--organization">Productivity &amp; Organization</a></li>
+<li><a href="#collaboration--project-management">Collaboration &amp; Project Management</a></li>
+<li><a href="#security--systems">Security &amp; Systems</a></li>
+</ul>
+</li>
+<li><a href="#getting-started">Getting Started</a></li>
+<li><a href="#creating-skills">Creating Skills</a></li>
+<li><a href="#contributing">Contributing</a></li>
+<li><a href="#resources">Resources</a></li>
+<li><a href="#license">License</a></li>
+</ul>
+<h2 id="what-are-claude-skills">What Are Claude Skills?</h2>
+<p>Claude Skills are customizable workflows that teach Claude how to perform specific tasks according to your unique requirements. Skills enable Claude to execute tasks in a repeatable, standardized manner across all Claude platforms.</p>
+<h2 id="skills">Skills</h2>
+<h3 id="document-processing">Document Processing</h3>
+<ul>
+<li><a href="https://github.com/anthropics/skills/tree/main/skills/docx">docx</a> - Create, edit, analyze Word docs with tracked changes, comments, formatting.</li>
+<li><a href="https://github.com/anthropics/skills/tree/main/skills/pdf">pdf</a> - Extract text, tables, metadata, merge &amp; annotate PDFs.</li>
+<li><a href="https://github.com/anthropics/skills/tree/main/skills/pptx">pptx</a> - Read, generate, and adjust slides, layouts, templates.</li>
+<li><a href="https://github.com/anthropics/skills/tree/main/skills/xlsx">xlsx</a> - Spreadsheet manipulation: formulas, charts, data transformations.</li>
+<li><a href="https://github.com/smerchek/claude-epub-skill">Markdown to EPUB Converter</a> - Converts markdown documents and chat summaries into professional EPUB ebook files. <em>By <a href="https://github.com/smerchek">@smerchek</a></em></li>
+</ul>
+<h3 id="development--code-tools">Development &amp; Code Tools</h3>
+<ul>
+<li><a href="https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder">artifacts-builder</a> - Suite of tools for creating elaborate, multi-component claude.ai HTML artifacts using modern frontend web technologies (React, Tailwind CSS, shadcn/ui).</li>
+<li><a href="https://github.com/zxkane/aws-skills">aws-skills</a> - AWS development with CDK best practices, cost optimization MCP servers, and serverless/event-driven architecture patterns.</li>
+<li><a href="../../blob/master/changelog-generator/index.html">Changelog Generator</a> - Automatically creates user-facing changelogs from git commits by analyzing history and transforming technical commits into customer-friendly release notes.</li>
+<li><a href="https://github.com/bluzername/claude-code-terminal-title">Claude Code Terminal Title</a> - Gives each Claud-Code terminal window a dynamic title that describes the work being done so you don’t lose track of what window is doing what.</li>
+<li><a href="https://github.com/chrisvoncsefalvay/claude-d3js-skill">D3.js Visualization</a> - Teaches Claude to produce D3 charts and interactive data visualizations. <em>By <a href="https://github.com/chrisvoncsefalvay">@chrisvoncsefalvay</a></em></li>
+<li><a href="https://github.com/jthack/ffuf_claude_skill">FFUF Web Fuzzing</a> - Integrates the ffuf web fuzzer so Claude can run fuzzing tasks and analyze results for vulnerabilities. <em>By <a href="https://github.com/jthack">@jthack</a></em></li>
+<li><a href="https://github.com/obra/superpowers/tree/main/skills/finishing-a-development-branch">finishing-a-development-branch</a> - Guides completion of development work by presenting clear options and handling chosen workflow.</li>
+<li><a href="https://github.com/conorluddy/ios-simulator-skill">iOS Simulator</a> - Enables Claude to interact with iOS Simulator for testing and debugging iOS applications. <em>By <a href="https://github.com/conorluddy">@conorluddy</a></em></li>
+<li><a href="../../blob/master/langsmith-fetch/index.html">LangSmith Fetch</a> - Debug LangChain and LangGraph agents by automatically fetching and analyzing execution traces from LangSmith Studio. First AI observability skill for Claude Code. <em>By <a href="https://github.com/OthmanAdi">@OthmanAdi</a></em></li>
+<li><a href="../../blob/master/mcp-builder/index.html">MCP Builder</a> - Guides creation of high-quality MCP (Model Context Protocol) servers for integrating external APIs and services with LLMs using Python or TypeScript.</li>
+<li><a href="https://github.com/1NickPappas/move-code-quality-skill">move-code-quality-skill</a> - Analyzes Move language packages against the official Move Book Code Quality Checklist for Move 2024 Edition compliance and best practices.</li>
+<li><a href="https://github.com/lackeyjb/playwright-skill">Playwright Browser Automation</a> - Model-invoked Playwright automation for testing and validating web applications. <em>By <a href="https://github.com/lackeyjb">@lackeyjb</a></em></li>
+<li><a href="https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/customaize-agent/skills/prompt-engineering">prompt-engineering</a> - Teaches well-known prompt engineering techniques and patterns, including Anthropic best practices and agent persuasion principles.</li>
+<li><a href="https://github.com/omkamal/pypict-claude-skill">pypict-claude-skill</a> - Design comprehensive test cases using PICT (Pairwise Independent Combinatorial Testing) for requirements or code, generating optimized test suites with pairwise coverage.</li>
+<li><a href="https://github.com/ykdojo/claude-code-tips/tree/main/skills/reddit-fetch">reddit-fetch</a> - Fetches Reddit content via Gemini CLI when WebFetch is blocked or returns 403 errors.</li>
+<li><a href="../../blob/master/skill-creator/index.html">Skill Creator</a> - Provides guidance for creating effective Claude Skills that extend capabilities with specialized knowledge, workflows, and tool integrations.</li>
+<li><a href="https://github.com/yusufkaraaslan/Skill_Seekers">Skill Seekers</a> - Automatically converts any documentation website into a Claude AI skill in minutes. <em>By <a href="https://github.com/yusufkaraaslan">@yusufkaraaslan</a></em></li>
+<li><a href="https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/ddd/skills/software-architecture">software-architecture</a> - Implements design patterns including Clean Architecture, SOLID principles, and comprehensive software design best practices.</li>
+<li><a href="https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/sadd/skills/subagent-driven-development">subagent-driven-development</a> - Dispatches independent subagents for individual tasks with code review checkpoints between iterations for rapid, controlled development.</li>
+<li><a href="https://github.com/obra/superpowers/tree/main/skills/test-driven-development">test-driven-development</a> - Use when implementing any feature or bugfix, before writing implementation code.</li>
+<li><a href="https://github.com/obra/superpowers/blob/main/skills/using-git-worktrees/">using-git-worktrees</a> - Creates isolated git worktrees with smart directory selection and safety verification.</li>
+<li><a href="../../blob/master/connect/index.html">Connect</a> - Connect Claude to any app. Send emails, create issues, post messages, update databases - take real actions across Gmail, Slack, GitHub, Notion, and 1000+ services.</li>
+<li><a href="../../blob/master/webapp-testing/index.html">Webapp Testing</a> - Tests local web applications using Playwright for verifying frontend functionality, debugging UI behavior, and capturing screenshots.</li>
+</ul>
+<h3 id="data--analysis">Data &amp; Analysis</h3>
+<ul>
+<li><a href="https://github.com/coffeefuelbump/csv-data-summarizer-claude-skill">CSV Data Summarizer</a> - Automatically analyzes CSV files and generates comprehensive insights with visualizations without requiring user prompts. <em>By <a href="https://github.com/coffeefuelbump">@coffeefuelbump</a></em></li>
+<li><a href="https://github.com/sanjay3290/ai-skills/tree/main/skills/postgres">postgres</a> - Execute safe read-only SQL queries against PostgreSQL databases with multi-connection support and defense-in-depth security. <em>By <a href="https://github.com/sanjay3290">@sanjay3290</a></em></li>
+<li><a href="https://github.com/obra/superpowers/tree/main/skills/root-cause-tracing">root-cause-tracing</a> - Use when errors occur deep in execution and you need to trace back to find the original trigger.</li>
+</ul>
+<h3 id="business--marketing">Business &amp; Marketing</h3>
+<ul>
+<li><a href="../../blob/master/brand-guidelines/index.html">Brand Guidelines</a> - Applies Anthropic’s official brand colors and typography to artifacts for consistent visual identity and professional design standards.</li>
+<li><a href="../../blob/master/competitive-ads-extractor/index.html">Competitive Ads Extractor</a> - Extracts and analyzes competitors’ ads from ad libraries to understand messaging and creative approaches that resonate.</li>
+<li><a href="../../blob/master/domain-name-brainstormer/index.html">Domain Name Brainstormer</a> - Generates creative domain name ideas and checks availability across multiple TLDs including .com, .io, .dev, and .ai extensions.</li>
+<li><a href="../../blob/master/internal-comms/index.html">Internal Comms</a> - Helps write internal communications including 3P updates, company newsletters, FAQs, status reports, and project updates using company-specific formats.</li>
+<li><a href="../../blob/master/lead-research-assistant/index.html">Lead Research Assistant</a> - Identifies and qualifies high-quality leads by analyzing your product, searching for target companies, and providing actionable outreach strategies.</li>
+</ul>
+<h3 id="communication--writing">Communication &amp; Writing</h3>
+<ul>
+<li><a href="https://github.com/michalparkola/tapestry-skills-for-claude-code/tree/main/article-extractor">article-extractor</a> - Extract full article text and metadata from web pages.</li>
+<li><a href="https://github.com/obra/superpowers/tree/main/skills/brainstorming">brainstorming</a> - Transform rough ideas into fully-formed designs through structured questioning and alternative exploration.</li>
+<li><a href="../../blob/master/content-research-writer/index.html">Content Research Writer</a> - Assists in writing high-quality content by conducting research, adding citations, improving hooks, and providing section-by-section feedback.</li>
+<li><a href="https://github.com/emaynard/claude-family-history-research-skill">family-history-research</a> - Provides assistance with planning family history and genealogy research projects.</li>
+<li><a href="../../blob/master/meeting-insights-analyzer/index.html">Meeting Insights Analyzer</a> - Analyzes meeting transcripts to uncover behavioral patterns including conflict avoidance, speaking ratios, filler words, and leadership style.</li>
+<li><a href="https://github.com/PleasePrompto/notebooklm-skill">NotebookLM Integration</a> - Lets Claude Code chat directly with NotebookLM for source-grounded answers based exclusively on uploaded documents. <em>By <a href="https://github.com/PleasePrompto">@PleasePrompto</a></em></li>
+</ul>
+<h3 id="creative--media">Creative &amp; Media</h3>
+<ul>
+<li><a href="../../blob/master/canvas-design/index.html">Canvas Design</a> - Creates beautiful visual art in PNG and PDF documents using design philosophy and aesthetic principles for posters, designs, and static pieces.</li>
+<li><a href="https://github.com/sanjay3290/ai-skills/tree/main/skills/imagen">imagen</a> - Generate images using Google Gemini’s image generation API for UI mockups, icons, illustrations, and visual assets. <em>By <a href="https://github.com/sanjay3290">@sanjay3290</a></em></li>
+<li><a href="../../blob/master/image-enhancer/index.html">Image Enhancer</a> - Improves image and screenshot quality by enhancing resolution, sharpness, and clarity for professional presentations and documentation.</li>
+<li><a href="../../blob/master/slack-gif-creator/index.html">Slack GIF Creator</a> - Creates animated GIFs optimized for Slack with validators for size constraints and composable animation primitives.</li>
+<li><a href="../../blob/master/theme-factory/index.html">Theme Factory</a> - Applies professional font and color themes to artifacts including slides, docs, reports, and HTML landing pages with 10 pre-set themes.</li>
+<li><a href="../../blob/master/video-downloader/index.html">Video Downloader</a> - Downloads videos from YouTube and other platforms for offline viewing, editing, or archival with support for various formats and quality options.</li>
+<li><a href="https://github.com/michalparkola/tapestry-skills-for-claude-code/tree/main/youtube-transcript">youtube-transcript</a> - Fetch transcripts from YouTube videos and prepare summaries.</li>
+</ul>
+<h3 id="productivity--organization">Productivity &amp; Organization</h3>
+<ul>
+<li><a href="../../blob/master/file-organizer/index.html">File Organizer</a> - Intelligently organizes files and folders by understanding context, finding duplicates, and suggesting better organizational structures.</li>
+<li><a href="../../blob/master/invoice-organizer/index.html">Invoice Organizer</a> - Automatically organizes invoices and receipts for tax preparation by reading files, extracting information, and renaming consistently.</li>
+<li><a href="https://github.com/NeoLabHQ/context-engineering-kit/tree/master/plugins/kaizen/skills/kaizen">kaizen</a> - Applies continuous improvement methodology with multiple analytical approaches, based on Japanese Kaizen philosophy and Lean methodology.</li>
+<li><a href="https://github.com/haunchen/n8n-skills">n8n-skills</a> - Enables AI assistants to directly understand and operate n8n workflows.</li>
+<li><a href="../../blob/master/raffle-winner-picker/index.html">Raffle Winner Picker</a> - Randomly selects winners from lists, spreadsheets, or Google Sheets for giveaways and contests with cryptographically secure randomness.</li>
+<li><a href="../../blob/master/tailored-resume-generator/index.html">Tailored Resume Generator</a> - Analyzes job descriptions and generates tailored resumes that highlight relevant experience, skills, and achievements to maximize interview chances.</li>
+<li><a href="https://github.com/michalparkola/tapestry-skills-for-claude-code/tree/main/ship-learn-next">ship-learn-next</a> - Skill to help iterate on what to build or learn next, based on feedback loops.</li>
+<li><a href="https://github.com/michalparkola/tapestry-skills-for-claude-code/tree/main/tapestry">tapestry</a> - Interlink and summarize related documents into knowledge networks.</li>
+</ul>
+<h3 id="collaboration--project-management">Collaboration &amp; Project Management</h3>
+<ul>
+<li><a href="https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/git-pushing">git-pushing</a> - Automate git operations and repository interactions.</li>
+<li><a href="https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/review-implementing">review-implementing</a> - Evaluate code implementation plans and align with specs.</li>
+<li><a href="https://github.com/mhattingpete/claude-skills-marketplace/tree/main/engineering-workflow-plugin/skills/test-fixing">test-fixing</a> - Detect failing tests and propose patches or fixes.</li>
+</ul>
+<h3 id="security--systems">Security &amp; Systems</h3>
+<ul>
+<li><a href="https://github.com/mhattingpete/claude-skills-marketplace/tree/main/computer-forensics-skills/skills/computer-forensics">computer-forensics</a> - Digital forensics analysis and investigation techniques.</li>
+<li><a href="https://github.com/mhattingpete/claude-skills-marketplace/tree/main/computer-forensics-skills/skills/file-deletion">file-deletion</a> - Secure file deletion and data sanitization methods.</li>
+<li><a href="https://github.com/mhattingpete/claude-skills-marketplace/tree/main/computer-forensics-skills/skills/metadata-extraction">metadata-extraction</a> - Extract and analyze file metadata for forensic purposes.</li>
+<li><a href="https://github.com/jthack/threat-hunting-with-sigma-rules-skill">threat-hunting-with-sigma-rules</a> - Use Sigma detection rules to hunt for threats and analyze security events.</li>
+</ul>
+<h2 id="getting-started">Getting Started</h2>
+<h3 id="using-skills-in-claudeai">Using Skills in Claude.ai</h3>
+<ol>
+<li>Click the skill icon (🧩) in your chat interface.</li>
+<li>Add skills from the marketplace or upload custom skills.</li>
+<li>Claude automatically activates relevant skills based on your task.</li>
+</ol>
+<h3 id="using-skills-in-claude-code">Using Skills in Claude Code</h3>
+<ol>
+<li>
+<p>Place the skill in <code>~/.config/claude-code/skills/</code>:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>mkdir -p ~/.config/claude-code/skills/
+</span></span><span style="display:flex;"><span>cp -r skill-name ~/.config/claude-code/skills/
+</span></span></code></pre></li>
+<li>
+<p>Verify skill metadata:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>head ~/.config/claude-code/skills/skill-name/SKILL.md
+</span></span></code></pre></li>
+<li>
+<p>Start Claude Code:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>claude
+</span></span></code></pre></li>
+<li>
+<p>The skill loads automatically and activates when relevant.</p>
+</li>
+</ol>
+<h3 id="using-skills-via-api">Using Skills via API</h3>
+<p>Use the Claude Skills API to programmatically load and manage skills:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">import</span> <span style="color:#ff7b72">anthropic</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>client <span style="color:#ff7b72;font-weight:bold">=</span> anthropic<span style="color:#ff7b72;font-weight:bold">.</span>Anthropic(api_key<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;your-api-key&#34;</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>response <span style="color:#ff7b72;font-weight:bold">=</span> client<span style="color:#ff7b72;font-weight:bold">.</span>messages<span style="color:#ff7b72;font-weight:bold">.</span>create(
+</span></span><span style="display:flex;"><span>    model<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;claude-3-5-sonnet-20241022&#34;</span>,
+</span></span><span style="display:flex;"><span>    skills<span style="color:#ff7b72;font-weight:bold">=</span>[<span style="color:#a5d6ff">&#34;skill-id-here&#34;</span>],
+</span></span><span style="display:flex;"><span>    messages<span style="color:#ff7b72;font-weight:bold">=</span>[{<span style="color:#a5d6ff">&#34;role&#34;</span>: <span style="color:#a5d6ff">&#34;user&#34;</span>, <span style="color:#a5d6ff">&#34;content&#34;</span>: <span style="color:#a5d6ff">&#34;Your prompt&#34;</span>}]
+</span></span><span style="display:flex;"><span>)
+</span></span></code></pre><p>See the <a href="https://docs.claude.com/en/api/skills-guide">Skills API documentation</a> for details.</p>
+<h2 id="creating-skills">Creating Skills</h2>
+<h3 id="skill-structure">Skill Structure</h3>
+<p>Each skill is a folder containing a <code>SKILL.md</code> file with YAML frontmatter:</p>
+<pre><code>skill-name/
+├── SKILL.md          # Required: Skill instructions and metadata
+├── scripts/          # Optional: Helper scripts
+├── templates/        # Optional: Document templates
+└── resources/        # Optional: Reference files
+</code></pre>
+<h3 id="basic-skill-template">Basic Skill Template</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>name: my-skill-name
+</span></span><span style="display:flex;"><span>description: A clear description of what this skill does and when to use it.
+</span></span><span style="display:flex;"><span>---
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"># My Skill Name
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff;font-weight:bold"></span>
+</span></span><span style="display:flex;"><span>Detailed description of the skill&#39;s purpose and capabilities.
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## When to Use This Skill
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Use case 1
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Use case 2
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">-</span> Use case 3
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Instructions
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span>[Detailed instructions for Claude on how to execute this skill]
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#79c0ff">## Examples
+</span></span></span><span style="display:flex;"><span><span style="color:#79c0ff"></span>
+</span></span><span style="display:flex;"><span>[Real-world examples showing the skill in action]
+</span></span></code></pre><h3 id="skill-best-practices">Skill Best Practices</h3>
+<ul>
+<li>Focus on specific, repeatable tasks</li>
+<li>Include clear examples and edge cases</li>
+<li>Write instructions for Claude, not end users</li>
+<li>Test across Claude.ai, Claude Code, and API</li>
+<li>Document prerequisites and dependencies</li>
+<li>Include error handling guidance</li>
+</ul>
+<h2 id="contributing">Contributing</h2>
+<p>We welcome contributions! Please read our <a href="../../blob/master/CONTRIBUTING.md.html">Contributing Guidelines</a> for details on:</p>
+<ul>
+<li>How to submit new skills</li>
+<li>Skill quality standards</li>
+<li>Pull request process</li>
+<li>Code of conduct</li>
+</ul>
+<h3 id="quick-contribution-steps">Quick Contribution Steps</h3>
+<ol>
+<li>Ensure your skill is based on a real use case</li>
+<li>Check for duplicates in existing skills</li>
+<li>Follow the skill structure template</li>
+<li>Test your skill across platforms</li>
+<li>Submit a pull request with clear documentation</li>
+</ol>
+<h2 id="resources">Resources</h2>
+<h3 id="official-documentation">Official Documentation</h3>
+<ul>
+<li><a href="https://www.anthropic.com/news/skills">Claude Skills Overview</a> - Official announcement and features</li>
+<li><a href="https://support.claude.com/en/articles/12512180-using-skills-in-claude">Skills User Guide</a> - How to use skills in Claude</li>
+<li><a href="https://support.claude.com/en/articles/12512198-creating-custom-skills">Creating Custom Skills</a> - Skill development guide</li>
+<li><a href="https://docs.claude.com/en/api/skills-guide">Skills API Documentation</a> - API integration guide</li>
+<li><a href="https://anthropic.com/engineering/equipping-agents-for-the-real-world-with-agent-skills">Agent Skills Blog Post</a> - Engineering deep dive</li>
+</ul>
+<h3 id="community-resources">Community Resources</h3>
+<ul>
+<li><a href="https://github.com/anthropics/skills">Anthropic Skills Repository</a> - Official example skills</li>
+<li><a href="https://community.anthropic.com">Claude Community</a> - Discuss skills with other users</li>
+<li><a href="https://claude.ai/marketplace">Skills Marketplace</a> - Discover and share skills</li>
+</ul>
+<h3 id="inspiration--use-cases">Inspiration &amp; Use Cases</h3>
+<ul>
+<li><a href="https://www.lennysnewsletter.com/p/everyone-should-be-using-claude-code">Lenny’s Newsletter</a> - 50 ways people use Claude Code</li>
+<li><a href="https://www.notion.so/notiondevs/Notion-Skills-for-Claude-28da4445d27180c7af1df7d8615723d0">Notion Skills</a> - Notion integration skills</li>
+</ul>
+<h2 id="join-the-community">Join the Community</h2>
+<ul>
+<li><a href="https://discord.com/invite/composio">Join our Discord</a> - Chat with other developers building Claude Skills</li>
+<li><a href="https://x.com/composio">Follow on Twitter/X</a> - Stay updated on new skills and features</li>
+<li>Questions? <a href="mailto:support@composio.dev">support@composio.dev</a></li>
+</ul>
+<hr/>
+<p align="center">
+  <b>Join 20,000+ developers building agents that ship</b>
+</p>
+<p align="center">
+  <a href="https://platform.composio.dev/?utm_source=Github&amp;utm_content=AwesomeSkills">
+    <img src="https://img.shields.io/badge/Get_Started_Free-4F46E5?style=for-the-badge" alt="Get Started"/>
+  </a>
+</p>
+<h2 id="license">License</h2>
+<p>This repository is licensed under the Apache License 2.0.</p>
+<p>Individual skills may have different licenses - please check each skill’s folder for specific licensing information.</p>
+<hr/>
+<p><strong>Note</strong>: Claude Skills work across Claude.ai, Claude Code, and the Claude API. Once you create a skill, it’s portable across all platforms, making your workflows consistent everywhere you use Claude.</p>
+<ul>
+<li><a href="https://agentskb.com">AgentsKB</a> - Upgrade your AI with researched answers. We did the research so your AI gets it right the first time.</li>
+</ul>
+</body></html>
+            </div>
+        </div>
+    
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>

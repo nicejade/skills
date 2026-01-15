@@ -1,0 +1,2026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>awesome-claude-skills/document-skills/pptx/html2pptx.md at master</title>
+    <style>
+        
+        :root {
+          --c-indigo-1: #a8b1ff;
+          --c-indigo-2: #5c73e7;
+          --c-indigo-3: #3e63dd;
+          --c-green: #57ab5a;
+          --c-red: #e5534b;
+          --c-yellow: #c69026;
+          --c-dir: #9198a1;
+          --c-gray-soft: rgba(101, 117, 133, .16);
+          --c-bg: #1b1b1f;
+          --c-bg-alt: #161618;
+          --c-bg-elv: #202127;
+          --c-text-1: rgba(255, 255, 245, .86);
+          --c-text-2: rgba(235, 235, 245, .6);
+          --c-text-3: rgba(235, 235, 245, .38);
+          --c-border: #3c3f44;
+          --c-divider: #2e2e32;
+        }
+
+        
+
+        :root {
+          --c-brand-1: var(--c-indigo-1);
+          --c-brand-2: var(--c-indigo-2);
+          --c-brand-3: var(--c-indigo-3);
+          --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+          --font-family-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+          --code-line-height: 20px;
+          --code-font-size: 12px;
+          --code-color: var(--c-brand-1);
+          --code-bg: var(--c-gray-soft);
+          --code-block-bg: var(--c-bg-alt);
+          --code-block-color: var(--c-text-1);
+          --header-height: 46px;
+          --border-radius: 6px;
+          --max-content-width: 1470px;
+        }
+
+        * {
+          box-sizing: border-box;
+        }
+
+        body {
+          margin: 0;
+          padding: 0;
+          font-family: var(--font-family), sans-serif;
+          font-size: 14px;
+          line-height: 1;
+          color: var(--c-text-1);
+          background-color: var(--c-bg);
+          text-rendering: optimizeLegibility;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          -moz-text-size-adjust: none;
+          -webkit-text-size-adjust: none;
+          text-size-adjust: none;
+          min-height: 100vh;
+          display: flex;
+          flex-direction: column;
+        }
+
+        .nowrap {
+          white-space: nowrap;
+        }
+
+        h1 {
+          margin-inline: 0;
+          margin-block: 16px;
+          font-size: 20px;
+          font-weight: 600;
+        }
+
+        a {
+          color: var(--c-brand-1);
+          font-weight: 500;
+          text-decoration: underline;
+          text-underline-offset: 2px;
+          text-decoration: inherit;
+          touch-action: manipulation;
+        }
+
+        a:hover {
+          color: var(--c-brand-2);
+          text-decoration: underline;
+        }
+
+        .menu {
+          background-color: var(--c-bg-alt);
+          border-bottom: 1px solid var(--c-divider);
+          overflow-x: auto;
+        }
+
+        .menu-content {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 16px;
+          padding-inline: 16px;
+          max-width: var(--max-content-width);
+          margin-inline: auto;
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          border-bottom: 2px solid transparent;
+          height: 56px;
+          padding-inline: 8px;
+        }
+
+        .menu-item a {
+          display: flex;
+          flex-direction: row;
+          gap: 8px;
+          align-items: center;
+          color: var(--c-text-1);
+          padding: 8px 10px;
+          border-radius: 4px;
+        }
+
+        .menu-item a:hover {
+          background-color: var(--c-bg-elv);
+          text-decoration: none;
+        }
+
+        .menu-item.selected {
+          border-bottom-color: var(--c-brand-1);
+        }
+
+        .project-name {
+          font-weight: 600;
+          font-size: 16px;
+          margin-inline: 16px;
+          color: var(--c-text-1);
+          text-decoration: none;
+        }
+
+        main {
+          flex-grow: 1;
+          width: 100%;
+          max-width: var(--max-content-width);
+          margin: 16px auto;
+        }
+
+        .main-content {
+          padding-inline: 16px;
+        }
+
+        footer {
+          padding: 12px 16px;
+          background-color: var(--c-bg-alt);
+          border-top: 1px solid var(--c-divider);
+          color: var(--c-text-3);
+          font-size: 12px;
+          text-align: center;
+        }
+
+        .header-container {
+          container-type: scroll-state;
+          position: sticky;
+          top: 0;
+        }
+
+        .header-container {
+          @container scroll-state(stuck: top) {
+            header {
+              border-top: none;
+              border-top-left-radius: 0;
+              border-top-right-radius: 0;
+            }
+
+            .goto-top {
+              display: flex;
+            }
+          }
+        }
+
+        header {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          min-height: var(--header-height);
+          padding-inline: 16px;
+          background: var(--c-bg-alt);
+          border: 1px solid var(--c-border);
+          border-top-left-radius: var(--border-radius);
+          border-top-right-radius: var(--border-radius);
+        }
+
+        header h1 {
+          word-break: break-all;
+          font-weight: 600;
+          font-size: 16px;
+          margin: 0;
+          padding: 0;
+        }
+
+        .header-ref {
+          color: var(--c-text-2);
+          border: 1px solid var(--c-border);
+          border-radius: 6px;
+          padding: 6px 10px;
+          margin-right: 10px;
+          margin-left: -6px;
+        }
+
+        header .path {
+          font-size: 16px;
+        }
+
+        .breadcrumbs {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
+          gap: 6px;
+          font-size: 16px;
+        }
+
+        .breadcrumbs a {
+          word-break: break-all;
+        }
+
+        .goto-top {
+          display: none;
+          margin-left: auto;
+          padding: 6px 10px;
+          background: none;
+          border: none;
+          border-radius: 6px;
+          gap: 4px;
+          align-items: center;
+          color: var(--c-text-1);
+          cursor: pointer;
+        }
+
+        .goto-top:hover {
+          background: var(--c-bg-elv);
+        }
+    </style>
+    
+    <style>
+      [id] {
+        scroll-margin-top: var(--header-height);
+      }
+
+      .markdown-container {
+        border: 1px solid var(--c-divider);
+        border-top: none;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
+        overflow-x: auto;
+      }
+
+      .markdown-body {
+        width: 100%;
+        min-width: 200px;
+        max-width: 980px;
+        margin: 0 auto;
+        padding: 32px;
+        word-wrap: break-word;
+        font-size: 16px;
+        line-height: 1.5;
+      }
+
+      @media (max-width: 767px) {
+        .markdown-body {
+          padding: 16px;
+        }
+      }
+
+      .markdown-body details,
+.markdown-body figcaption,
+.markdown-body figure {
+  display: block;
+}
+
+.markdown-body summary {
+  display: list-item;
+}
+
+.markdown-body [hidden] {
+  display: none !important;
+}
+
+.markdown-body a {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+.markdown-body abbr[title] {
+  border-bottom: none;
+  text-decoration: underline dotted;
+}
+
+.markdown-body b,
+.markdown-body strong {
+  font-weight: 600;
+}
+
+.markdown-body dfn {
+  font-style: italic;
+}
+
+.markdown-body h1 {
+  margin: .67em 0;
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 2em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body mark {
+  background-color: #bb800926;
+  color: #f0f6fc;
+}
+
+.markdown-body small {
+  font-size: 90%;
+}
+
+.markdown-body sub,
+.markdown-body sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+.markdown-body sub {
+  bottom: -0.25em;
+}
+
+.markdown-body sup {
+  top: -0.5em;
+}
+
+.markdown-body img {
+  border-style: none;
+  max-width: 100%;
+  box-sizing: content-box;
+}
+
+.markdown-body code,
+.markdown-body kbd,
+.markdown-body pre,
+.markdown-body samp {
+  font-family: monospace;
+  font-size: 1em;
+}
+
+.markdown-body figure {
+  margin: 1em 2.5rem;
+}
+
+.markdown-body hr {
+  box-sizing: content-box;
+  overflow: hidden;
+  border-bottom: 1px solid #3d444db3;
+  height: .25em;
+  padding: 0;
+  margin: 1.5rem 0;
+  background-color: #3d444d;
+}
+
+.markdown-body input {
+  font: inherit;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+}
+
+.markdown-body [type=button],
+.markdown-body [type=reset],
+.markdown-body [type=submit] {
+  -webkit-appearance: button;
+  appearance: button;
+}
+
+.markdown-body [type=checkbox],
+.markdown-body [type=radio] {
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.markdown-body [type=number]::-webkit-inner-spin-button,
+.markdown-body [type=number]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+.markdown-body [type=search]::-webkit-search-cancel-button,
+.markdown-body [type=search]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.markdown-body ::-webkit-input-placeholder {
+  color: inherit;
+  opacity: .54;
+}
+
+.markdown-body ::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  appearance: button;
+  font: inherit;
+}
+
+.markdown-body a:hover {
+  text-decoration: underline;
+}
+
+.markdown-body ::placeholder {
+  color: #9198a1;
+  opacity: 1;
+}
+
+.markdown-body hr::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body hr::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body table {
+  border-spacing: 0;
+  border-collapse: collapse;
+  display: block;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  font-variant: tabular-nums;
+}
+
+.markdown-body td,
+.markdown-body th {
+  padding: 0;
+}
+
+.markdown-body details summary {
+  cursor: pointer;
+}
+
+.markdown-body a:focus,
+.markdown-body [role=button]:focus,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=checkbox]:focus {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:focus:not(:focus-visible),
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body input[type=radio]:focus:not(:focus-visible),
+.markdown-body input[type=checkbox]:focus:not(:focus-visible) {
+  outline: solid 1px transparent;
+}
+
+.markdown-body a:focus-visible,
+.markdown-body [role=button]:focus-visible,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline: 2px solid #1f6feb;
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.markdown-body a:not([class]):focus,
+.markdown-body a:not([class]):focus-visible,
+.markdown-body input[type=radio]:focus,
+.markdown-body input[type=radio]:focus-visible,
+.markdown-body input[type=checkbox]:focus,
+.markdown-body input[type=checkbox]:focus-visible {
+  outline-offset: 0;
+}
+
+.markdown-body kbd {
+  display: inline-block;
+  padding: 0.25rem;
+  font: 11px ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  line-height: 10px;
+  color: #f0f6fc;
+  vertical-align: middle;
+  background-color: #151b23;
+  border: solid 1px #3d444db3;
+  border-radius: 6px;
+  box-shadow: inset 0 -1px 0 #3d444db3;
+}
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4,
+.markdown-body h5,
+.markdown-body h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  line-height: 1.25;
+}
+
+.markdown-body h2 {
+  font-weight: 600;
+  padding-bottom: .3em;
+  font-size: 1.5em;
+  border-bottom: 1px solid #3d444db3;
+}
+
+.markdown-body h3 {
+  font-weight: 600;
+  font-size: 1.25em;
+}
+
+.markdown-body h4 {
+  font-weight: 600;
+  font-size: 1em;
+}
+
+.markdown-body h5 {
+  font-weight: 600;
+  font-size: .875em;
+}
+
+.markdown-body h6 {
+  font-weight: 600;
+  font-size: .85em;
+  color: #9198a1;
+}
+
+.markdown-body p {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.markdown-body blockquote {
+  margin: 0;
+  padding: 0 1em;
+  color: #9198a1;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body ul,
+.markdown-body ol {
+  margin-top: 0;
+  margin-bottom: 0;
+  padding-left: 2em;
+}
+
+.markdown-body ol ol,
+.markdown-body ul ol {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ul ul ol,
+.markdown-body ul ol ol,
+.markdown-body ol ul ol,
+.markdown-body ol ol ol {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body dd {
+  margin-left: 0;
+}
+
+.markdown-body tt,
+.markdown-body code,
+.markdown-body samp {
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+}
+
+.markdown-body pre {
+  margin-top: 0;
+  margin-bottom: 0;
+  font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+  font-size: 12px;
+  word-wrap: normal;
+}
+
+.markdown-body .octicon {
+  display: inline-block;
+  overflow: visible !important;
+  vertical-align: text-bottom;
+  fill: currentColor;
+}
+
+.markdown-body input::-webkit-outer-spin-button,
+.markdown-body input::-webkit-inner-spin-button {
+  margin: 0;
+  appearance: none;
+}
+
+.markdown-body .mr-2 {
+  margin-right: 0.5rem !important;
+}
+
+.markdown-body::before {
+  display: table;
+  content: "";
+}
+
+.markdown-body::after {
+  display: table;
+  clear: both;
+  content: "";
+}
+
+.markdown-body > *:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body > *:last-child {
+  margin-bottom: 0 !important;
+}
+
+.markdown-body a:not([href]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+.markdown-body .absent {
+  color: #f85149;
+}
+
+.markdown-body .anchor {
+  float: left;
+  padding-right: 0.25rem;
+  margin-left: -20px;
+  line-height: 1;
+}
+
+.markdown-body .anchor:focus {
+  outline: none;
+}
+
+.markdown-body p,
+.markdown-body blockquote,
+.markdown-body ul,
+.markdown-body ol,
+.markdown-body dl,
+.markdown-body table,
+.markdown-body pre,
+.markdown-body details {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+.markdown-body blockquote > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body blockquote > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body h1:hover .anchor,
+.markdown-body h2:hover .anchor,
+.markdown-body h3:hover .anchor,
+.markdown-body h4:hover .anchor,
+.markdown-body h5:hover .anchor,
+.markdown-body h6:hover .anchor {
+  text-decoration: none;
+}
+
+.markdown-body h1 tt,
+.markdown-body h1 code,
+.markdown-body h2 tt,
+.markdown-body h2 code,
+.markdown-body h3 tt,
+.markdown-body h3 code,
+.markdown-body h4 tt,
+.markdown-body h4 code,
+.markdown-body h5 tt,
+.markdown-body h5 code,
+.markdown-body h6 tt,
+.markdown-body h6 code {
+  padding: 0 .2em;
+  font-size: inherit;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2,
+.markdown-body summary h3,
+.markdown-body summary h4,
+.markdown-body summary h5,
+.markdown-body summary h6 {
+  display: inline-block;
+}
+
+.markdown-body summary h1 .anchor,
+.markdown-body summary h2 .anchor,
+.markdown-body summary h3 .anchor,
+.markdown-body summary h4 .anchor,
+.markdown-body summary h5 .anchor,
+.markdown-body summary h6 .anchor {
+  margin-left: -40px;
+}
+
+.markdown-body summary h1,
+.markdown-body summary h2 {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.markdown-body ul.no-list,
+.markdown-body ol.no-list {
+  padding: 0;
+  list-style-type: none;
+}
+
+.markdown-body ol[type="a s"] {
+  list-style-type: lower-alpha;
+}
+
+.markdown-body ol[type="A s"] {
+  list-style-type: upper-alpha;
+}
+
+.markdown-body ol[type="i s"] {
+  list-style-type: lower-roman;
+}
+
+.markdown-body ol[type="I s"] {
+  list-style-type: upper-roman;
+}
+
+.markdown-body ol[type="1"] {
+  list-style-type: decimal;
+}
+
+.markdown-body div > ol:not([type]) {
+  list-style-type: decimal;
+}
+
+.markdown-body ul ul,
+.markdown-body ul ol,
+.markdown-body ol ol,
+.markdown-body ol ul {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.markdown-body li > p {
+  margin-top: 1rem;
+}
+
+.markdown-body li + li {
+  margin-top: .25em;
+}
+
+.markdown-body dl {
+  padding: 0;
+}
+
+.markdown-body dl dt {
+  padding: 0;
+  margin-top: 1rem;
+  font-size: 1em;
+  font-style: italic;
+  font-weight: 600;
+}
+
+.markdown-body dl dd {
+  padding: 0 1rem;
+  margin-bottom: 1rem;
+}
+
+.markdown-body table th {
+  font-weight: 600;
+}
+
+.markdown-body table th,
+.markdown-body table td {
+  padding: 6px 13px;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body table td > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body table tr {
+  background-color: #0d1117;
+  border-top: 1px solid #3d444db3;
+}
+
+.markdown-body table tr:nth-child(2n) {
+  background-color: #151b23;
+}
+
+.markdown-body table img {
+  background-color: transparent;
+}
+
+.markdown-body img[align=right] {
+  padding-left: 20px;
+}
+
+.markdown-body img[align=left] {
+  padding-right: 20px;
+}
+
+.markdown-body .emoji {
+  max-width: none;
+  vertical-align: text-top;
+  background-color: transparent;
+}
+
+.markdown-body span.frame {
+  display: block;
+  overflow: hidden;
+}
+
+.markdown-body span.frame > span {
+  display: block;
+  float: left;
+  width: auto;
+  padding: 7px;
+  margin: 13px 0 0;
+  overflow: hidden;
+  border: 1px solid #3d444d;
+}
+
+.markdown-body span.frame span img {
+  display: block;
+  float: left;
+}
+
+.markdown-body span.frame span span {
+  display: block;
+  padding: 5px 0 0;
+  clear: both;
+  color: #f0f6fc;
+}
+
+.markdown-body span.align-center {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-center > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.markdown-body span.align-center span img {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.markdown-body span.align-right {
+  display: block;
+  overflow: hidden;
+  clear: both;
+}
+
+.markdown-body span.align-right > span {
+  display: block;
+  margin: 13px 0 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body span.align-right span img {
+  margin: 0;
+  text-align: right;
+}
+
+.markdown-body span.float-left {
+  display: block;
+  float: left;
+  margin-right: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-left span {
+  margin: 13px 0 0;
+}
+
+.markdown-body span.float-right {
+  display: block;
+  float: right;
+  margin-left: 13px;
+  overflow: hidden;
+}
+
+.markdown-body span.float-right > span {
+  display: block;
+  margin: 13px auto 0;
+  overflow: hidden;
+  text-align: right;
+}
+
+.markdown-body code,
+.markdown-body tt {
+  padding: .2em .4em;
+  margin: 0;
+  font-size: 85%;
+  white-space: break-spaces;
+  background-color: #656c7633;
+  border-radius: 6px;
+}
+
+.markdown-body code br,
+.markdown-body tt br {
+  display: none;
+}
+
+.markdown-body del code {
+  text-decoration: inherit;
+}
+
+.markdown-body samp {
+  font-size: 85%;
+}
+
+.markdown-body pre code {
+  font-size: 100%;
+}
+
+.markdown-body pre > code {
+  padding: 0;
+  margin: 0;
+  word-break: normal;
+  white-space: pre;
+  background: transparent;
+  border: 0;
+}
+
+.markdown-body .highlight {
+  margin-bottom: 1rem;
+}
+
+.markdown-body .highlight pre {
+  margin-bottom: 0;
+  word-break: normal;
+}
+
+.markdown-body .highlight pre,
+.markdown-body pre {
+  padding: 1rem;
+  overflow: auto;
+  font-size: 85%;
+  line-height: 1.45;
+  color: #f0f6fc;
+  background-color: #151b23;
+  border-radius: 6px;
+}
+
+.markdown-body pre code,
+.markdown-body pre tt {
+  display: inline;
+  max-width: auto;
+  padding: 0;
+  margin: 0;
+  overflow: visible;
+  line-height: inherit;
+  word-wrap: normal;
+  background-color: transparent;
+  border: 0;
+}
+
+.markdown-body .csv-data td,
+.markdown-body .csv-data th {
+  padding: 5px;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.markdown-body .csv-data .blob-num {
+  padding: 10px 0.5rem 9px;
+  text-align: right;
+  background: #0d1117;
+  border: 0;
+}
+
+.markdown-body .csv-data tr {
+  border-top: 0;
+}
+
+.markdown-body .csv-data th {
+  font-weight: 600;
+  background: #151b23;
+  border-top: 0;
+}
+
+.markdown-body [data-footnote-ref]::before {
+  content: "[";
+}
+
+.markdown-body [data-footnote-ref]::after {
+  content: "]";
+}
+
+.markdown-body .footnotes {
+  font-size: 12px;
+  color: #9198a1;
+  border-top: 1px solid #3d444d;
+}
+
+.markdown-body .footnotes ol {
+  padding-left: 1rem;
+}
+
+.markdown-body .footnotes ol ul {
+  display: inline-block;
+  padding-left: 1rem;
+  margin-top: 1rem;
+}
+
+.markdown-body .footnotes li {
+  position: relative;
+}
+
+.markdown-body .footnotes li:target::before {
+  position: absolute;
+  top: calc(0.5rem * -1);
+  right: calc(0.5rem * -1);
+  bottom: calc(0.5rem * -1);
+  left: calc(1.5rem * -1);
+  pointer-events: none;
+  content: "";
+  border: 2px solid #1f6feb;
+  border-radius: 6px;
+}
+
+.markdown-body .footnotes li:target {
+  color: #f0f6fc;
+}
+
+.markdown-body .footnotes .data-footnote-backref g-emoji {
+  font-family: monospace;
+}
+
+.markdown-body body:has(:modal) {
+  padding-right: var(--dialog-scrollgutter) !important;
+}
+
+.markdown-body .pl-c {
+  color: #9198a1;
+}
+
+.markdown-body .pl-c1,
+.markdown-body .pl-s .pl-v {
+  color: #79c0ff;
+}
+
+.markdown-body .pl-e,
+.markdown-body .pl-en {
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-smi,
+.markdown-body .pl-s .pl-s1 {
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-ent {
+  color: #7ee787;
+}
+
+.markdown-body .pl-k {
+  color: #ff7b72;
+}
+
+.markdown-body .pl-s,
+.markdown-body .pl-pds,
+.markdown-body .pl-s .pl-pse .pl-s1,
+.markdown-body .pl-sr,
+.markdown-body .pl-sr .pl-cce,
+.markdown-body .pl-sr .pl-sre,
+.markdown-body .pl-sr .pl-sra {
+  color: #a5d6ff;
+}
+
+.markdown-body .pl-v,
+.markdown-body .pl-smw {
+  color: #ffa657;
+}
+
+.markdown-body .pl-bu {
+  color: #f85149;
+}
+
+.markdown-body .pl-ii {
+  color: #f0f6fc;
+  background-color: #8e1519;
+}
+
+.markdown-body .pl-c2 {
+  color: #f0f6fc;
+  background-color: #b62324;
+}
+
+.markdown-body .pl-sr .pl-cce {
+  font-weight: bold;
+  color: #7ee787;
+}
+
+.markdown-body .pl-ml {
+  color: #f2cc60;
+}
+
+.markdown-body .pl-mh,
+.markdown-body .pl-mh .pl-en,
+.markdown-body .pl-ms {
+  font-weight: bold;
+  color: #1f6feb;
+}
+
+.markdown-body .pl-mi {
+  font-style: italic;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-mb {
+  font-weight: bold;
+  color: #f0f6fc;
+}
+
+.markdown-body .pl-md {
+  color: #ffdcd7;
+  background-color: #67060c;
+}
+
+.markdown-body .pl-mi1 {
+  color: #aff5b4;
+  background-color: #033a16;
+}
+
+.markdown-body .pl-mc {
+  color: #ffdfb6;
+  background-color: #5a1e02;
+}
+
+.markdown-body .pl-mi2 {
+  color: #f0f6fc;
+  background-color: #1158c7;
+}
+
+.markdown-body .pl-mdr {
+  font-weight: bold;
+  color: #d2a8ff;
+}
+
+.markdown-body .pl-ba {
+  color: #9198a1;
+}
+
+.markdown-body .pl-sg {
+  color: #3d444d;
+}
+
+.markdown-body .pl-corl {
+  text-decoration: underline;
+  color: #a5d6ff;
+}
+
+.markdown-body [role=button]:focus:not(:focus-visible),
+.markdown-body [role=tabpanel][tabindex="0"]:focus:not(:focus-visible),
+.markdown-body button:focus:not(:focus-visible),
+.markdown-body summary:focus:not(:focus-visible),
+.markdown-body a:focus:not(:focus-visible) {
+  outline: none;
+  box-shadow: none;
+}
+
+.markdown-body [tabindex="0"]:focus:not(:focus-visible),
+.markdown-body details-dialog:focus:not(:focus-visible) {
+  outline: none;
+}
+
+.markdown-body g-emoji {
+  display: inline-block;
+  min-width: 1ch;
+  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: 1em;
+  font-style: normal !important;
+  font-weight: 400;
+  line-height: 1;
+  vertical-align: -0.075em;
+}
+
+.markdown-body g-emoji img {
+  width: 1em;
+  height: 1em;
+}
+
+.markdown-body .task-list-item {
+  list-style-type: none;
+}
+
+.markdown-body .task-list-item label {
+  font-weight: 400;
+}
+
+.markdown-body .task-list-item.enabled label {
+  cursor: pointer;
+}
+
+.markdown-body .task-list-item + .task-list-item {
+  margin-top: 0.25rem;
+}
+
+.markdown-body .task-list-item .handle {
+  display: none;
+}
+
+.markdown-body .task-list-item-checkbox {
+  margin: 0 .2em .25em -1.4em;
+  vertical-align: middle;
+}
+
+.markdown-body ul:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body ol:dir(rtl) .task-list-item-checkbox {
+  margin: 0 -1.6em .25em .2em;
+}
+
+.markdown-body .contains-task-list:hover .task-list-item-convert-container,
+.markdown-body .contains-task-list:focus-within .task-list-item-convert-container {
+  display: block;
+  width: auto;
+  height: 24px;
+  overflow: visible;
+  clip: auto;
+}
+
+.markdown-body ::-webkit-calendar-picker-indicator {
+  filter: invert(50%);
+}
+
+.markdown-body .markdown-alert {
+  padding: 0.5rem 1rem;
+  margin-bottom: 1rem;
+  color: inherit;
+  border-left: .25em solid #3d444d;
+}
+
+.markdown-body .markdown-alert > :first-child {
+  margin-top: 0;
+}
+
+.markdown-body .markdown-alert > :last-child {
+  margin-bottom: 0;
+}
+
+.markdown-body .markdown-alert .markdown-alert-title {
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  line-height: 1;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note {
+  border-left-color: #1f6feb;
+}
+
+.markdown-body .markdown-alert.markdown-alert-note .markdown-alert-title {
+  color: #4493f8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important {
+  border-left-color: #8957e5;
+}
+
+.markdown-body .markdown-alert.markdown-alert-important .markdown-alert-title {
+  color: #ab7df8;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning {
+  border-left-color: #9e6a03;
+}
+
+.markdown-body .markdown-alert.markdown-alert-warning .markdown-alert-title {
+  color: #d29922;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip {
+  border-left-color: #238636;
+}
+
+.markdown-body .markdown-alert.markdown-alert-tip .markdown-alert-title {
+  color: #3fb950;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution {
+  border-left-color: #da3633;
+}
+
+.markdown-body .markdown-alert.markdown-alert-caution .markdown-alert-title {
+  color: #f85149;
+}
+
+.markdown-body > *:first-child > .heading-element:first-child {
+  margin-top: 0 !important;
+}
+
+.markdown-body .highlight pre:has(+.zeroclipboard-container) {
+  min-height: 52px;
+}
+
+    </style>
+
+</head>
+<body>
+
+    <svg style="display: none" aria-hidden="true" focusable="false">
+        <symbol id="dir" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1.75 1A1.75 1.75 0 0 0 0 2.75v10.5C0 14.216.784 15 1.75 15h12.5A1.75 1.75 0 0 0 16 13.25v-8.5A1.75 1.75 0 0 0 14.25 3H7.5a.25.25 0 0 1-.2-.1l-.9-1.2C6.07 1.26 5.55 1 5 1H1.75Z"/>
+        </symbol>
+        <symbol id="file" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V6h-2.75A1.75 1.75 0 0 1 9 4.25V1.5Zm6.75.062V4.25c0 .138.112.25.25.25h2.688l-.011-.013-2.914-2.914-.013-.011Z"/>
+        </symbol>
+        <symbol id="file-added" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.48 3.758a.75.75 0 0 1 .755.745l.01 1.497h1.497a.75.75 0 0 1 0 1.5H9v1.507a.75.75 0 0 1-1.5 0V9.005l-1.502.01a.75.75 0 0 1-.01-1.5l1.507-.01-.01-1.492a.75.75 0 0 1 .745-.755Z"/>
+        </symbol>
+        <symbol id="file-modified" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 1.75C1 .784 1.784 0 2.75 0h7.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16H2.75A1.75 1.75 0 0 1 1 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h10.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073ZM8 3.25a.75.75 0 0 1 .75.75v1.5h1.5a.75.75 0 0 1 0 1.5h-1.5v1.5a.75.75 0 0 1-1.5 0V7h-1.5a.75.75 0 0 1 0-1.5h1.5V4A.75.75 0 0 1 8 3.25Zm-3 8a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"/>
+        </symbol>
+        <symbol id="file-deleted" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-9.5A1.75 1.75 0 0 1 2 14.25Zm1.75-.25a.25.25 0 0 0-.25.25v12.5c0 .138.112.25.25.25h9.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073Zm4.5 6h2.242a.75.75 0 0 1 0 1.5h-2.24l-2.254.015a.75.75 0 0 1-.01-1.5Z"/>
+        </symbol>
+        <symbol id="file-renamed" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M2 1.75C2 .784 2.784 0 3.75 0h6.586c.464 0 .909.184 1.237.513l2.914 2.914c.329.328.513.773.513 1.237v9.586A1.75 1.75 0 0 1 13.25 16h-3.5a.75.75 0 0 1 0-1.5h3.5a.25.25 0 0 0 .25-.25V4.664a.25.25 0 0 0-.073-.177l-2.914-2.914a.25.25 0 0 0-.177-.073H3.75a.25.25 0 0 0-.25.25v6.5a.75.75 0 0 1-1.5 0v-6.5Z"/>
+            <path fill="currentColor"
+                  d="m5.427 15.573 3.146-3.146a.25.25 0 0 0 0-.354L5.427 8.927A.25.25 0 0 0 5 9.104V11.5H.75a.75.75 0 0 0 0 1.5H5v2.396c0 .223.27.335.427.177Z"/>
+        </symbol>
+        <symbol id="arrow-top" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M3.47 7.78a.75.75 0 0 1 0-1.06l4.25-4.25a.75.75 0 0 1 1.06 0l4.25 4.25a.751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018L9 4.81v7.44a.75.75 0 0 1-1.5 0V4.81L4.53 7.78a.75.75 0 0 1-1.06 0Z"></path>
+        </symbol>
+        <symbol id="commit" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M11.93 8.5a4.002 4.002 0 0 1-7.86 0H.75a.75.75 0 0 1 0-1.5h3.32a4.002 4.002 0 0 1 7.86 0h3.32a.75.75 0 0 1 0 1.5Zm-1.43-.75a2.5 2.5 0 1 0-5 0 2.5 2.5 0 0 0 5 0Z"></path>
+        </symbol>
+        <symbol id="branch" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M9.5 3.25a2.25 2.25 0 1 1 3 2.122V6A2.5 2.5 0 0 1 10 8.5H6a1 1 0 0 0-1 1v1.128a2.251 2.251 0 1 1-1.5 0V5.372a2.25 2.25 0 1 1 1.5 0v1.836A2.493 2.493 0 0 1 6 7h4a1 1 0 0 0 1-1v-.628A2.25 2.25 0 0 1 9.5 3.25Zm-6 0a.75.75 0 1 0 1.5 0 .75.75 0 0 0-1.5 0Zm8.25-.75a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5ZM4.25 12a.75.75 0 1 0 0 1.5.75.75 0 0 0 0-1.5Z"></path>
+        </symbol>
+        <symbol id="tag" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="M1 7.775V2.75C1 1.784 1.784 1 2.75 1h5.025c.464 0 .91.184 1.238.513l6.25 6.25a1.75 1.75 0 0 1 0 2.474l-5.026 5.026a1.75 1.75 0 0 1-2.474 0l-6.25-6.25A1.752 1.752 0 0 1 1 7.775Zm1.5 0c0 .066.026.13.073.177l6.25 6.25a.25.25 0 0 0 .354 0l5.025-5.025a.25.25 0 0 0 0-.354l-6.25-6.25a.25.25 0 0 0-.177-.073H2.75a.25.25 0 0 0-.25.25ZM6 5a1 1 0 1 1 0 2 1 1 0 0 1 0-2Z"></path>
+        </symbol>
+        <symbol id="code" viewBox="0 0 16 16">
+            <path fill="currentColor"
+                  d="m11.28 3.22 4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.749.749 0 0 1-1.275-.326.749.749 0 0 1 .215-.734L13.94 8l-3.72-3.72a.749.749 0 0 1 .326-1.275.749.749 0 0 1 .734.215Zm-6.56 0a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042L2.06 8l3.72 3.72a.749.749 0 0 1-.326 1.275.749.749 0 0 1-.734-.215L.47 8.53a.75.75 0 0 1 0-1.06Z"></path>
+        </symbol>
+    </svg>
+
+<div class="menu">
+    <div class="menu-content">
+        <a href="../../../../index.html" class="project-name">awesome-claude-skills</a>
+        <div class="menu-item selected">
+            <a href="../../../../blob/master/index.html">
+                <svg aria-hidden="true" width="16" height="16">
+                    <use xlink:href="#code"></use>
+                </svg>
+                Code
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../branches.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#branch"></use>
+                </svg>
+                Branches
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../tags.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#tag"></use>
+                </svg>
+                Tags
+            </a>
+        </div>
+        <div class="menu-item ">
+            <a href="../../../../commits/master/index.html">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#commit"></use>
+                </svg>
+                Commits
+            </a>
+        </div>
+    </div>
+</div>
+<main>
+    <div class="main-content">
+        
+    
+    <div class="header-container">
+        <header>
+            
+                <div class="header-ref" aria-label="Ref">master</div>
+            
+            
+                <nav class="breadcrumbs" aria-label="Breadcrumbs">
+                    
+                        
+                        
+                            <a href="./../../index.html">awesome-claude-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./../index.html">document-skills</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <a href="./index.html">pptx</a>
+                        
+                    
+                        
+                            <div>/</div>
+                        
+                        
+                            <h1>html2pptx.md</h1>
+                            
+                        
+                    
+                </nav>
+            
+            <button class="goto-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+                <svg aria-hidden="true" focusable="false" width="16" height="16">
+                    <use xlink:href="#arrow-top"></use>
+                </svg>
+                Top
+            </button>
+        </header>
+    </div>
+
+    <article class="markdown-container">
+        <div class="markdown-body">
+            <html><head></head><body><h1 id="html-to-powerpoint-guide">HTML to PowerPoint Guide</h1>
+<p>Convert HTML slides to PowerPoint presentations with accurate positioning using the <code>html2pptx.js</code> library.</p>
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+<li><a href="#creating-html-slides">Creating HTML Slides</a></li>
+<li><a href="#using-the-html2pptx-library">Using the html2pptx Library</a></li>
+<li><a href="#using-pptxgenjs">Using PptxGenJS</a></li>
+</ol>
+<hr/>
+<h2 id="creating-html-slides">Creating HTML Slides</h2>
+<p>Every HTML slide must include proper body dimensions:</p>
+<h3 id="layout-dimensions">Layout Dimensions</h3>
+<ul>
+<li><strong>16:9</strong> (default): <code>width: 720pt; height: 405pt</code></li>
+<li><strong>4:3</strong>: <code>width: 720pt; height: 540pt</code></li>
+<li><strong>16:10</strong>: <code>width: 720pt; height: 450pt</code></li>
+</ul>
+<h3 id="supported-elements">Supported Elements</h3>
+<ul>
+<li><code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code> - Text with styling</li>
+<li><code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code> - Lists (never use manual bullets •, -, *)</li>
+<li><code>&lt;b&gt;</code>, <code>&lt;strong&gt;</code> - Bold text (inline formatting)</li>
+<li><code>&lt;i&gt;</code>, <code>&lt;em&gt;</code> - Italic text (inline formatting)</li>
+<li><code>&lt;u&gt;</code> - Underlined text (inline formatting)</li>
+<li><code>&lt;span&gt;</code> - Inline formatting with CSS styles (bold, italic, underline, color)</li>
+<li><code>&lt;br&gt;</code> - Line breaks</li>
+<li><code>&lt;div&gt;</code> with bg/border - Becomes shape</li>
+<li><code>&lt;img&gt;</code> - Images</li>
+<li><code>class=&#34;placeholder&#34;</code> - Reserved space for charts (returns <code>{ id, x, y, w, h }</code>)</li>
+</ul>
+<h3 id="critical-text-rules">Critical Text Rules</h3>
+<p><strong>ALL text MUST be inside <code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>, <code>&lt;ul&gt;</code>, or <code>&lt;ol&gt;</code> tags:</strong></p>
+<ul>
+<li>✅ Correct: <code>&lt;div&gt;&lt;p&gt;Text here&lt;/p&gt;&lt;/div&gt;</code></li>
+<li>❌ Wrong: <code>&lt;div&gt;Text here&lt;/div&gt;</code> - <strong>Text will NOT appear in PowerPoint</strong></li>
+<li>❌ Wrong: <code>&lt;span&gt;Text&lt;/span&gt;</code> - <strong>Text will NOT appear in PowerPoint</strong></li>
+<li>Text in <code>&lt;div&gt;</code> or <code>&lt;span&gt;</code> without a text tag will be silently ignored</li>
+</ul>
+<p>*<em>NEVER use manual bullet symbols (•, -, <em>, etc.)</em></em> - Use <code>&lt;ul&gt;</code> or <code>&lt;ol&gt;</code> lists instead</p>
+<p><strong>ONLY use web-safe fonts that are universally available:</strong></p>
+<ul>
+<li>✅ Web-safe fonts: <code>Arial</code>, <code>Helvetica</code>, <code>Times New Roman</code>, <code>Georgia</code>, <code>Courier New</code>, <code>Verdana</code>, <code>Tahoma</code>, <code>Trebuchet MS</code>, <code>Impact</code>, <code>Comic Sans MS</code></li>
+<li>❌ Wrong: <code>&#39;Segoe UI&#39;</code>, <code>&#39;SF Pro&#39;</code>, <code>&#39;Roboto&#39;</code>, custom fonts - <strong>Might cause rendering issues</strong></li>
+</ul>
+<h3 id="styling">Styling</h3>
+<ul>
+<li>Use <code>display: flex</code> on body to prevent margin collapse from breaking overflow validation</li>
+<li>Use <code>margin</code> for spacing (padding included in size)</li>
+<li>Inline formatting: Use <code>&lt;b&gt;</code>, <code>&lt;i&gt;</code>, <code>&lt;u&gt;</code> tags OR <code>&lt;span&gt;</code> with CSS styles
+<ul>
+<li><code>&lt;span&gt;</code> supports: <code>font-weight: bold</code>, <code>font-style: italic</code>, <code>text-decoration: underline</code>, <code>color: #rrggbb</code></li>
+<li><code>&lt;span&gt;</code> does NOT support: <code>margin</code>, <code>padding</code> (not supported in PowerPoint text runs)</li>
+<li>Example: <code>&lt;span style=&#34;font-weight: bold; color: #667eea;&#34;&gt;Bold blue text&lt;/span&gt;</code></li>
+</ul>
+</li>
+<li>Flexbox works - positions calculated from rendered layout</li>
+<li>Use hex colors with <code>#</code> prefix in CSS</li>
+<li><strong>Text alignment</strong>: Use CSS <code>text-align</code> (<code>center</code>, <code>right</code>, etc.) when needed as a hint to PptxGenJS for text formatting if text lengths are slightly off</li>
+</ul>
+<h3 id="shape-styling-div-elements-only">Shape Styling (DIV elements only)</h3>
+<p><strong>IMPORTANT: Backgrounds, borders, and shadows only work on <code>&lt;div&gt;</code> elements, NOT on text elements (<code>&lt;p&gt;</code>, <code>&lt;h1&gt;</code>-<code>&lt;h6&gt;</code>, <code>&lt;ul&gt;</code>, <code>&lt;ol&gt;</code>)</strong></p>
+<ul>
+<li><strong>Backgrounds</strong>: CSS <code>background</code> or <code>background-color</code> on <code>&lt;div&gt;</code> elements only
+<ul>
+<li>Example: <code>&lt;div style=&#34;background: #f0f0f0;&#34;&gt;</code> - Creates a shape with background</li>
+</ul>
+</li>
+<li><strong>Borders</strong>: CSS <code>border</code> on <code>&lt;div&gt;</code> elements converts to PowerPoint shape borders
+<ul>
+<li>Supports uniform borders: <code>border: 2px solid #333333</code></li>
+<li>Supports partial borders: <code>border-left</code>, <code>border-right</code>, <code>border-top</code>, <code>border-bottom</code> (rendered as line shapes)</li>
+<li>Example: <code>&lt;div style=&#34;border-left: 8pt solid #E76F51;&#34;&gt;</code></li>
+</ul>
+</li>
+<li><strong>Border radius</strong>: CSS <code>border-radius</code> on <code>&lt;div&gt;</code> elements for rounded corners
+<ul>
+<li><code>border-radius: 50%</code> or higher creates circular shape</li>
+<li>Percentages &lt;50% calculated relative to shape’s smaller dimension</li>
+<li>Supports px and pt units (e.g., <code>border-radius: 8pt;</code>, <code>border-radius: 12px;</code>)</li>
+<li>Example: <code>&lt;div style=&#34;border-radius: 25%;&#34;&gt;</code> on 100x200px box = 25% of 100px = 25px radius</li>
+</ul>
+</li>
+<li><strong>Box shadows</strong>: CSS <code>box-shadow</code> on <code>&lt;div&gt;</code> elements converts to PowerPoint shadows
+<ul>
+<li>Supports outer shadows only (inset shadows are ignored to prevent corruption)</li>
+<li>Example: <code>&lt;div style=&#34;box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);&#34;&gt;</code></li>
+<li>Note: Inset/inner shadows are not supported by PowerPoint and will be skipped</li>
+</ul>
+</li>
+</ul>
+<h3 id="icons--gradients">Icons &amp; Gradients</h3>
+<ul>
+<li><strong>CRITICAL: Never use CSS gradients (<code>linear-gradient</code>, <code>radial-gradient</code>)</strong> - They don’t convert to PowerPoint</li>
+<li><strong>ALWAYS create gradient/icon PNGs FIRST using Sharp, then reference in HTML</strong></li>
+<li>For gradients: Rasterize SVG to PNG background images</li>
+<li>For icons: Rasterize react-icons SVG to PNG images</li>
+<li>All visual effects must be pre-rendered as raster images before HTML rendering</li>
+</ul>
+<p><strong>Rasterizing Icons with Sharp:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> React <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;react&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> ReactDOMServer <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;react-dom/server&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> sharp <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;sharp&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> { FaHome } <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;react-icons/fa&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> rasterizeIconPng(IconComponent, color, size <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#34;256&#34;</span>, filename) {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">const</span> svgString <span style="color:#ff7b72;font-weight:bold">=</span> ReactDOMServer.renderToStaticMarkup(
+</span></span><span style="display:flex;"><span>    React.createElement(IconComponent, { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">`#</span><span style="color:#a5d6ff">${</span>color<span style="color:#a5d6ff">}</span><span style="color:#a5d6ff">`</span>, size<span style="color:#ff7b72;font-weight:bold">:</span> size })
+</span></span><span style="display:flex;"><span>  );
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8b949e;font-style:italic">// Convert SVG to PNG using Sharp
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>  <span style="color:#ff7b72">await</span> sharp(Buffer.from(svgString))
+</span></span><span style="display:flex;"><span>    .png()
+</span></span><span style="display:flex;"><span>    .toFile(filename);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> filename;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Usage: Rasterize icon before using in HTML
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> iconPath <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> rasterizeIconPng(FaHome, <span style="color:#a5d6ff">&#34;4472c4&#34;</span>, <span style="color:#a5d6ff">&#34;256&#34;</span>, <span style="color:#a5d6ff">&#34;home-icon.png&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Then reference in HTML: &lt;img src=&#34;home-icon.png&#34; style=&#34;width: 40pt; height: 40pt;&#34;&gt;
+</span></span></span></code></pre><p><strong>Rasterizing Gradients with Sharp:</strong></p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> sharp <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;sharp&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> createGradientBackground(filename) {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">const</span> svg <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">`&lt;svg xmlns=&#34;http://www.w3.org/2000/svg&#34; width=&#34;1000&#34; height=&#34;562.5&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &lt;defs&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">      &lt;linearGradient id=&#34;g&#34; x1=&#34;0%&#34; y1=&#34;0%&#34; x2=&#34;100%&#34; y2=&#34;100%&#34;&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &lt;stop offset=&#34;0%&#34; style=&#34;stop-color:#COLOR1&#34;/&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">        &lt;stop offset=&#34;100%&#34; style=&#34;stop-color:#COLOR2&#34;/&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">      &lt;/linearGradient&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &lt;/defs&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">    &lt;rect width=&#34;100%&#34; height=&#34;100%&#34; fill=&#34;url(#g)&#34;/&gt;
+</span></span></span><span style="display:flex;"><span><span style="color:#a5d6ff">  &lt;/svg&gt;`</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">await</span> sharp(Buffer.from(svg))
+</span></span><span style="display:flex;"><span>    .png()
+</span></span><span style="display:flex;"><span>    .toFile(filename);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">return</span> filename;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Usage: Create gradient background before HTML
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> bgPath <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> createGradientBackground(<span style="color:#a5d6ff">&#34;gradient-bg.png&#34;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Then in HTML: &lt;body style=&#34;background-image: url(&#39;gradient-bg.png&#39;);&#34;&gt;
+</span></span></span></code></pre><h3 id="example">Example</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-weight:bold;font-style:italic">&lt;!DOCTYPE html&gt;</span>
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#7ee787">html</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#7ee787">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#7ee787">style</span>&gt;
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">html</span> { <span style="color:#ff7b72">background</span>: <span style="color:#a5d6ff">#ffffff</span>; }
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">body</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">width</span>: <span style="color:#a5d6ff">720</span><span style="color:#ff7b72">pt</span>; <span style="color:#ff7b72">height</span>: <span style="color:#a5d6ff">405</span><span style="color:#ff7b72">pt</span>; <span style="color:#ff7b72">margin</span>: <span style="color:#a5d6ff">0</span>; <span style="color:#ff7b72">padding</span>: <span style="color:#a5d6ff">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">background</span>: <span style="color:#a5d6ff">#f5f5f5</span>; <span style="color:#ff7b72">font-family</span>: Arial, <span style="color:#79c0ff">sans-serif</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">display</span>: <span style="color:#79c0ff">flex</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>.<span style="color:#f0883e;font-weight:bold">content</span> { <span style="color:#ff7b72">margin</span>: <span style="color:#a5d6ff">30</span><span style="color:#ff7b72">pt</span>; <span style="color:#ff7b72">padding</span>: <span style="color:#a5d6ff">40</span><span style="color:#ff7b72">pt</span>; <span style="color:#ff7b72">background</span>: <span style="color:#a5d6ff">#ffffff</span>; <span style="color:#ff7b72">border-radius</span>: <span style="color:#a5d6ff">8</span><span style="color:#ff7b72">pt</span>; }
+</span></span><span style="display:flex;"><span><span style="color:#7ee787">h1</span> { <span style="color:#ff7b72">color</span>: <span style="color:#a5d6ff">#2d3748</span>; <span style="color:#ff7b72">font-size</span>: <span style="color:#a5d6ff">32</span><span style="color:#ff7b72">pt</span>; }
+</span></span><span style="display:flex;"><span>.<span style="color:#f0883e;font-weight:bold">box</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">background</span>: <span style="color:#a5d6ff">#70ad47</span>; <span style="color:#ff7b72">padding</span>: <span style="color:#a5d6ff">20</span><span style="color:#ff7b72">pt</span>; <span style="color:#ff7b72">border</span>: <span style="color:#a5d6ff">3</span><span style="color:#ff7b72">px</span> <span style="color:#79c0ff">solid</span> <span style="color:#a5d6ff">#5a8f37</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#ff7b72">border-radius</span>: <span style="color:#a5d6ff">12</span><span style="color:#ff7b72">pt</span>; <span style="color:#ff7b72">box-shadow</span>: <span style="color:#a5d6ff">3</span><span style="color:#ff7b72">px</span> <span style="color:#a5d6ff">3</span><span style="color:#ff7b72">px</span> <span style="color:#a5d6ff">10</span><span style="color:#ff7b72">px</span> rgba(<span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0</span>, <span style="color:#a5d6ff">0.25</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#7ee787">style</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#7ee787">head</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#7ee787">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;<span style="color:#7ee787">div</span> class<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;content&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#7ee787">h1</span>&gt;Recipe Title&lt;/<span style="color:#7ee787">h1</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#7ee787">ul</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#7ee787">li</span>&gt;&lt;<span style="color:#7ee787">b</span>&gt;Item:&lt;/<span style="color:#7ee787">b</span>&gt; Description&lt;/<span style="color:#7ee787">li</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#7ee787">ul</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#7ee787">p</span>&gt;Text with &lt;<span style="color:#7ee787">b</span>&gt;bold&lt;/<span style="color:#7ee787">b</span>&gt;, &lt;<span style="color:#7ee787">i</span>&gt;italic&lt;/<span style="color:#7ee787">i</span>&gt;, &lt;<span style="color:#7ee787">u</span>&gt;underline&lt;/<span style="color:#7ee787">u</span>&gt;.&lt;/<span style="color:#7ee787">p</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#7ee787">div</span> id<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;chart&#34;</span> class<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;placeholder&#34;</span> style<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;width: 350pt; height: 200pt;&#34;</span>&gt;&lt;/<span style="color:#7ee787">div</span>&gt;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>  <span style="color:#8b949e;font-style:italic">&lt;!-- Text MUST be in &lt;p&gt; tags --&gt;</span>
+</span></span><span style="display:flex;"><span>  &lt;<span style="color:#7ee787">div</span> class<span style="color:#ff7b72;font-weight:bold">=</span><span style="color:#a5d6ff">&#34;box&#34;</span>&gt;
+</span></span><span style="display:flex;"><span>    &lt;<span style="color:#7ee787">p</span>&gt;5&lt;/<span style="color:#7ee787">p</span>&gt;
+</span></span><span style="display:flex;"><span>  &lt;/<span style="color:#7ee787">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#7ee787">div</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#7ee787">body</span>&gt;
+</span></span><span style="display:flex;"><span>&lt;/<span style="color:#7ee787">html</span>&gt;
+</span></span></code></pre><h2 id="using-the-html2pptx-library">Using the html2pptx Library</h2>
+<h3 id="dependencies">Dependencies</h3>
+<p>These libraries have been globally installed and are available to use:</p>
+<ul>
+<li><code>pptxgenjs</code></li>
+<li><code>playwright</code></li>
+<li><code>sharp</code></li>
+</ul>
+<h3 id="basic-usage">Basic Usage</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> pptxgen <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;pptxgenjs&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> html2pptx <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;./html2pptx&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> pptx <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> pptxgen();
+</span></span><span style="display:flex;"><span>pptx.layout <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#39;LAYOUT_16x9&#39;</span>;  <span style="color:#8b949e;font-style:italic">// Must match HTML body dimensions
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> { slide, placeholders } <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> html2pptx(<span style="color:#a5d6ff">&#39;slide1.html&#39;</span>, pptx);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Add chart to placeholder area
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">if</span> (placeholders.length <span style="color:#ff7b72;font-weight:bold">&gt;</span> <span style="color:#a5d6ff">0</span>) {
+</span></span><span style="display:flex;"><span>    slide.addChart(pptx.charts.LINE, chartData, placeholders[<span style="color:#a5d6ff">0</span>]);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">await</span> pptx.writeFile(<span style="color:#a5d6ff">&#39;output.pptx&#39;</span>);
+</span></span></code></pre><h3 id="api-reference">API Reference</h3>
+<h4 id="function-signature">Function Signature</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">await</span> html2pptx(htmlFile, pres, options)
+</span></span></code></pre><h4 id="parameters">Parameters</h4>
+<ul>
+<li><code>htmlFile</code> (string): Path to HTML file (absolute or relative)</li>
+<li><code>pres</code> (pptxgen): PptxGenJS presentation instance with layout already set</li>
+<li><code>options</code> (object, optional):
+<ul>
+<li><code>tmpDir</code> (string): Temporary directory for generated files (default: <code>process.env.TMPDIR || &#39;/tmp&#39;</code>)</li>
+<li><code>slide</code> (object): Existing slide to reuse (default: creates new slide)</li>
+</ul>
+</li>
+</ul>
+<h4 id="returns">Returns</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span>    slide<span style="color:#ff7b72;font-weight:bold">:</span> pptxgenSlide,           <span style="color:#8b949e;font-style:italic">// The created/updated slide
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    placeholders<span style="color:#ff7b72;font-weight:bold">:</span> [                 <span style="color:#8b949e;font-style:italic">// Array of placeholder positions
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>        { id<span style="color:#ff7b72;font-weight:bold">:</span> string, x<span style="color:#ff7b72;font-weight:bold">:</span> number, y<span style="color:#ff7b72;font-weight:bold">:</span> number, w<span style="color:#ff7b72;font-weight:bold">:</span> number, h<span style="color:#ff7b72;font-weight:bold">:</span> number },
+</span></span><span style="display:flex;"><span>        ...
+</span></span><span style="display:flex;"><span>    ]
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre><h3 id="validation">Validation</h3>
+<p>The library automatically validates and collects all errors before throwing:</p>
+<ol>
+<li><strong>HTML dimensions must match presentation layout</strong> - Reports dimension mismatches</li>
+<li><strong>Content must not overflow body</strong> - Reports overflow with exact measurements</li>
+<li><strong>CSS gradients</strong> - Reports unsupported gradient usage</li>
+<li><strong>Text element styling</strong> - Reports backgrounds/borders/shadows on text elements (only allowed on divs)</li>
+</ol>
+<p><strong>All validation errors are collected and reported together</strong> in a single error message, allowing you to fix all issues at once instead of one at a time.</p>
+<h3 id="working-with-placeholders">Working with Placeholders</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> { slide, placeholders } <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> html2pptx(<span style="color:#a5d6ff">&#39;slide.html&#39;</span>, pptx);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Use first placeholder
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>slide.addChart(pptx.charts.BAR, data, placeholders[<span style="color:#a5d6ff">0</span>]);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Find by ID
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> chartArea <span style="color:#ff7b72;font-weight:bold">=</span> placeholders.find(p =&gt; p.id <span style="color:#ff7b72;font-weight:bold">===</span> <span style="color:#a5d6ff">&#39;chart-area&#39;</span>);
+</span></span><span style="display:flex;"><span>slide.addChart(pptx.charts.LINE, data, chartArea);
+</span></span></code></pre><h3 id="complete-example">Complete Example</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> pptxgen <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;pptxgenjs&#39;</span>);
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> html2pptx <span style="color:#ff7b72;font-weight:bold">=</span> require(<span style="color:#a5d6ff">&#39;./html2pptx&#39;</span>);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">async</span> <span style="color:#ff7b72">function</span> createPresentation() {
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> pptx <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">new</span> pptxgen();
+</span></span><span style="display:flex;"><span>    pptx.layout <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#39;LAYOUT_16x9&#39;</span>;
+</span></span><span style="display:flex;"><span>    pptx.author <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#39;Your Name&#39;</span>;
+</span></span><span style="display:flex;"><span>    pptx.title <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">&#39;My Presentation&#39;</span>;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Slide 1: Title
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> { slide<span style="color:#ff7b72;font-weight:bold">:</span> slide1 } <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> html2pptx(<span style="color:#a5d6ff">&#39;slides/title.html&#39;</span>, pptx);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Slide 2: Content with chart
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">const</span> { slide<span style="color:#ff7b72;font-weight:bold">:</span> slide2, placeholders } <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> html2pptx(<span style="color:#a5d6ff">&#39;slides/data.html&#39;</span>, pptx);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ff7b72">const</span> chartData <span style="color:#ff7b72;font-weight:bold">=</span> [{
+</span></span><span style="display:flex;"><span>        name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Sales&#39;</span>,
+</span></span><span style="display:flex;"><span>        labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#39;Q1&#39;</span>, <span style="color:#a5d6ff">&#39;Q2&#39;</span>, <span style="color:#a5d6ff">&#39;Q3&#39;</span>, <span style="color:#a5d6ff">&#39;Q4&#39;</span>],
+</span></span><span style="display:flex;"><span>        values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">4500</span>, <span style="color:#a5d6ff">5500</span>, <span style="color:#a5d6ff">6200</span>, <span style="color:#a5d6ff">7100</span>]
+</span></span><span style="display:flex;"><span>    }];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    slide2.addChart(pptx.charts.BAR, chartData, {
+</span></span><span style="display:flex;"><span>        ...placeholders[<span style="color:#a5d6ff">0</span>],
+</span></span><span style="display:flex;"><span>        showTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>        title<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Quarterly Sales&#39;</span>,
+</span></span><span style="display:flex;"><span>        showCatAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>        catAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Quarter&#39;</span>,
+</span></span><span style="display:flex;"><span>        showValAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>        valAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Sales ($000s)&#39;</span>
+</span></span><span style="display:flex;"><span>    });
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Save
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#ff7b72">await</span> pptx.writeFile({ fileName<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;presentation.pptx&#39;</span> });
+</span></span><span style="display:flex;"><span>    console.log(<span style="color:#a5d6ff">&#39;Presentation created successfully!&#39;</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>createPresentation().<span style="color:#ff7b72">catch</span>(console.error);
+</span></span></code></pre><h2 id="using-pptxgenjs">Using PptxGenJS</h2>
+<p>After converting HTML to slides with <code>html2pptx</code>, you’ll use PptxGenJS to add dynamic content like charts, images, and additional elements.</p>
+<h3 id="-critical-rules">⚠️ Critical Rules</h3>
+<h4 id="colors">Colors</h4>
+<ul>
+<li><strong>NEVER use <code>#</code> prefix</strong> with hex colors in PptxGenJS - causes file corruption</li>
+<li>✅ Correct: <code>color: &#34;FF0000&#34;</code>, <code>fill: { color: &#34;0066CC&#34; }</code></li>
+<li>❌ Wrong: <code>color: &#34;#FF0000&#34;</code> (breaks document)</li>
+</ul>
+<h3 id="adding-images">Adding Images</h3>
+<p>Always calculate aspect ratios from actual image dimensions:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Get image dimensions: identify image.png | grep -o &#39;[0-9]* x [0-9]*&#39;
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> imgWidth <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">1860</span>, imgHeight <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">1519</span>;  <span style="color:#8b949e;font-style:italic">// From actual file
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> aspectRatio <span style="color:#ff7b72;font-weight:bold">=</span> imgWidth <span style="color:#ff7b72;font-weight:bold">/</span> imgHeight;
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> h <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#a5d6ff">3</span>;  <span style="color:#8b949e;font-style:italic">// Max height
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> w <span style="color:#ff7b72;font-weight:bold">=</span> h <span style="color:#ff7b72;font-weight:bold">*</span> aspectRatio;
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> x <span style="color:#ff7b72;font-weight:bold">=</span> (<span style="color:#a5d6ff">10</span> <span style="color:#ff7b72;font-weight:bold">-</span> w) <span style="color:#ff7b72;font-weight:bold">/</span> <span style="color:#a5d6ff">2</span>;  <span style="color:#8b949e;font-style:italic">// Center on 16:9 slide
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>
+</span></span><span style="display:flex;"><span>slide.addImage({ path<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;chart.png&#34;</span>, x, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1.5</span>, w, h });
+</span></span></code></pre><h3 id="adding-text">Adding Text</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Rich text with formatting
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>slide.addText([
+</span></span><span style="display:flex;"><span>    { text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Bold &#34;</span>, options<span style="color:#ff7b72;font-weight:bold">:</span> { bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> } },
+</span></span><span style="display:flex;"><span>    { text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Italic &#34;</span>, options<span style="color:#ff7b72;font-weight:bold">:</span> { italic<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> } },
+</span></span><span style="display:flex;"><span>    { text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Normal&#34;</span> }
+</span></span><span style="display:flex;"><span>], {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">2</span>, w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">8</span>, h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h3 id="adding-shapes">Adding Shapes</h3>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Rectangle
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>slide.addShape(pptx.shapes.RECTANGLE, {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">3</span>, h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">2</span>,
+</span></span><span style="display:flex;"><span>    fill<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;4472C4&#34;</span> },
+</span></span><span style="display:flex;"><span>    line<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;000000&#34;</span>, width<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">2</span> }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Circle
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>slide.addShape(pptx.shapes.OVAL, {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">5</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">2</span>, h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">2</span>,
+</span></span><span style="display:flex;"><span>    fill<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;ED7D31&#34;</span> }
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Rounded rectangle
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>slide.addShape(pptx.shapes.ROUNDED_RECTANGLE, {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4</span>, w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">3</span>, h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1.5</span>,
+</span></span><span style="display:flex;"><span>    fill<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;70AD47&#34;</span> },
+</span></span><span style="display:flex;"><span>    rectRadius<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0.2</span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h3 id="adding-charts">Adding Charts</h3>
+<p><strong>Required for most charts:</strong> Axis labels using <code>catAxisTitle</code> (category) and <code>valAxisTitle</code> (value).</p>
+<p><strong>Chart Data Format:</strong></p>
+<ul>
+<li>Use <strong>single series with all labels</strong> for simple bar/line charts</li>
+<li>Each series creates a separate legend entry</li>
+<li>Labels array defines X-axis values</li>
+</ul>
+<p><strong>Time Series Data - Choose Correct Granularity:</strong></p>
+<ul>
+<li><strong>&lt; 30 days</strong>: Use daily grouping (e.g., “10-01”, “10-02”) - avoid monthly aggregation that creates single-point charts</li>
+<li><strong>30-365 days</strong>: Use monthly grouping (e.g., “2024-01”, “2024-02”)</li>
+<li><strong>&gt; 365 days</strong>: Use yearly grouping (e.g., “2023”, “2024”)</li>
+<li><strong>Validate</strong>: Charts with only 1 data point likely indicate incorrect aggregation for the time period</li>
+</ul>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> { slide, placeholders } <span style="color:#ff7b72;font-weight:bold">=</span> <span style="color:#ff7b72">await</span> html2pptx(<span style="color:#a5d6ff">&#39;slide.html&#39;</span>, pptx);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// CORRECT: Single series with all labels
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>slide.addChart(pptx.charts.BAR, [{
+</span></span><span style="display:flex;"><span>    name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Sales 2024&#34;</span>,
+</span></span><span style="display:flex;"><span>    labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;Q1&#34;</span>, <span style="color:#a5d6ff">&#34;Q2&#34;</span>, <span style="color:#a5d6ff">&#34;Q3&#34;</span>, <span style="color:#a5d6ff">&#34;Q4&#34;</span>],
+</span></span><span style="display:flex;"><span>    values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">4500</span>, <span style="color:#a5d6ff">5500</span>, <span style="color:#a5d6ff">6200</span>, <span style="color:#a5d6ff">7100</span>]
+</span></span><span style="display:flex;"><span>}], {
+</span></span><span style="display:flex;"><span>    ...placeholders[<span style="color:#a5d6ff">0</span>],  <span style="color:#8b949e;font-style:italic">// Use placeholder position
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    barDir<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;col&#39;</span>,       <span style="color:#8b949e;font-style:italic">// &#39;col&#39; = vertical bars, &#39;bar&#39; = horizontal
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    showTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    title<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Quarterly Sales&#39;</span>,
+</span></span><span style="display:flex;"><span>    showLegend<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">false</span>,   <span style="color:#8b949e;font-style:italic">// No legend needed for single series
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#8b949e;font-style:italic">// Required axis labels
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    showCatAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    catAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Quarter&#39;</span>,
+</span></span><span style="display:flex;"><span>    showValAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    valAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Sales ($000s)&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Optional: Control scaling (adjust min based on data range for better visualization)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    valAxisMaxVal<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">8000</span>,
+</span></span><span style="display:flex;"><span>    valAxisMinVal<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>,  <span style="color:#8b949e;font-style:italic">// Use 0 for counts/amounts; for clustered data (e.g., 4500-7100), consider starting closer to min value
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    valAxisMajorUnit<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">2000</span>,  <span style="color:#8b949e;font-style:italic">// Control y-axis label spacing to prevent crowding
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    catAxisLabelRotate<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">45</span>,  <span style="color:#8b949e;font-style:italic">// Rotate labels if crowded
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    dataLabelPosition<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;outEnd&#39;</span>,
+</span></span><span style="display:flex;"><span>    dataLabelColor<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;000000&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Use single color for single-series charts
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    chartColors<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;4472C4&#34;</span>]  <span style="color:#8b949e;font-style:italic">// All bars same color
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>});
+</span></span></code></pre><h4 id="scatter-chart">Scatter Chart</h4>
+<p><strong>IMPORTANT</strong>: Scatter chart data format is unusual - first series contains X-axis values, subsequent series contain Y-values:</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Prepare data
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> data1 <span style="color:#ff7b72;font-weight:bold">=</span> [{ x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">10</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">20</span> }, { x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">15</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">25</span> }, { x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">20</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">30</span> }];
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> data2 <span style="color:#ff7b72;font-weight:bold">=</span> [{ x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">12</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">18</span> }, { x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">18</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">22</span> }];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#ff7b72">const</span> allXValues <span style="color:#ff7b72;font-weight:bold">=</span> [...data1.map(d =&gt; d.x), ...data2.map(d =&gt; d.x)];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>slide.addChart(pptx.charts.SCATTER, [
+</span></span><span style="display:flex;"><span>    { name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;X-Axis&#39;</span>, values<span style="color:#ff7b72;font-weight:bold">:</span> allXValues },  <span style="color:#8b949e;font-style:italic">// First series = X values
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    { name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Series 1&#39;</span>, values<span style="color:#ff7b72;font-weight:bold">:</span> data1.map(d =&gt; d.y) },  <span style="color:#8b949e;font-style:italic">// Y values only
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    { name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Series 2&#39;</span>, values<span style="color:#ff7b72;font-weight:bold">:</span> data2.map(d =&gt; d.y) }   <span style="color:#8b949e;font-style:italic">// Y values only
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>], {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">8</span>, h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4</span>,
+</span></span><span style="display:flex;"><span>    lineSize<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>,  <span style="color:#8b949e;font-style:italic">// 0 = no connecting lines
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    lineDataSymbol<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;circle&#39;</span>,
+</span></span><span style="display:flex;"><span>    lineDataSymbolSize<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">6</span>,
+</span></span><span style="display:flex;"><span>    showCatAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    catAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;X Axis&#39;</span>,
+</span></span><span style="display:flex;"><span>    showValAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    valAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Y Axis&#39;</span>,
+</span></span><span style="display:flex;"><span>    chartColors<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;4472C4&#34;</span>, <span style="color:#a5d6ff">&#34;ED7D31&#34;</span>]
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h4 id="line-chart">Line Chart</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>slide.addChart(pptx.charts.LINE, [{
+</span></span><span style="display:flex;"><span>    name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Temperature&#34;</span>,
+</span></span><span style="display:flex;"><span>    labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;Jan&#34;</span>, <span style="color:#a5d6ff">&#34;Feb&#34;</span>, <span style="color:#a5d6ff">&#34;Mar&#34;</span>, <span style="color:#a5d6ff">&#34;Apr&#34;</span>],
+</span></span><span style="display:flex;"><span>    values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">32</span>, <span style="color:#a5d6ff">35</span>, <span style="color:#a5d6ff">42</span>, <span style="color:#a5d6ff">55</span>]
+</span></span><span style="display:flex;"><span>}], {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">8</span>, h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4</span>,
+</span></span><span style="display:flex;"><span>    lineSize<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4</span>,
+</span></span><span style="display:flex;"><span>    lineSmooth<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Required axis labels
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    showCatAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    catAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Month&#39;</span>,
+</span></span><span style="display:flex;"><span>    showValAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    valAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Temperature (°F)&#39;</span>,
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Optional: Y-axis range (set min based on data range for better visualization)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    valAxisMinVal<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0</span>,     <span style="color:#8b949e;font-style:italic">// For ranges starting at 0 (counts, percentages, etc.)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    valAxisMaxVal<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">60</span>,
+</span></span><span style="display:flex;"><span>    valAxisMajorUnit<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">20</span>,  <span style="color:#8b949e;font-style:italic">// Control y-axis label spacing to prevent crowding (e.g., 10, 20, 25)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#8b949e;font-style:italic">// valAxisMinVal: 30,  // PREFERRED: For data clustered in a range (e.g., 32-55 or ratings 3-5), start axis closer to min value to show variation
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    <span style="color:#8b949e;font-style:italic">// Optional: Chart colors
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    chartColors<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;4472C4&#34;</span>, <span style="color:#a5d6ff">&#34;ED7D31&#34;</span>, <span style="color:#a5d6ff">&#34;A5A5A5&#34;</span>]
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h4 id="pie-chart-no-axis-labels-required">Pie Chart (No Axis Labels Required)</h4>
+<p><strong>CRITICAL</strong>: Pie charts require a <strong>single data series</strong> with all categories in the <code>labels</code> array and corresponding values in the <code>values</code> array.</p>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>slide.addChart(pptx.charts.PIE, [{
+</span></span><span style="display:flex;"><span>    name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Market Share&#34;</span>,
+</span></span><span style="display:flex;"><span>    labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;Product A&#34;</span>, <span style="color:#a5d6ff">&#34;Product B&#34;</span>, <span style="color:#a5d6ff">&#34;Other&#34;</span>],  <span style="color:#8b949e;font-style:italic">// All categories in one array
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">35</span>, <span style="color:#a5d6ff">45</span>, <span style="color:#a5d6ff">20</span>]  <span style="color:#8b949e;font-style:italic">// All values in one array
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>}], {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">2</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">6</span>, h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4</span>,
+</span></span><span style="display:flex;"><span>    showPercent<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    showLegend<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    legendPos<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;r&#39;</span>,  <span style="color:#8b949e;font-style:italic">// right
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    chartColors<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;4472C4&#34;</span>, <span style="color:#a5d6ff">&#34;ED7D31&#34;</span>, <span style="color:#a5d6ff">&#34;A5A5A5&#34;</span>]
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h4 id="multiple-data-series">Multiple Data Series</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>slide.addChart(pptx.charts.LINE, [
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Product A&#34;</span>,
+</span></span><span style="display:flex;"><span>        labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;Q1&#34;</span>, <span style="color:#a5d6ff">&#34;Q2&#34;</span>, <span style="color:#a5d6ff">&#34;Q3&#34;</span>, <span style="color:#a5d6ff">&#34;Q4&#34;</span>],
+</span></span><span style="display:flex;"><span>        values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">10</span>, <span style="color:#a5d6ff">20</span>, <span style="color:#a5d6ff">30</span>, <span style="color:#a5d6ff">40</span>]
+</span></span><span style="display:flex;"><span>    },
+</span></span><span style="display:flex;"><span>    {
+</span></span><span style="display:flex;"><span>        name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Product B&#34;</span>,
+</span></span><span style="display:flex;"><span>        labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;Q1&#34;</span>, <span style="color:#a5d6ff">&#34;Q2&#34;</span>, <span style="color:#a5d6ff">&#34;Q3&#34;</span>, <span style="color:#a5d6ff">&#34;Q4&#34;</span>],
+</span></span><span style="display:flex;"><span>        values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">15</span>, <span style="color:#a5d6ff">25</span>, <span style="color:#a5d6ff">20</span>, <span style="color:#a5d6ff">35</span>]
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>], {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">8</span>, h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">4</span>,
+</span></span><span style="display:flex;"><span>    showCatAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    catAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Quarter&#39;</span>,
+</span></span><span style="display:flex;"><span>    showValAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span>,
+</span></span><span style="display:flex;"><span>    valAxisTitle<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#39;Revenue ($M)&#39;</span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h3 id="chart-colors">Chart Colors</h3>
+<p><strong>CRITICAL</strong>: Use hex colors <strong>without</strong> the <code>#</code> prefix - including <code>#</code> causes file corruption.</p>
+<p><strong>Align chart colors with your chosen design palette</strong>, ensuring sufficient contrast and distinctiveness for data visualization. Adjust colors for:</p>
+<ul>
+<li>Strong contrast between adjacent series</li>
+<li>Readability against slide backgrounds</li>
+<li>Accessibility (avoid red-green only combinations)</li>
+</ul>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Example: Ocean palette-inspired chart colors (adjusted for contrast)
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span><span style="color:#ff7b72">const</span> chartColors <span style="color:#ff7b72;font-weight:bold">=</span> [<span style="color:#a5d6ff">&#34;16A085&#34;</span>, <span style="color:#a5d6ff">&#34;FF6B9D&#34;</span>, <span style="color:#a5d6ff">&#34;2C3E50&#34;</span>, <span style="color:#a5d6ff">&#34;F39C12&#34;</span>, <span style="color:#a5d6ff">&#34;9B59B6&#34;</span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Single-series chart: Use one color for all bars/points
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>slide.addChart(pptx.charts.BAR, [{
+</span></span><span style="display:flex;"><span>    name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Sales&#34;</span>,
+</span></span><span style="display:flex;"><span>    labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;Q1&#34;</span>, <span style="color:#a5d6ff">&#34;Q2&#34;</span>, <span style="color:#a5d6ff">&#34;Q3&#34;</span>, <span style="color:#a5d6ff">&#34;Q4&#34;</span>],
+</span></span><span style="display:flex;"><span>    values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">4500</span>, <span style="color:#a5d6ff">5500</span>, <span style="color:#a5d6ff">6200</span>, <span style="color:#a5d6ff">7100</span>]
+</span></span><span style="display:flex;"><span>}], {
+</span></span><span style="display:flex;"><span>    ...placeholders[<span style="color:#a5d6ff">0</span>],
+</span></span><span style="display:flex;"><span>    chartColors<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;16A085&#34;</span>],  <span style="color:#8b949e;font-style:italic">// All bars same color
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    showLegend<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">false</span>
+</span></span><span style="display:flex;"><span>});
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic">// Multi-series chart: Each series gets a different color
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>slide.addChart(pptx.charts.LINE, [
+</span></span><span style="display:flex;"><span>    { name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Product A&#34;</span>, labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;Q1&#34;</span>, <span style="color:#a5d6ff">&#34;Q2&#34;</span>, <span style="color:#a5d6ff">&#34;Q3&#34;</span>], values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">10</span>, <span style="color:#a5d6ff">20</span>, <span style="color:#a5d6ff">30</span>] },
+</span></span><span style="display:flex;"><span>    { name<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Product B&#34;</span>, labels<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;Q1&#34;</span>, <span style="color:#a5d6ff">&#34;Q2&#34;</span>, <span style="color:#a5d6ff">&#34;Q3&#34;</span>], values<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">15</span>, <span style="color:#a5d6ff">25</span>, <span style="color:#a5d6ff">20</span>] }
+</span></span><span style="display:flex;"><span>], {
+</span></span><span style="display:flex;"><span>    ...placeholders[<span style="color:#a5d6ff">0</span>],
+</span></span><span style="display:flex;"><span>    chartColors<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">&#34;16A085&#34;</span>, <span style="color:#a5d6ff">&#34;FF6B9D&#34;</span>]  <span style="color:#8b949e;font-style:italic">// One color per series
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>});
+</span></span></code></pre><h3 id="adding-tables">Adding Tables</h3>
+<p>Tables can be added with basic or advanced formatting:</p>
+<h4 id="basic-table">Basic Table</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span>slide.addTable([
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#34;Header 1&#34;</span>, <span style="color:#a5d6ff">&#34;Header 2&#34;</span>, <span style="color:#a5d6ff">&#34;Header 3&#34;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#34;Row 1, Col 1&#34;</span>, <span style="color:#a5d6ff">&#34;Row 1, Col 2&#34;</span>, <span style="color:#a5d6ff">&#34;Row 1, Col 3&#34;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#34;Row 2, Col 1&#34;</span>, <span style="color:#a5d6ff">&#34;Row 2, Col 2&#34;</span>, <span style="color:#a5d6ff">&#34;Row 2, Col 3&#34;</span>]
+</span></span><span style="display:flex;"><span>], {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">0.5</span>,
+</span></span><span style="display:flex;"><span>    y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>,
+</span></span><span style="display:flex;"><span>    w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">9</span>,
+</span></span><span style="display:flex;"><span>    h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">3</span>,
+</span></span><span style="display:flex;"><span>    border<span style="color:#ff7b72;font-weight:bold">:</span> { pt<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;999999&#34;</span> },
+</span></span><span style="display:flex;"><span>    fill<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;F1F1F1&#34;</span> }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h4 id="table-with-custom-formatting">Table with Custom Formatting</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> tableData <span style="color:#ff7b72;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Header row with custom styling
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    [
+</span></span><span style="display:flex;"><span>        { text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Product&#34;</span>, options<span style="color:#ff7b72;font-weight:bold">:</span> { fill<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;4472C4&#34;</span> }, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;FFFFFF&#34;</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> } },
+</span></span><span style="display:flex;"><span>        { text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Revenue&#34;</span>, options<span style="color:#ff7b72;font-weight:bold">:</span> { fill<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;4472C4&#34;</span> }, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;FFFFFF&#34;</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> } },
+</span></span><span style="display:flex;"><span>        { text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Growth&#34;</span>, options<span style="color:#ff7b72;font-weight:bold">:</span> { fill<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;4472C4&#34;</span> }, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;FFFFFF&#34;</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> } }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    <span style="color:#8b949e;font-style:italic">// Data rows
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    [<span style="color:#a5d6ff">&#34;Product A&#34;</span>, <span style="color:#a5d6ff">&#34;$50M&#34;</span>, <span style="color:#a5d6ff">&#34;+15%&#34;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#34;Product B&#34;</span>, <span style="color:#a5d6ff">&#34;$35M&#34;</span>, <span style="color:#a5d6ff">&#34;+22%&#34;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#34;Product C&#34;</span>, <span style="color:#a5d6ff">&#34;$28M&#34;</span>, <span style="color:#a5d6ff">&#34;+8%&#34;</span>]
+</span></span><span style="display:flex;"><span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>slide.addTable(tableData, {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>,
+</span></span><span style="display:flex;"><span>    y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1.5</span>,
+</span></span><span style="display:flex;"><span>    w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">8</span>,
+</span></span><span style="display:flex;"><span>    h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">3</span>,
+</span></span><span style="display:flex;"><span>    colW<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">3</span>, <span style="color:#a5d6ff">2.5</span>, <span style="color:#a5d6ff">2.5</span>],  <span style="color:#8b949e;font-style:italic">// Column widths
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    rowH<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">0.5</span>, <span style="color:#a5d6ff">0.6</span>, <span style="color:#a5d6ff">0.6</span>, <span style="color:#a5d6ff">0.6</span>],  <span style="color:#8b949e;font-style:italic">// Row heights
+</span></span></span><span style="display:flex;"><span><span style="color:#8b949e;font-style:italic"></span>    border<span style="color:#ff7b72;font-weight:bold">:</span> { pt<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;CCCCCC&#34;</span> },
+</span></span><span style="display:flex;"><span>    align<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;center&#34;</span>,
+</span></span><span style="display:flex;"><span>    valign<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;middle&#34;</span>,
+</span></span><span style="display:flex;"><span>    fontSize<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">14</span>
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h4 id="table-with-merged-cells">Table with Merged Cells</h4>
+<pre style="color:#e6edf3;background-color:#0d1117;"><code><span style="display:flex;"><span><span style="color:#ff7b72">const</span> mergedTableData <span style="color:#ff7b72;font-weight:bold">=</span> [
+</span></span><span style="display:flex;"><span>    [
+</span></span><span style="display:flex;"><span>        { text<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;Q1 Results&#34;</span>, options<span style="color:#ff7b72;font-weight:bold">:</span> { colspan<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">3</span>, fill<span style="color:#ff7b72;font-weight:bold">:</span> { color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;4472C4&#34;</span> }, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;FFFFFF&#34;</span>, bold<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#79c0ff">true</span> } }
+</span></span><span style="display:flex;"><span>    ],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#34;Product&#34;</span>, <span style="color:#a5d6ff">&#34;Sales&#34;</span>, <span style="color:#a5d6ff">&#34;Market Share&#34;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#34;Product A&#34;</span>, <span style="color:#a5d6ff">&#34;$25M&#34;</span>, <span style="color:#a5d6ff">&#34;35%&#34;</span>],
+</span></span><span style="display:flex;"><span>    [<span style="color:#a5d6ff">&#34;Product B&#34;</span>, <span style="color:#a5d6ff">&#34;$18M&#34;</span>, <span style="color:#a5d6ff">&#34;25%&#34;</span>]
+</span></span><span style="display:flex;"><span>];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>slide.addTable(mergedTableData, {
+</span></span><span style="display:flex;"><span>    x<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>,
+</span></span><span style="display:flex;"><span>    y<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>,
+</span></span><span style="display:flex;"><span>    w<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">8</span>,
+</span></span><span style="display:flex;"><span>    h<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">2.5</span>,
+</span></span><span style="display:flex;"><span>    colW<span style="color:#ff7b72;font-weight:bold">:</span> [<span style="color:#a5d6ff">3</span>, <span style="color:#a5d6ff">2.5</span>, <span style="color:#a5d6ff">2.5</span>],
+</span></span><span style="display:flex;"><span>    border<span style="color:#ff7b72;font-weight:bold">:</span> { pt<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">1</span>, color<span style="color:#ff7b72;font-weight:bold">:</span> <span style="color:#a5d6ff">&#34;DDDDDD&#34;</span> }
+</span></span><span style="display:flex;"><span>});
+</span></span></code></pre><h3 id="table-options">Table Options</h3>
+<p>Common table options:</p>
+<ul>
+<li><code>x, y, w, h</code> - Position and size</li>
+<li><code>colW</code> - Array of column widths (in inches)</li>
+<li><code>rowH</code> - Array of row heights (in inches)</li>
+<li><code>border</code> - Border style: <code>{ pt: 1, color: &#34;999999&#34; }</code></li>
+<li><code>fill</code> - Background color (no # prefix)</li>
+<li><code>align</code> - Text alignment: “left”, “center”, “right”</li>
+<li><code>valign</code> - Vertical alignment: “top”, “middle”, “bottom”</li>
+<li><code>fontSize</code> - Text size</li>
+<li><code>autoPage</code> - Auto-create new slides if content overflows</li>
+</ul>
+</body></html>
+        </div>
+    </article>
+
+    </div>
+</main>
+<footer>
+    Generated by <a href="https://github.com/antonmedv/gitmal">Gitmal</a>
+</footer>
+</body>
+</html>
